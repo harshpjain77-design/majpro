@@ -45,6 +45,18 @@ class LinuxAuthCollector:
         self.log_path = self._resolve_log_path(log_path) if not use_journal else None
         self.shipper = shipper
 
+        # Auto-fallback to systemd-journald if auth.log is absent
+        if not self.use_journal and (not self.log_path or not os.path.exists(self.log_path)):
+            import shutil
+
+            if shutil.which("journalctl") is not None:
+                logger.info(
+                    "Log file %s not found on this system. Automatically switching to systemd-journald.",
+                    self.log_path or "/var/log/auth.log",
+                )
+                self.use_journal = True
+                self.log_path = None
+
         if self.output_path:
             self.output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -135,7 +147,16 @@ class LinuxAuthCollector:
             return
 
         cursor = self.checkpoint.get_journal_cursor()
-        cmd = ["journalctl", "-u", "ssh.service", "-o", "json", "-n", str(max_records)]
+        cmd = [
+            "journalctl",
+            "-u", "ssh",
+            "-u", "sshd",
+            "-u", "ssh.service",
+            "-t", "sudo",
+            "-t", "su",
+            "-o", "json",
+            "-n", str(max_records),
+        ]
         if cursor:
             cmd.extend(["--after-cursor", cursor])
 
