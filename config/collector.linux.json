@@ -3,5 +3,7 @@
   "use_journal": false,
   "checkpoint_path": "output/checkpoint_linux.json",
   "output_path": "output/events_linux.jsonl",
+  "api_url": "http://192.168.80.1:8000/api/v1/events/batch",
+  "api_key": "test-collector-api-key-replace-in-production",
   "poll_interval_seconds": 5
 }

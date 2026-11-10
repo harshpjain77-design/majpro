@@ -12,6 +12,7 @@ import time
 from typing import Generator, List, Optional
 
 from collectors.common.schemas import SecurityEvent
+from collectors.common.shipper import HttpEventShipper
 from collectors.linux.checkpoint import LinuxCheckpoint
 from collectors.linux.parsers import parse_journal_entry, parse_linux_auth_line
 
@@ -34,6 +35,7 @@ class LinuxAuthCollector:
         use_journal: bool = False,
         collector_version: str = "0.1.0",
         host_override: Optional[str] = None,
+        shipper: Optional[HttpEventShipper] = None,
     ):
         self.collector_version = collector_version
         self.host = host_override or socket.gethostname()
@@ -41,6 +43,7 @@ class LinuxAuthCollector:
         self.output_path = Path(output_path) if output_path else None
         self.use_journal = use_journal
         self.log_path = self._resolve_log_path(log_path) if not use_journal else None
+        self.shipper = shipper
 
         if self.output_path:
             self.output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -178,6 +181,9 @@ class LinuxAuthCollector:
                 for ev in events:
                     out.write(ev.to_jsonl() + "\n")
 
+        if self.shipper and events:
+            self.shipper.ship_batch(events)
+
         return events
 
 
@@ -193,6 +199,8 @@ def main() -> None:
     parser.add_argument("--journal", action="store_true", help="Ingest from systemd journald")
     parser.add_argument("--checkpoint", default="checkpoint_linux.json", help="Checkpoint file path")
     parser.add_argument("--output", help="Output JSONL destination file")
+    parser.add_argument("--api-url", help="Central SIEM Ingestion API URL (e.g. http://192.168.80.1:8000/api/v1/events/batch)")
+    parser.add_argument("--api-key", default="test-collector-api-key-replace-in-production", help="Collector API key")
     parser.add_argument("--once", action="store_true", help="Run single collection and exit")
     parser.add_argument("--interval", type=int, default=5, help="Poll interval in seconds")
     parser.add_argument("--check-env", action="store_true", help="Print detected logging environment and exit")
@@ -209,12 +217,23 @@ def main() -> None:
     use_journal = args.journal or config.get("use_journal", False)
     checkpoint_path = args.checkpoint or config.get("checkpoint_path", "checkpoint_linux.json")
     output_path = args.output or config.get("output_path", "output/events_linux.jsonl")
+    api_url = args.api_url or config.get("api_url")
+    api_key = args.api_key or config.get("api_key", "test-collector-api-key-replace-in-production")
+
+    shipper = None
+    if api_url:
+        shipper = HttpEventShipper(
+            api_url=api_url,
+            api_key=api_key,
+            agent_id="kali-collector-agent",
+        )
 
     collector = LinuxAuthCollector(
         log_path=log_path,
         checkpoint_path=checkpoint_path,
         output_path=output_path,
         use_journal=use_journal,
+        shipper=shipper,
     )
 
     if args.check_env:
