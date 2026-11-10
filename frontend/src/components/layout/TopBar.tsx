@@ -43,7 +43,7 @@ export const TopBar: React.FC<TopBarProps> = ({
       }
     };
     fetchRecent();
-    const interval = setInterval(fetchRecent, 15000);
+    const interval = setInterval(fetchRecent, 3000);
     return () => {
       isMounted = false;
       clearInterval(interval);

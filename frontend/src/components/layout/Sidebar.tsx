@@ -158,7 +158,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     };
 
     fetchTelemetry();
-    const timer = setInterval(fetchTelemetry, 15000);
+    const timer = setInterval(fetchTelemetry, 3000);
     return () => {
       isMounted = false;
       clearInterval(timer);

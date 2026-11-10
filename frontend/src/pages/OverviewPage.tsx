@@ -140,7 +140,7 @@ export const OverviewPage: React.FC = () => {
 
   useEffect(() => {
     fetchRealOverview(false);
-    const interval = setInterval(() => fetchRealOverview(true), 10000);
+    const interval = setInterval(() => fetchRealOverview(true), 2000);
     return () => clearInterval(interval);
   }, [fetchRealOverview]);
 
