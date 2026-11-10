@@ -1,0 +1,18 @@
+{
+  "collector_name": "ai-cyber-defense-collector",
+  "version": "0.1.0",
+  "linux": {
+    "file_path": "/var/log/auth.log",
+    "use_journal": false,
+    "checkpoint_path": "output/checkpoint_linux.json",
+    "output_path": "output/events_linux.jsonl",
+    "poll_interval_seconds": 5
+  },
+  "windows": {
+    "channel": "Security",
+    "initial_read_policy": "latest",
+    "checkpoint_path": "output/checkpoint_windows.json",
+    "output_path": "output/events_windows.jsonl",
+    "poll_interval_seconds": 5
+  }
+}

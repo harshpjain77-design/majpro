@@ -1,0 +1,54 @@
+:root {
+  /* Surface & Background Colors */
+  --bg-app: #0a0e1a;
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a1f2e;
+  --bg-tertiary: #1f2937;
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  
+  /* Sidebar & Header Tokens */
+  --bg-sidebar: #0d1117;
+  --bg-sidebar-hover: rgba(255, 255, 255, 0.04);
+  --bg-sidebar-active: rgba(59, 130, 246, 0.1);
+  --border-sidebar: rgba(255, 255, 255, 0.06);
+  --bg-topbar: #0d1117;
+  --border-topbar: rgba(255, 255, 255, 0.06);
+
+  /* Borders */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+
+  /* Primary Brand & Accents */
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #2563eb;
+  --accent-purple: #6366f1;
+
+  /* Typography Colors */
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  /* Severity Colors */
+  --severity-critical: #ef4444;
+  --severity-high: #f97316;
+  --severity-medium: #eab308;
+  --severity-low: #06b6d4;
+  --severity-info: #8b5cf6;
+
+  /* Status Colors */
+  --status-healthy: #10b981;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
+
+  /* Radii */
+  --radius-card: 8px;
+  --radius-card-lg: 12px;
+  --radius-btn: 6px;
+  --radius-badge: 4px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

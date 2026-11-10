@@ -1,0 +1,20 @@
+[
+  {
+    "__CURSOR": "s=f49d8c;i=12a;b=e289c0",
+    "__REALTIME_TIMESTAMP": "1728943200000000",
+    "_HOSTNAME": "kali-workstation",
+    "_COMM": "sshd",
+    "_PID": "2048",
+    "_SYSTEMD_UNIT": "ssh.service",
+    "MESSAGE": "Accepted password for labuser from 10.0.2.15 port 60120 ssh2"
+  },
+  {
+    "__CURSOR": "s=f49d8c;i=12b;b=e289c0",
+    "__REALTIME_TIMESTAMP": "1728943230000000",
+    "_HOSTNAME": "kali-workstation",
+    "_COMM": "sshd",
+    "_PID": "2052",
+    "_SYSTEMD_UNIT": "ssh.service",
+    "MESSAGE": "Failed password for root from 10.0.2.99 port 51330 ssh2"
+  }
+]

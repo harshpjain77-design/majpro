@@ -1,0 +1,7 @@
+{
+  "file_path": "/var/log/auth.log",
+  "use_journal": false,
+  "checkpoint_path": "output/checkpoint_linux.json",
+  "output_path": "output/events_linux.jsonl",
+  "poll_interval_seconds": 5
+}

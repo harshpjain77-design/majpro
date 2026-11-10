@@ -1,0 +1,118 @@
+# CHANGELOG.md — Project Changelog
+
+All notable changes to this project will be documented in this file.
+The format is based on Keep a Changelog.
+
+## [Unreleased]
+### Added
+- Repository initialization and core engineering documentation (`AGENTS.md`, `PROJECT_SPEC.md`, `ROADMAP.md`, `CURRENT_STATE.md`, `DECISIONS.md`, `CHANGELOG.md`).
+- Security model and evaluation documentation (`docs/SETUP.md`, `docs/TESTING.md`, `docs/THREAT_MODEL.md`, `docs/RESEARCH_EVALUATION.md`).
+- Virtual environment setup and dependency configuration in `requirements.txt`.
+- Phase 1: Custom Python log collection modules:
+  - Canonical event schema and normalization logic in `collectors/common/`.
+  - Linux authentication log collector and journald support in `collectors/linux/`.
+  - Windows Server Security event collector with native API in `collectors/windows/`.
+  - Durable checkpoint managers for both collectors.
+  - Comprehensive unit test suite and synthetic log fixtures.
+- Phase 2: Central Ingestion Service:
+  - FastAPI application factory in `backend/api/main.py`.
+  - Authenticated ingestion endpoints (`/api/v1/ingest`, `/api/v1/ingest/batch`) supporting single and batch events with API keys and Bearer tokens.
+  - Health check endpoints (`/health`, `/api/v1/health`) tracking database connectivity and stored event counts.
+  - SQLite persistent storage sink with WAL mode (`backend/api/storage_sink.py`) and atomic transactional deduplication.
+  - Thread-safe sliding-window rate limiter (`backend/api/rate_limiter.py`) returning HTTP 429 and `Retry-After`.
+  - Middleware for request payload size enforcement (HTTP 413) and structured JSON access logging.
+  - HTTP event shipper client (`collectors/common/shipper.py`) for collector-to-API transmission.
+  - Automated API test suite covering authentication, limits, validation, deduplication, and storage.
+- Phase 3: Event Storage & Search Engine:
+  - Abstract repository interface `EventRepository` in `backend/storage/base.py` enabling modular database backend swaps.
+  - Query models `EventFilter`, `PaginationParams`, `PaginatedEventsResponse`, and `EventSummaryResponse` in `backend/storage/models.py`.
+  - `SQLiteEventRepository` in `backend/storage/sqlite_repository.py` featuring parameterized SQL queries, indexing on timestamp/host/user/ip/type/severity, raw event inspection, and hourly time-series aggregation buckets.
+  - REST endpoints (`/api/v1/events`, `/api/v1/events/{id}`, `/api/v1/events/{id}/raw`, `/api/v1/events/summary/counts`) in `backend/api/routes/events.py`.
+  - Full test suite in `tests/unit/test_storage_repository.py` and `tests/unit/test_api_search.py` covering multi-field filters, time ranges, free-text search, pagination boundaries, and summary counts.
+- Phase 4: Rule-Based Threat Detection Engine:
+  - Standard Alert schema in `backend/detection/schemas.py` with unique `alert_id`, rule versioning, objective evidence-based explanations, entity mapping, and deduplication fingerprints.
+  - Configurable threshold and sliding window settings in `backend/detection/config.py`.
+  - 5 deterministic threat detection rules in `backend/detection/rules/`:
+    - `RULE-001`: Single-source brute force detection.
+    - `RULE-002`: Failed logins followed by successful authentication (compromise/success indicator).
+    - `RULE-003`: Multi-source distributed password spraying on single accounts.
+    - `RULE-004`: Sensitive privileged command execution (sudo shadow/bash, remote Windows 4672).
+    - `RULE-005`: Suspicious authentication sequences (invalid user recon followed by targeted access).
+  - `DetectionEngine` in `backend/detection/engine.py` orchestrating rule evaluation across streams and repositories.
+  - REST detection endpoints (`GET /api/v1/detection/rules`, `POST /api/v1/detection/evaluate`) in `backend/api/routes/alerts.py`.
+  - Full positive and negative unit test matrix (92 tests passing across repository).
+- Phase 5: Alert Deduplication, Correlation, and Incidents:
+  - Alert deduplication module in `backend/correlation/deduplicator.py` clustering repeated alert firings into sliding windows (default 900s), calculating occurrence counts, merging evidence event IDs, and recording deduplication reduction metrics.
+  - Multi-entity graph correlation engine in `backend/correlation/correlator.py` discovering connected components across alerts sharing valid security entities (`source_ip`, `username`) within configurable correlation windows (default 3600s).
+  - Explicit, transparent risk prioritization formula in `backend/correlation/risk.py` combining base severity, rule diversity, attack progression (kill-chain), volume factors, and target diversity.
+  - Forensic timeline builder in `backend/correlation/timeline.py` constructing sorted chronological milestones from alerts and underlying raw repository events.
+  - Incident data schema and lifecycle state machine in `backend/correlation/schemas.py` enforcing SOC workflow transitions (`NEW` -> `INVESTIGATING` -> `RESOLVED` -> `CLOSED`), timeline auditing, and analyst notes.
+  - SQLite persistent incident repository in `backend/correlation/repository.py` with WAL mode and indexes on status, severity, risk score, and timestamps.
+  - Incident management REST API in `backend/api/routes/incidents.py` (`GET /api/v1/incidents`, `GET /api/v1/incidents/{id}`, `PATCH /api/v1/incidents/{id}/status`, `POST /api/v1/incidents/{id}/notes`, `POST /api/v1/incidents/correlate`, `GET /api/v1/incidents/metrics/deduplication`).
+  - Comprehensive unit test suite in `tests/unit/test_correlation_dedup.py`, `tests/unit/test_correlation_engine.py`, `tests/unit/test_incident_lifecycle.py`, and `tests/unit/test_api_incidents.py` verifying multi-stage correlation, false-correlation prevention (disjoint entities, temporal window expiration, generic entities, host-only segregation), lifecycle validation, and API endpoints (112 tests passing across repository).
+- Phase 6: Machine Learning Anomaly Detection:
+  - Installed `scikit-learn` and `numpy` dependencies, updating `requirements.txt`.
+  - Feature extraction engine in `backend/ml/features.py` computing 10 quantitative behavioral metrics (`event_count`, `failure_count`, `success_count`, `failure_ratio`, `unique_usernames_targeted`, `username_entropy`, `unique_hosts_targeted`, `auth_velocity_per_min`, `mean_inter_arrival_time`, `inter_arrival_variance`) over entity sliding windows.
+  - Explainable feature attribution in `backend/ml/explainability.py` computing empirical z-score deviations against baseline normal distributions and generating plain-language analyst narratives.
+  - Unsupervised `AnomalyDetector` in `backend/ml/model.py` wrapping Isolation Forest with standard feature scaling, calibrated score mapping, joblib serialization, and deterministic `random_state=42`.
+  - Canonical `MLAlertGenerator` in `backend/ml/alert_generator.py` mapping anomalous predictions to standard `Alert` instances (`ML-ANOMALY-001`) with deterministic fingerprints and severity tiers that feed into the Phase 5 deduplication and correlation engines.
+  - Leakage-free train/test evaluation harness in `backend/ml/evaluation.py` generating strictly temporally segregated benchmark datasets ($T_{\text{train}} < T_{\text{test}}$) and recording Precision, Recall, F1-Score, and comparative detection analysis against static rules.
+  - REST API endpoints in `backend/api/routes/ml.py` (`GET /api/v1/ml/status`, `POST /api/v1/ml/train`, `POST /api/v1/ml/detect`, `GET /api/v1/ml/benchmark`).
+- Phase 7: SOC Frontend & Evidence-Grounded AI Assistant:
+  - Local AI Copilot architecture (`backend/ai/`):
+    - `PromptInjectionSanitizer` in `backend/ai/prompt_defense.py` detecting and neutralizing adversarial prompt injections, instruction overrides, system token spoofing, and wrapping raw logs inside `<untrusted_evidence_log>` tags.
+    - Pydantic schemas in `backend/ai/schemas.py` defining structured `AIAnalysisReport`, `FactEntry`, `HypothesisEntry`, `RecommendationEntry`, and `EventExplanation`.
+    - `CitationValidator` in `backend/ai/citation_validator.py` enforcing strict programmatic verification of citations against ground-truth incident evidence to eliminate hallucinations.
+    - `AIAssistantCopilot` in `backend/ai/copilot.py` synthesizing verified facts with citations, threat hypotheses mapped to MITRE ATT&CK techniques, and prioritized actionable recommendations.
+    - REST API endpoints in `backend/api/routes/ai.py` (`POST /api/v1/ai/investigate/{id}`, `POST /api/v1/ai/explain_event/{id}`).
+    - Unit test suite in `tests/unit/test_ai_assistant.py` (130 tests passing across entire backend).
+  - Modern React + TypeScript SOC Analyst Console (`frontend/`):
+    - Vite, React 18, TypeScript, and Lucide React setup in `frontend/`.
+    - Custom dark SOC theme in `frontend/src/index.css` with responsive layout, risk meters, and status badges.
+    - Strongly typed schemas in `frontend/src/types/index.ts` and typed API client in `frontend/src/services/api.ts`.
+    - `Header.tsx` navbar with real-time status, active incident counter, 88.9% noise reduction metric badge, and correlation trigger.
+    - `IncidentQueue.tsx` with filter bar (status, severity, search), risk meters, entity badges, inline status transitions, and quick action triggers.
+    - `IncidentDetailModal.tsx` displaying chronological forensic timelines, analyst notes input/list, and entity evidence breakdown.
+    - `AICopilotPanel.tsx` with loading step visualization, 100% citation validation banner, prompt defense alerts, executive summary, grounded facts with interactive citation chips, MITRE ATT&CK hypotheses, and actionable mitigations staged for Phase 8.
+    - `EventExplorer.tsx` providing multi-field search, pagination, raw log inspector with copy-to-clipboard, and "Explain with AI" semantic breakdown.
+    - `MetricsOverview.tsx` detailing alert deduplication noise reduction, Isolation Forest hyperparameters, and scientific comparison table showing static rules at 0% recall vs. ML at 100% recall on slow-and-low attacks.
+    - Verified clean build (`tsc && vite build`) generating production bundle with 0 errors.
+- Phase 8: Controlled Automated Response Engine:
+  - Multi-stage Response Engine architecture in `backend/response/`:
+    - `ResponseConfig` in `backend/response/config.py` enforcing `dry_run=True` safe defaults, allowlists for protected IPs (`127.0.0.1`, gateways, DNS) and protected usernames (`root`, `administrator`, `system`), and action throttling limits.
+    - Pydantic models and lifecycle state machines in `backend/response/schemas.py` (`PROPOSED`, `APPROVED`, `REJECTED`, `EXECUTED`, `SIMULATED`, `FAILED`, `ROLLED_BACK`).
+    - `SafetyGuard` in `backend/response/safety.py` enforcing target allowlists, command injection character sanitization, and sliding-window rate limiting.
+    - `PolicyEngine` in `backend/response/policy.py` gating disruptive containment actions behind human-in-the-loop analyst sign-off while permitting non-disruptive informational actions.
+    - Modular action handlers in `backend/response/handlers/`:
+      - `BlockIPHandler` with platform-specific firewall command generation and unblock rollback mechanics.
+      - `LockAccountHandler` with platform-specific account lockout and unlock rollback mechanics.
+      - `TerminateSessionHandler` and `NotifyAnalystHandler`.
+    - `SQLiteResponseRepository` in `backend/response/repository.py` storing persistent action records in SQLite and maintaining an append-only JSONL audit log (`output/response_audit.jsonl`) for forensic non-repudiation.
+    - `ResponseEngine` in `backend/response/engine.py` coordinating proposal evaluation, approval gating, execution, rollback, and automatic staging from AI copilot recommendations.
+  - REST API endpoints in `backend/api/routes/response.py`:
+    - `POST /api/v1/response/propose`
+    - `POST /api/v1/response/stage_incident/{incident_id}`
+    - `GET /api/v1/response/actions`
+    - `GET /api/v1/response/actions/{id}`
+    - `POST /api/v1/response/actions/{id}/approve`
+    - `POST /api/v1/response/actions/{id}/execute`
+    - `POST /api/v1/response/actions/{id}/rollback`
+    - `GET /api/v1/response/safety/status`
+  - Frontend Response Console & Integration (`frontend/`):
+    - `ResponseConsole.tsx` featuring safety status banners (dry-run mode, allowlisted IPs and users, throttling limits), filterable containment queue, manual action proposal modal, and approval/execution/rollback modals.
+    - Integrated with `AICopilotPanel.tsx`: 1-click "Stage Action" and "Stage All for Containment" buttons feeding AI recommendations directly into the Response Queue.
+    - Added "Response & Containment" tab to `Header.tsx` and `App.tsx`.
+    - Verified clean build (`tsc && vite build`) with 0 errors.
+  - Automated test suite in `tests/unit/test_response_engine.py` and `tests/unit/test_api_response.py` (148 tests passing across entire repository).
+- Phase 8.5 & Real Data Conversion (ThreadGrid Operational SOC/SIEM Platform):
+  - Converted frontend from static mockup presentation into live data-bound SOC/SIEM client:
+    - `OverviewPage.tsx`: Bound Top KPI counters, Events Over Time charts, Alerts by Severity, Recent Alerts, Active Incidents table, and Host telemetry to live SQLite queries with honest empty states when database is unpopulated.
+    - `AlertsPage.tsx`: Direct integration with `/api/v1/alerts`, dynamic severity filtering, forensic evidence modal, and real detection rule explanation viewer.
+    - `RulesPage.tsx`: Dynamic retrieval of all registered deterministic rules from `/api/v1/detection/rules`.
+    - `SystemPage.tsx`: Real Ingestion API health, SQLite sink status, and active collector host reporting.
+    - `Sidebar.tsx`: Real live badges for Alerts and Incidents, plus dynamic system health indicators (Ingestion, Storage, ML Models, Database) refreshing every 15 seconds.
+    - `TopBar.tsx`: Dynamic notification bell badge count and quick alert dropdown displaying real database-evaluated security detections.
+    - Zero fake security events or hardcoded numbers exposed on operational pages.
+  - End-to-End Integration Pipeline (`tests/integration/test_e2e_kali_pipeline.py`):
+    - Full automated verification from raw Kali Linux `/var/log/auth.log` ingestion to batch shipping (`POST /api/v1/events/batch`), idempotent deduplication, indexed SQLite persistence, deterministic detection rule evaluation (`RULE-001` and `RULE-002`), incident correlation (`POST /api/v1/incidents/correlate`), and forensic timeline retrieval (`GET /api/v1/incidents/{id}`).
+    - Full pytest suite passing: 149 passed in 27.43s.

@@ -1,0 +1,7 @@
+{
+  "channel": "Security",
+  "initial_read_policy": "latest",
+  "checkpoint_path": "output/checkpoint_windows.json",
+  "output_path": "output/events_windows.jsonl",
+  "poll_interval_seconds": 5
+}
