@@ -149,16 +149,23 @@ class LinuxAuthCollector:
         cursor = self.checkpoint.get_journal_cursor()
         cmd = [
             "journalctl",
-            "-u", "ssh",
-            "-u", "sshd",
-            "-u", "ssh.service",
-            "-t", "sudo",
-            "-t", "su",
             "-o", "json",
             "-n", str(max_records),
         ]
         if cursor:
             cmd.extend(["--after-cursor", cursor])
+
+        cmd.extend([
+            "_COMM=sshd",
+            "+",
+            "_COMM=sudo",
+            "+",
+            "_COMM=su",
+            "+",
+            "SYSLOG_FACILITY=4",
+            "+",
+            "SYSLOG_FACILITY=10",
+        ])
 
         try:
             res = subprocess.run(cmd, capture_output=True, text=True, check=False)
@@ -203,7 +210,14 @@ class LinuxAuthCollector:
                     out.write(ev.to_jsonl() + "\n")
 
         if self.shipper and events:
-            self.shipper.ship_batch(events)
+            logger.info(f"Shipping {len(events)} event(s) to {self.shipper.api_url}...")
+            resp = self.shipper.ship_batch(events)
+            if resp:
+                logger.info(f"Shipping successful: {resp.get('ingested_count', 0)} ingested, {resp.get('duplicate_count', 0)} duplicate(s).")
+            else:
+                logger.error(f"Failed to ship {len(events)} event(s). Check API URL and host connectivity.")
+        elif events and not self.shipper:
+            logger.warning("Collected %d event(s) but no --api-url specified. Events saved locally only.", len(events))
 
         return events
 

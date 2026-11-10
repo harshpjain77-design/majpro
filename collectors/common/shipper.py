@@ -28,12 +28,15 @@ class HttpEventShipper:
         collector_version: str = "0.1.0",
         timeout_seconds: float = 10.0,
     ):
-        self.api_url = api_url.rstrip("/")
-        if not self.api_url.endswith("/batch"):
-            if self.api_url.endswith("/ingest"):
-                self.api_url += "/batch"
-            else:
-                self.api_url += "/api/v1/ingest/batch"
+        url = api_url.rstrip("/")
+        if url.endswith("/batch"):
+            self.api_url = url
+        elif url.endswith("/events") or url.endswith("/ingest"):
+            self.api_url = url + "/batch"
+        elif url.endswith("/api/v1"):
+            self.api_url = url + "/events/batch"
+        else:
+            self.api_url = url + "/api/v1/events/batch"
 
         self.api_key = api_key
         self.agent_id = agent_id
