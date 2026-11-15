@@ -153,10 +153,22 @@
   - `test_windows_checkpoint.py`: 2 passed
   - `test_collector_flow.py`: 4 passed
   - `test_e2e_kali_pipeline.py`: 1 passed (Full end-to-end Kali auth log parsing -> batch shipping -> SQLite storage -> RULE-001/002 detection -> incident correlation -> timeline query)
-- **Total Passing**: 149 passed
+- **Total Passing**: 153 passed (including 4 new tests in `test_api_entities.py`)
 - **Failed**: 0 failed.
 
-## 6. Manual / Live VM Checks Required
+## 6. Multi-Tab Entity Explorer (Phase 8 Extension)
+- **Top-Level KPI Banner**: Real-time aggregation of Total Entities (33), High/Critical Risk (10), External/Threat IPs (7), Privileged Accounts (7), and Monitored Hosts (8).
+- **Dedicated 3 Views**:
+  - `User Accounts (Identities)`: Username, Privileged/Service/Invalid/Standard account type tags, event volumes, auth failure ratios, risk tiers, and containment badges.
+  - `Network IP Addresses`: IP address, External/Internal/Loopback classification, threat behavior tags (Brute Force Source, Spray Attacker, LAN endpoint), attack footprints (targeted users and contacted hosts count), and containment status.
+  - `Monitored Hosts & Endpoints`: Hostname, Windows/Linux OS categorization, online/idle ingestion status based on last seen recency, distinct users count, and active incidents.
+- **Forensic Profile Drawer / Modal**:
+  - Deep-dive panel with metrics, correlated incidents, recent raw evidence stream (up to 25 events), and 1-click containment action staging directly into Response Console.
+- **Backend API**:
+  - `GET /api/v1/entities`: Real-time SQL aggregations with dynamic search and risk tier filtering.
+  - `GET /api/v1/entities/{entity_type}/{identifier}`: Detailed entity profile, raw events, and response recommendations.
+
+## 7. Manual / Live VM Checks Required
 1. **Lab Containment Verification**:
    - In a non-production VM or loopback lab, trigger an approved live IP block and verify netsh/iptables rule addition and removal via rollback.
 2. **End-to-End AI to Containment Workflow**:

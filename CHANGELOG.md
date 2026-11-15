@@ -5,6 +5,16 @@ The format is based on Keep a Changelog.
 
 ## [Unreleased]
 ### Added
+- Phase 8 Extension: Multi-Tab Entity Explorer & Asset Intelligence:
+  - Top-Level Entity KPI Summary Cards tracking total entities, high-risk assets, attack/external IPs, privileged accounts, and monitored hosts.
+  - Multi-Tab Entity Explorer with 3 dedicated views:
+    - User Accounts (Identities): Username, account classification (Privileged, Service, Invalid, Standard), event volume, auth failure ratio progress bar, risk score and tier, and containment status.
+    - Network IP Addresses: Source IP, scope (External Attacker, Internal LAN, Loopback Agent), threat behavior tags, attack footprint (users/hosts targeted), and containment status.
+    - Monitored Hosts & Endpoints: Hostname, OS type (Windows/Linux), online/idle status dot based on last seen recency, users count, and active incident associations.
+  - Interactive search bar and risk tier filter (`All`, `Critical`, `High`, `Medium`, `Low`).
+  - Slide-out Forensic Profile Drawer / Modal displaying entity activity metrics, associated correlated security incidents, recent raw forensic evidence stream (up to 25 events), and 1-click containment action staging into Response Console.
+  - Backend REST API endpoints: `GET /api/v1/entities` and `GET /api/v1/entities/{entity_type}/{identifier}` in `backend/api/routes/entities.py`.
+  - Comprehensive unit test suite in `tests/unit/test_api_entities.py` (4 tests covering authorization, filtering, detail lookups, and defensive exception handling).
 - Repository initialization and core engineering documentation (`AGENTS.md`, `PROJECT_SPEC.md`, `ROADMAP.md`, `CURRENT_STATE.md`, `DECISIONS.md`, `CHANGELOG.md`).
 - Security model and evaluation documentation (`docs/SETUP.md`, `docs/TESTING.md`, `docs/THREAT_MODEL.md`, `docs/RESEARCH_EVALUATION.md`).
 - Virtual environment setup and dependency configuration in `requirements.txt`.

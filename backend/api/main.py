@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 
 from backend.api.config import settings
 from backend.api.middleware import RequestSizeLimitMiddleware, StructuredLoggingMiddleware
-from backend.api.routes import ai, alerts, events, health, incidents, ingest, ml, response
+from backend.api.routes import ai, alerts, entities, events, health, incidents, ingest, ml, response
 
 # Configure root logging
 logging.basicConfig(
@@ -73,6 +73,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(ingest.router)
     app.include_router(events.router)
+    app.include_router(entities.router)
     app.include_router(alerts.router)
     app.include_router(alerts.alerts_direct_router)
     app.include_router(incidents.router)

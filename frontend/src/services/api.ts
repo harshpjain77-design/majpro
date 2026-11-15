@@ -1,6 +1,8 @@
 import {
   AIAnalysisReport,
   DeduplicationMetrics,
+  EntitiesExplorerResponse,
+  EntityDetailResponse,
   EventExplanation,
   Incident,
   IncidentStatus,
@@ -317,6 +319,32 @@ export const api = {
     uptime_seconds: number;
   }> {
     const res = await fetch(`${API_BASE}/system/health`, {
+      headers: defaultHeaders,
+    });
+    return handleResponse(res);
+  },
+
+  // Entities Explorer endpoints
+  async getEntitiesExplorer(params: {
+    q?: string;
+    tier?: string;
+  } = {}): Promise<EntitiesExplorerResponse> {
+    const query = new URLSearchParams();
+    if (params.q) query.append('q', params.q);
+    if (params.tier && params.tier !== 'all') query.append('tier', params.tier);
+
+    const res = await fetch(`${API_BASE}/entities?${query.toString()}`, {
+      headers: defaultHeaders,
+    });
+    return handleResponse(res);
+  },
+
+  async getEntityDetail(
+    entityType: 'user' | 'ip' | 'host',
+    identifier: string,
+    limit: number = 25
+  ): Promise<EntityDetailResponse> {
+    const res = await fetch(`${API_BASE}/entities/${entityType}/${encodeURIComponent(identifier)}?limit=${limit}`, {
       headers: defaultHeaders,
     });
     return handleResponse(res);

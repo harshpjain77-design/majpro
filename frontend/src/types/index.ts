@@ -300,3 +300,105 @@ export interface FilterState {
   username: string;
   eventType: string;
 }
+
+export interface EntitySummaryMetrics {
+  total_entities: number;
+  high_risk_entities: number;
+  attack_ips: number;
+  privileged_accounts: number;
+  endpoint_hosts: number;
+  total_events: number;
+}
+
+export interface UserEntity {
+  username: string;
+  account_type: 'privileged' | 'service' | 'invalid' | 'standard';
+  total_events: number;
+  failed_logins: number;
+  successful_logins: number;
+  failure_ratio: number;
+  risk_score: number;
+  risk_tier: 'low' | 'medium' | 'high' | 'critical';
+  hosts: string[];
+  ips: string[];
+  first_seen?: string;
+  last_seen?: string;
+  incident_count: number;
+  incident_ids: string[];
+  highest_severity?: string;
+  containment_status: 'contained' | 'pending' | 'uncontained';
+}
+
+export interface IPEntity {
+  ip: string;
+  scope: 'external' | 'internal' | 'loopback';
+  total_events: number;
+  target_users_count: number;
+  target_users: string[];
+  target_hosts_count: number;
+  target_hosts: string[];
+  threat_tag: string;
+  risk_score: number;
+  risk_tier: 'low' | 'medium' | 'high' | 'critical';
+  first_seen?: string;
+  last_seen?: string;
+  incident_count: number;
+  incident_ids: string[];
+  highest_severity?: string;
+  containment_status: 'contained' | 'pending' | 'uncontained';
+}
+
+export interface HostEntity {
+  hostname: string;
+  os_type: 'windows' | 'linux' | 'other';
+  source_types: string[];
+  total_events: number;
+  users_count: number;
+  users: string[];
+  ips_count: number;
+  ips: string[];
+  status: 'online' | 'idle' | 'offline';
+  risk_score: number;
+  risk_tier: 'low' | 'medium' | 'high' | 'critical';
+  first_seen?: string;
+  last_seen?: string;
+  incident_count: number;
+  incident_ids: string[];
+  highest_severity?: string;
+  containment_status: 'contained' | 'pending' | 'uncontained';
+}
+
+export interface EntitiesExplorerResponse {
+  summary: EntitySummaryMetrics;
+  users: UserEntity[];
+  ips: IPEntity[];
+  hosts: HostEntity[];
+}
+
+export interface EntityDetailResponse {
+  entity_type: 'user' | 'ip' | 'host';
+  identifier: string;
+  metrics: {
+    event_count: number;
+    incident_count: number;
+    action_count: number;
+  };
+  recent_events: SecurityEvent[];
+  incidents: Array<{
+    incident_id: string;
+    title: string;
+    severity: string;
+    status: string;
+    risk_score: number;
+    created_at: string;
+  }>;
+  actions: any[];
+  recommended_actions: Array<{
+    action_type: string;
+    target: string;
+    priority: string;
+    parameters: Record<string, any>;
+    reason: string;
+    reversible: boolean;
+  }>;
+}
