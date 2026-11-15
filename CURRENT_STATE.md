@@ -86,6 +86,7 @@
     - `EventExplorer.tsx`: Multi-field event search table with pagination and raw log inspection drawer with "Explain with AI".
     - `MetricsOverview.tsx`: Deduplication ratio dashboard (85-90% alert noise reduction), ML anomaly status, and rule comparison.
     - `PlaybooksPage.tsx`: Minimalist, zero-clutter incident response guides for platform rules (RULE-001 - RULE-005) & Zero Trust baselines, with 3-step action dialogs (Verify, Contain, Recover) and NIST IR report generator.
+    - `ThemeContext.tsx` & `TopBar.tsx`: Seamless Light/Dark Mode toggle system on top bar with persistent `localStorage` preference, `data-theme` attribute synchronization, clean cool-gray SIEM light palette, and high-contrast dark theme.
 
 ## 3. Files Created or Modified
 - `DECISIONS.md`: Added ADR-011 (Controlled Automated Response Engine with Human-in-the-Loop Gating, Reversible Rollback, and Allowlist Invariants).

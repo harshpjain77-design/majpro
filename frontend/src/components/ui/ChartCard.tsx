@@ -21,13 +21,13 @@ export const ChartCard: React.FC<ChartCardProps> = ({
     <div
       className={`threatgrid-chart-card ${className}`}
       style={{
-        backgroundColor: '#1a1f2e',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        backgroundColor: 'var(--bg-card, #1a1f2e)',
+        border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))',
         borderRadius: '8px',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-card, 0 4px 6px -1px rgba(0, 0, 0, 0.25))',
         width: '100%',
         boxSizing: 'border-box'
       }}
@@ -36,7 +36,7 @@ export const ChartCard: React.FC<ChartCardProps> = ({
       <div
         style={{
           padding: '16px 20px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          borderBottom: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.05))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -49,7 +49,7 @@ export const ChartCard: React.FC<ChartCardProps> = ({
             style={{
               fontSize: '0.9375rem',
               fontWeight: 600,
-              color: '#f9fafb',
+              color: 'var(--text-primary, #f9fafb)',
               margin: 0,
               letterSpacing: '-0.01em',
               whiteSpace: 'nowrap',
@@ -63,7 +63,7 @@ export const ChartCard: React.FC<ChartCardProps> = ({
             <p
               style={{
                 fontSize: '0.75rem',
-                color: '#9ca3af',
+                color: 'var(--text-secondary, #9ca3af)',
                 margin: '2px 0 0 0',
                 lineHeight: 1.4
               }}

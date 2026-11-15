@@ -106,10 +106,10 @@ export const RulesPage: React.FC = () => {
           description="The detection engine has no active rules loaded."
         />
       ) : (
-        <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px' }}>
+        <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.78rem', color: '#9ca3af' }}>
-              <strong style={{ color: '#f3f4f6' }}>{rules.length}</strong> active deterministic rules evaluated on every event batch
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)' }}>
+              <strong style={{ color: 'var(--text-primary, #f3f4f6)' }}>{rules.length}</strong> active deterministic rules evaluated on every event batch
             </span>
           </div>
 
@@ -123,10 +123,10 @@ export const RulesPage: React.FC = () => {
       )}
 
       {/* Unsupervised ML Anomaly Rule Card */}
-      <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(139, 92, 246, 0.25)', borderRadius: '8px', padding: '16px' }}>
+      <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid rgba(139, 92, 246, 0.25)', borderRadius: '8px', padding: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
           <Cpu size={18} color="#a78bfa" />
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>
+          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)', margin: 0 }}>
             Unsupervised ML Anomaly Detection (RULE: ML-ANOMALY-001)
           </h3>
           <span style={{ fontSize: '0.68rem', padding: '2px 6px', borderRadius: '4px', backgroundColor: 'rgba(139, 92, 246, 0.15)', color: '#a78bfa', fontWeight: 600 }}>

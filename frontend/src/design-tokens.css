@@ -1,4 +1,5 @@
-:root {
+:root,
+[data-theme="dark"] {
   /* Surface & Background Colors */
   --bg-app: #0a0e1a;
   --bg-primary: #0a0e1a;
@@ -51,4 +52,48 @@
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+[data-theme="light"] {
+  /* Surface & Background Colors */
+  --bg-app: #f1f5f9;
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-tertiary: #f8fafc;
+  --bg-hover: rgba(0, 0, 0, 0.04);
+  
+  /* Sidebar & Header Tokens */
+  --bg-sidebar: #ffffff;
+  --bg-sidebar-hover: rgba(0, 0, 0, 0.035);
+  --bg-sidebar-active: rgba(37, 99, 235, 0.08);
+  --border-sidebar: #e2e8f0;
+  --bg-topbar: #ffffff;
+  --border-topbar: #e2e8f0;
+
+  /* Borders */
+  --border-color: #e2e8f0;
+  --border-subtle: #f1f5f9;
+
+  /* Primary Brand & Accents */
+  --accent-blue: #2563eb;
+  --accent-blue-hover: #1d4ed8;
+  --accent-purple: #4f46e5;
+
+  /* Typography Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  /* Severity Colors */
+  --severity-critical: #dc2626;
+  --severity-high: #ea580c;
+  --severity-medium: #d97706;
+  --severity-low: #0891b2;
+  --severity-info: #7c3aed;
+
+  /* Status Colors */
+  --status-healthy: #059669;
+  --status-warning: #d97706;
+  --status-error: #dc2626;
 }

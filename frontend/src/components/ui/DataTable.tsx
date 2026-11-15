@@ -50,8 +50,8 @@ export function DataTable<T>({
       style={{
         width: '100%',
         overflowX: 'auto',
-        backgroundColor: '#111827',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        backgroundColor: 'var(--bg-surface, #111827)',
+        border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))',
         borderRadius: '8px',
         position: 'relative',
         scrollbarWidth: 'thin'
@@ -63,15 +63,15 @@ export function DataTable<T>({
           borderCollapse: 'collapse',
           textAlign: 'left',
           fontSize,
-          color: '#f9fafb'
+          color: 'var(--text-primary, #f9fafb)'
         }}
       >
         {/* Table Header */}
         <thead>
           <tr
             style={{
-              backgroundColor: '#161f30',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+              backgroundColor: 'var(--bg-card-hover, #161f30)',
+              borderBottom: '1px solid var(--border-color, rgba(255, 255, 255, 0.08))'
             }}
           >
             {columns.map((column) => {
@@ -94,13 +94,13 @@ export function DataTable<T>({
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.06em',
-                    color: isSorted ? '#60a5fa' : '#9ca3af',
+                    color: isSorted ? 'var(--color-primary, #60a5fa)' : 'var(--text-secondary, #9ca3af)',
                     cursor: isSortable ? 'pointer' : 'default',
                     userSelect: 'none',
                     position: 'sticky',
                     top: 0,
                     zIndex: 10,
-                    backgroundColor: '#161f30',
+                    backgroundColor: 'var(--bg-card-hover, #161f30)',
                     transition: 'color 0.15s ease'
                   }}
                 >
@@ -206,11 +206,11 @@ export function DataTable<T>({
                   onMouseLeave={() => setHoveredRowId(null)}
                   style={{
                     backgroundColor: isHovered
-                      ? 'rgba(59, 130, 246, 0.08)'
+                      ? 'var(--bg-selected, rgba(59, 130, 246, 0.08))'
                       : isEven
                       ? 'transparent'
-                      : 'rgba(255, 255, 255, 0.015)',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                      : 'var(--bg-hover, rgba(255, 255, 255, 0.015))',
+                    borderBottom: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.04))',
                     cursor: onRowClick ? 'pointer' : 'default',
                     transition: 'background-color 0.12s ease'
                   }}
@@ -222,7 +222,7 @@ export function DataTable<T>({
                         padding: cellPadding,
                         textAlign: column.align || 'left',
                         verticalAlign: 'middle',
-                        color: isHovered ? '#ffffff' : '#e5e7eb'
+                        color: isHovered ? 'var(--text-primary, #ffffff)' : 'var(--text-primary, #e5e7eb)'
                       }}
                     >
                       {column.render(item)}

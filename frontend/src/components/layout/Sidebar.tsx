@@ -265,7 +265,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   fontWeight: 700,
                   fontSize: '1rem',
                   letterSpacing: '-0.02em',
-                  color: '#ffffff',
+                  color: 'var(--text-primary, #ffffff)',
                   whiteSpace: 'nowrap'
                 }}
               >
@@ -374,7 +374,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     textDecoration: 'none',
                     fontSize: '0.85rem',
                     fontWeight: active ? 600 : 500,
-                    color: active ? '#ffffff' : hovered ? '#f3f4f6' : '#9ca3af',
+                    color: active ? 'var(--color-primary, #3b82f6)' : hovered ? 'var(--text-primary, #f3f4f6)' : 'var(--text-secondary, #9ca3af)',
                     backgroundColor: active
                       ? 'var(--bg-sidebar-active, rgba(59, 130, 246, 0.1))'
                       : hovered
@@ -398,7 +398,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <Icon
                       size={18}
                       style={{
-                        color: active ? '#3b82f6' : hovered ? '#d1d5db' : '#8590a5',
+                        color: active ? 'var(--color-primary, #3b82f6)' : hovered ? 'var(--text-primary, #d1d5db)' : 'var(--text-muted, #8590a5)',
                         flexShrink: 0,
                         transition: 'color 0.15s ease'
                       }}

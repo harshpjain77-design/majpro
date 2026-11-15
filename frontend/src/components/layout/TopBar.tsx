@@ -8,9 +8,12 @@ import {
   Clock,
   ChevronRight,
   ShieldAlert,
-  X
+  X,
+  Sun,
+  Moon
 } from 'lucide-react';
 
+import { useTheme } from '../../context/ThemeContext';
 import { api } from '../../services/api';
 
 export interface TopBarProps {
@@ -22,6 +25,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   onToggleSidebar,
   sidebarCollapsed: _sidebarCollapsed
 }) => {
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -159,7 +163,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         >
           <span
             style={{
-              color: '#6b7280',
+              color: 'var(--text-muted, #6b7280)',
               fontWeight: 500,
               cursor: 'pointer'
             }}
@@ -167,10 +171,10 @@ export const TopBar: React.FC<TopBarProps> = ({
           >
             ThreatGrid
           </span>
-          <ChevronRight size={13} color="#4b5563" />
+          <ChevronRight size={13} color="var(--text-muted, #4b5563)" />
           <span
             style={{
-              color: '#f3f4f6',
+              color: 'var(--text-primary, #f3f4f6)',
               fontWeight: 600,
               letterSpacing: '-0.01em'
             }}
@@ -179,10 +183,10 @@ export const TopBar: React.FC<TopBarProps> = ({
           </span>
           {pathSegments.length > 1 && (
             <>
-              <ChevronRight size={13} color="#4b5563" />
+              <ChevronRight size={13} color="var(--text-muted, #4b5563)" />
               <span
                 style={{
-                  color: '#9ca3af',
+                  color: 'var(--text-secondary, #9ca3af)',
                   fontWeight: 500,
                   maxWidth: '180px',
                   overflow: 'hidden',
@@ -226,22 +230,22 @@ export const TopBar: React.FC<TopBarProps> = ({
             style={{
               width: '100%',
               height: '36px',
-              backgroundColor: '#111827',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-input, #111827)',
+              border: '1px solid var(--border-input, rgba(255, 255, 255, 0.08))',
               borderRadius: '6px',
               padding: '0 64px 0 36px',
-              color: '#f9fafb',
+              color: 'var(--text-primary, #f9fafb)',
               fontSize: '0.8125rem',
               outline: 'none',
               transition: 'all 0.15s ease',
               boxSizing: 'border-box'
             }}
             onFocus={(e) => {
-              e.target.style.borderColor = '#3b82f6';
-              e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.2)';
+              e.target.style.borderColor = 'var(--color-primary, #3b82f6)';
+              e.target.style.boxShadow = '0 0 0 2px var(--color-primary-bg, rgba(59, 130, 246, 0.2))';
             }}
             onBlur={(e) => {
-              e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+              e.target.style.borderColor = 'var(--border-input, rgba(255, 255, 255, 0.08))';
               e.target.style.boxShadow = 'none';
             }}
           />
@@ -296,19 +300,49 @@ export const TopBar: React.FC<TopBarProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            backgroundColor: 'var(--bg-hover, rgba(255, 255, 255, 0.03))',
+            border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))',
             padding: '4px 8px',
             borderRadius: '6px',
             fontSize: '0.75rem',
             fontFamily: 'var(--font-mono, monospace)',
-            color: '#9ca3af'
+            color: 'var(--text-secondary, #9ca3af)'
           }}
           title="Current SOC Time"
         >
           <Clock size={13} color="#60a5fa" />
           <span>{currentTime || '00:00 UTC'}</span>
         </div>
+
+        {/* Light / Dark Mode Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          style={{
+            width: '34px',
+            height: '34px',
+            borderRadius: '6px',
+            background: 'transparent',
+            border: '1px solid var(--border-color, rgba(255, 255, 255, 0.08))',
+            color: theme === 'dark' ? '#fbbf24' : '#6366f1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            transition: 'all 0.15s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--bg-hover, rgba(255, 255, 255, 0.05))';
+            e.currentTarget.style.color = theme === 'dark' ? '#f59e0b' : '#4f46e5';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+            e.currentTarget.style.color = theme === 'dark' ? '#fbbf24' : '#6366f1';
+          }}
+        >
+          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+        </button>
 
         {/* Notifications Button */}
         <div style={{ position: 'relative' }}>
@@ -320,8 +354,8 @@ export const TopBar: React.FC<TopBarProps> = ({
               height: '34px',
               borderRadius: '6px',
               background: notificationsOpen ? 'rgba(59, 130, 246, 0.15)' : 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
-              color: notificationsOpen ? '#60a5fa' : '#9ca3af',
+              border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))',
+              color: notificationsOpen ? '#60a5fa' : 'var(--text-secondary, #9ca3af)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -330,12 +364,12 @@ export const TopBar: React.FC<TopBarProps> = ({
               transition: 'all 0.15s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#ffffff';
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+              e.currentTarget.style.color = 'var(--text-primary, #ffffff)';
+              e.currentTarget.style.backgroundColor = 'var(--bg-hover, rgba(255, 255, 255, 0.05))';
             }}
             onMouseLeave={(e) => {
               if (!notificationsOpen) {
-                e.currentTarget.style.color = '#9ca3af';
+                e.currentTarget.style.color = 'var(--text-secondary, #9ca3af)';
                 e.currentTarget.style.backgroundColor = 'transparent';
               }
             }}
@@ -373,10 +407,10 @@ export const TopBar: React.FC<TopBarProps> = ({
                 top: '44px',
                 right: 0,
                 width: '320px',
-                backgroundColor: '#111827',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backgroundColor: 'var(--bg-elevated, #111827)',
+                border: '1px solid var(--border-color, rgba(255, 255, 255, 0.1))',
                 borderRadius: '8px',
-                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6)',
+                boxShadow: 'var(--shadow-xl, 0 10px 25px -5px rgba(0, 0, 0, 0.6))',
                 zIndex: 100,
                 overflow: 'hidden'
               }}
@@ -384,17 +418,17 @@ export const TopBar: React.FC<TopBarProps> = ({
               <div
                 style={{
                   padding: '10px 14px',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                  borderBottom: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center'
                 }}
               >
-                <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#ffffff' }}>
+                <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-primary, #ffffff)' }}>
                   Recent Alerts ({recentAlerts.length})
                 </span>
                 <span
-                  style={{ fontSize: '0.7rem', color: '#3b82f6', cursor: 'pointer' }}
+                  style={{ fontSize: '0.7rem', color: 'var(--color-primary, #3b82f6)', cursor: 'pointer' }}
                   onClick={() => setNotificationsOpen(false)}
                 >
                   Close
@@ -402,7 +436,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               </div>
               <div style={{ maxHeight: '240px', overflowY: 'auto' }}>
                 {recentAlerts.length === 0 ? (
-                  <div style={{ padding: '16px', textAlign: 'center', color: '#6b7280', fontSize: '0.75rem' }}>
+                  <div style={{ padding: '16px', textAlign: 'center', color: 'var(--text-muted, #6b7280)', fontSize: '0.75rem' }}>
                     No security alerts evaluated
                   </div>
                 ) : (
@@ -413,7 +447,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                         key={n.alert_id}
                         style={{
                           padding: '10px 14px',
-                          borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                          borderBottom: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.04))',
                           display: 'flex',
                           gap: '10px',
                           cursor: 'pointer'
@@ -434,10 +468,10 @@ export const TopBar: React.FC<TopBarProps> = ({
                           }}
                         />
                         <div>
-                          <div style={{ fontSize: '0.78rem', color: '#f3f4f6', fontWeight: 500 }}>
+                          <div style={{ fontSize: '0.78rem', color: 'var(--text-primary, #f3f4f6)', fontWeight: 500 }}>
                             {n.rule_name || n.rule_id}
                           </div>
-                          <div style={{ fontSize: '0.6875rem', color: '#6b7280', marginTop: '2px' }}>
+                          <div style={{ fontSize: '0.6875rem', color: 'var(--text-muted, #6b7280)', marginTop: '2px' }}>
                             {n.timestamp ? new Date(n.timestamp).toLocaleTimeString() : 'Recent'} &bull; {n.severity?.toUpperCase()}
                           </div>
                         </div>
@@ -450,8 +484,8 @@ export const TopBar: React.FC<TopBarProps> = ({
                 style={{
                   padding: '8px',
                   textAlign: 'center',
-                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.04)'
+                  backgroundColor: 'var(--bg-tertiary, rgba(0, 0, 0, 0.2))',
+                  borderTop: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.04))'
                 }}
               >
                 <button
@@ -462,7 +496,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#60a5fa',
+                    color: 'var(--color-primary, #60a5fa)',
                     fontSize: '0.75rem',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -484,8 +518,8 @@ export const TopBar: React.FC<TopBarProps> = ({
             height: '34px',
             borderRadius: '6px',
             background: 'transparent',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
-            color: '#9ca3af',
+            border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))',
+            color: 'var(--text-secondary, #9ca3af)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -493,11 +527,11 @@ export const TopBar: React.FC<TopBarProps> = ({
             transition: 'all 0.15s ease'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = '#ffffff';
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+            e.currentTarget.style.color = 'var(--text-primary, #ffffff)';
+            e.currentTarget.style.backgroundColor = 'var(--bg-hover, rgba(255, 255, 255, 0.05))';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = '#9ca3af';
+            e.currentTarget.style.color = 'var(--text-secondary, #9ca3af)';
             e.currentTarget.style.backgroundColor = 'transparent';
           }}
           title="Platform Settings"

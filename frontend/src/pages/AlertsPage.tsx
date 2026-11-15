@@ -177,14 +177,14 @@ export const AlertsPage: React.FC = () => {
 
         {/* Severity Filter & Refresh */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ display: 'flex', backgroundColor: '#111827', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '6px', padding: '2px' }}>
+          <div style={{ display: 'flex', backgroundColor: 'var(--bg-surface, #111827)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.08))', borderRadius: '6px', padding: '2px' }}>
             {['ALL', 'CRITICAL', 'HIGH', 'MEDIUM', 'LOW'].map((sev) => (
               <button
                 key={sev}
                 onClick={() => setSelectedSeverity(sev)}
                 style={{
-                  background: selectedSeverity === sev ? '#2563eb' : 'transparent',
-                  color: selectedSeverity === sev ? '#ffffff' : '#9ca3af',
+                  background: selectedSeverity === sev ? 'var(--color-primary, #2563eb)' : 'transparent',
+                  color: selectedSeverity === sev ? '#ffffff' : 'var(--text-secondary, #9ca3af)',
                   border: 'none',
                   borderRadius: '4px',
                   padding: '4px 10px',
@@ -205,9 +205,9 @@ export const AlertsPage: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              backgroundColor: '#1f2937',
-              color: '#f9fafb',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-tertiary, #1f2937)',
+              color: 'var(--text-primary, #f9fafb)',
+              border: '1px solid var(--border-color, rgba(255, 255, 255, 0.1))',
               borderRadius: '6px',
               padding: '6px 12px',
               fontSize: '0.78rem',
@@ -242,12 +242,12 @@ export const AlertsPage: React.FC = () => {
           }
         />
       ) : (
-        <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px' }}>
+        <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.78rem', color: '#9ca3af' }}>
-              Displaying <strong style={{ color: '#f3f4f6' }}>{alerts.length}</strong> real detection alert(s) evaluated from live event telemetry
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)' }}>
+              Displaying <strong style={{ color: 'var(--text-primary, #f3f4f6)' }}>{alerts.length}</strong> real detection alert(s) evaluated from live event telemetry
             </span>
-            <span style={{ fontSize: '0.72rem', color: '#6b7280' }}>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, #6b7280)' }}>
               Click any alert row to inspect forensic evidence
             </span>
           </div>
@@ -268,7 +268,7 @@ export const AlertsPage: React.FC = () => {
           <div
             className="modal-content"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '750px', padding: '24px', backgroundColor: '#111827', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '10px' }}
+            style={{ maxWidth: '750px', padding: '24px', backgroundColor: 'var(--bg-elevated, #111827)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.1))', borderRadius: '10px' }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div>
@@ -278,44 +278,44 @@ export const AlertsPage: React.FC = () => {
                     {selectedAlert.alert_id}
                   </span>
                 </div>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#f9fafb', margin: '6px 0 2px 0' }}>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary, #f9fafb)', margin: '6px 0 2px 0' }}>
                   {selectedAlert.rule_name}
                 </h2>
-                <span style={{ color: '#6b7280', fontSize: '0.75rem' }}>
+                <span style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.75rem' }}>
                   Rule ID: {selectedAlert.rule_id} • Fingerprint: {selectedAlert.fingerprint || 'N/A'}
                 </span>
               </div>
               <button
                 onClick={() => setSelectedAlert(null)}
-                style={{ background: 'transparent', border: 'none', color: '#9ca3af', fontSize: '1.25rem', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary, #9ca3af)', fontSize: '1.25rem', cursor: 'pointer' }}
               >
                 ✕
               </button>
             </div>
 
-            <div style={{ backgroundColor: '#1a1f2e', padding: '12px', borderRadius: '6px', marginBottom: '16px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', marginBottom: '4px' }}>
+            <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', padding: '12px', borderRadius: '6px', marginBottom: '16px', border: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.05))' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary, #9ca3af)', textTransform: 'uppercase', marginBottom: '4px' }}>
                 Objective Forensic Explanation
               </div>
-              <p style={{ color: '#e5e7eb', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
+              <p style={{ color: 'var(--text-primary, #e5e7eb)', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
                 {selectedAlert.explanation}
               </p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ backgroundColor: '#1a1f2e', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', marginBottom: '6px' }}>
+              <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', padding: '12px', borderRadius: '6px', border: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.05))' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary, #9ca3af)', textTransform: 'uppercase', marginBottom: '6px' }}>
                   Associated Entities
                 </div>
-                <div style={{ fontSize: '0.8rem', color: '#d1d5db', display: 'flex', flexDirection: 'column', gap: '4px', fontFamily: 'monospace' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-primary, #d1d5db)', display: 'flex', flexDirection: 'column', gap: '4px', fontFamily: 'monospace' }}>
                   <div>Source IP: <span style={{ color: '#93c5fd' }}>{selectedAlert.entities?.source_ip || 'None'}</span></div>
                   <div>Account: <span style={{ color: '#fbbf24' }}>{selectedAlert.entities?.username || 'None'}</span></div>
                   <div>Host: <span style={{ color: '#a78bfa' }}>{selectedAlert.entities?.host || 'None'}</span></div>
                 </div>
               </div>
 
-              <div style={{ backgroundColor: '#1a1f2e', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', marginBottom: '6px' }}>
+              <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', padding: '12px', borderRadius: '6px', border: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.05))' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary, #9ca3af)', textTransform: 'uppercase', marginBottom: '6px' }}>
                   Risk & Confidence Metrics
                 </div>
                 <div style={{ fontSize: '0.8rem', color: '#d1d5db', display: 'flex', flexDirection: 'column', gap: '4px' }}>

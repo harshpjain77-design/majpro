@@ -493,13 +493,13 @@ export const OverviewPage: React.FC = () => {
       {/* Row 3: Real Alerts Table + Actual Event Types + Actual Source IPs */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
         {/* Real Alerts Table */}
-        <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)', margin: 0 }}>
                 Live Detection Alerts
               </h3>
-              <p style={{ color: '#9ca3af', fontSize: '0.75rem', margin: '2px 0 0 0' }}>
+              <p style={{ color: 'var(--text-secondary, #9ca3af)', fontSize: '0.75rem', margin: '2px 0 0 0' }}>
                 Deterministic rules evaluated on real stored telemetry
               </p>
             </div>
@@ -513,7 +513,7 @@ export const OverviewPage: React.FC = () => {
           </div>
 
           {recentAlerts.length === 0 ? (
-            <p style={{ color: '#6b7280', fontSize: '0.8rem', margin: '20px 0', textAlign: 'center' }}>
+            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.8rem', margin: '20px 0', textAlign: 'center' }}>
               No detection alerts triggered yet.
             </p>
           ) : (
@@ -528,12 +528,12 @@ export const OverviewPage: React.FC = () => {
         </div>
 
         {/* Real Top Event Types */}
-        <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)', margin: 0 }}>
               Stored Event Classifications
             </h3>
-            <p style={{ color: '#9ca3af', fontSize: '0.75rem', margin: '2px 0 14px 0' }}>
+            <p style={{ color: 'var(--text-secondary, #9ca3af)', fontSize: '0.75rem', margin: '2px 0 14px 0' }}>
               Normalized breakdown across database events
             </p>
 
@@ -570,17 +570,17 @@ export const OverviewPage: React.FC = () => {
         </div>
 
         {/* Real Top Source IPs */}
-        <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)', margin: 0 }}>
               Active Telemetry Source IPs
             </h3>
-            <p style={{ color: '#9ca3af', fontSize: '0.75rem', margin: '2px 0 14px 0' }}>
+            <p style={{ color: 'var(--text-secondary, #9ca3af)', fontSize: '0.75rem', margin: '2px 0 14px 0' }}>
               Extracted from raw security event stream
             </p>
 
             {topAttackSources.length === 0 ? (
-              <p style={{ color: '#6b7280', fontSize: '0.8rem' }}>No source IP addresses logged in event telemetry.</p>
+              <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.8rem' }}>No source IP addresses logged in event telemetry.</p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {topAttackSources.map((src) => (
@@ -592,17 +592,17 @@ export const OverviewPage: React.FC = () => {
                       justifyContent: 'space-between',
                       padding: '6px 8px',
                       borderRadius: '6px',
-                      backgroundColor: 'rgba(255,255,255,0.02)',
-                      border: '1px solid rgba(255,255,255,0.04)',
+                      backgroundColor: 'var(--bg-hover, rgba(255,255,255,0.02))',
+                      border: '1px solid var(--border-subtle, rgba(255,255,255,0.04))',
                     }}
                   >
                     <div>
                       <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.75rem', color: '#93c5fd', fontWeight: 600 }}>
                         {src.ip}
                       </div>
-                      <div style={{ fontSize: '0.68rem', color: '#6b7280' }}>Host: {src.host}</div>
+                      <div style={{ fontSize: '0.68rem', color: 'var(--text-muted, #6b7280)' }}>Host: {src.host}</div>
                     </div>
-                    <div style={{ textAlign: 'right', fontSize: '0.75rem', fontWeight: 600, color: '#f9fafb' }}>
+                    <div style={{ textAlign: 'right', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)' }}>
                       {src.count} events
                     </div>
                   </div>
@@ -611,7 +611,7 @@ export const OverviewPage: React.FC = () => {
             )}
           </div>
 
-          <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#6b7280' }}>
+          <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.05))', display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--text-muted, #6b7280)' }}>
             <span>Network Filter</span>
             <span style={{ color: '#10b981' }}>Sanitized IPv4/v6</span>
           </div>
@@ -621,13 +621,13 @@ export const OverviewPage: React.FC = () => {
       {/* Row 4: Real Correlated Incidents Table + AI Investigation Studio link */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '16px' }}>
         {/* Real Incidents Mini Table */}
-        <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)', margin: 0 }}>
                 Correlated Incidents
               </h3>
-              <p style={{ color: '#9ca3af', fontSize: '0.75rem', margin: '2px 0 0 0' }}>
+              <p style={{ color: 'var(--text-secondary, #9ca3af)', fontSize: '0.75rem', margin: '2px 0 0 0' }}>
                 Multi-stage graph correlated threat campaigns from database
               </p>
             </div>
@@ -641,7 +641,7 @@ export const OverviewPage: React.FC = () => {
           </div>
 
           {incidents.length === 0 ? (
-            <p style={{ color: '#6b7280', fontSize: '0.8rem', textAlign: 'center', margin: '20px 0' }}>
+            <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.8rem', textAlign: 'center', margin: '20px 0' }}>
               No correlated security incidents in database.
             </p>
           ) : (
@@ -656,7 +656,7 @@ export const OverviewPage: React.FC = () => {
         </div>
 
         {/* AI Assistant Studio Card */}
-        <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(139, 92, 246, 0.25)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid rgba(139, 92, 246, 0.25)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -664,7 +664,7 @@ export const OverviewPage: React.FC = () => {
                   <Bot size={18} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>
+                  <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)', margin: 0 }}>
                     ThreatGrid AI Copilot
                   </h3>
                   <span style={{ fontSize: '0.7rem', color: '#a78bfa' }}>Evidence-Grounded Local Synthesizer</span>

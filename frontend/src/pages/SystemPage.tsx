@@ -106,55 +106,55 @@ export const SystemPage: React.FC = () => {
           {/* Component Status Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
             {/* Ingestion API Component */}
-            <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px' }}>
+            <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Activity size={18} color="#3b82f6" />
-                  <span style={{ fontWeight: 600, color: '#f3f4f6', fontSize: '0.875rem' }}>Central Ingestion API</span>
+                  <span style={{ fontWeight: 600, color: 'var(--text-primary, #f3f4f6)', fontSize: '0.875rem' }}>Central Ingestion API</span>
                 </div>
                 <span style={{ fontSize: '0.7rem', color: '#10b981', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <CheckCircle2 size={13} /> HEALTHY
                 </span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#9ca3af', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <div>Endpoint: <code style={{ color: '#93c5fd' }}>http://127.0.0.1:8000/api/v1</code></div>
-                <div>Version: <span style={{ color: '#f3f4f6' }}>v{health?.version || '0.1.0'}</span></div>
-                <div>Process Uptime: <span style={{ color: '#f3f4f6' }}>{health ? formatUptime(health.uptime_seconds) : '—'}</span></div>
+                <div>Version: <span style={{ color: 'var(--text-primary, #f3f4f6)' }}>v{health?.version || '0.1.0'}</span></div>
+                <div>Process Uptime: <span style={{ color: 'var(--text-primary, #f3f4f6)' }}>{health ? formatUptime(health.uptime_seconds) : '—'}</span></div>
               </div>
             </div>
 
             {/* SQLite Storage Sink */}
-            <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px' }}>
+            <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Database size={18} color="#10b981" />
-                  <span style={{ fontWeight: 600, color: '#f3f4f6', fontSize: '0.875rem' }}>SQLite Database Sink</span>
+                  <span style={{ fontWeight: 600, color: 'var(--text-primary, #f3f4f6)', fontSize: '0.875rem' }}>SQLite Database Sink</span>
                 </div>
                 <span style={{ fontSize: '0.7rem', color: health?.database === 'connected' ? '#10b981' : '#ef4444', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {health?.database === 'connected' ? <CheckCircle2 size={13} /> : <XCircle size={13} />}
                   {health?.database === 'connected' ? 'CONNECTED' : 'DISCONNECTED'}
                 </span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#9ca3af', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <div>File Path: <code style={{ color: '#93c5fd' }}>output/soc_events.sqlite</code></div>
-                <div>Storage Mode: <span style={{ color: '#f3f4f6' }}>WAL (Write-Ahead Logging)</span></div>
+                <div>Storage Mode: <span style={{ color: 'var(--text-primary, #f3f4f6)' }}>WAL (Write-Ahead Logging)</span></div>
                 <div>Persisted Events: <strong style={{ color: '#10b981' }}>{health?.events_stored.toLocaleString() || '0'}</strong></div>
               </div>
             </div>
 
             {/* Detection & Correlation Engine */}
-            <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px' }}>
+            <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Cpu size={18} color="#8b5cf6" />
-                  <span style={{ fontWeight: 600, color: '#f3f4f6', fontSize: '0.875rem' }}>Detection & Correlation</span>
+                  <span style={{ fontWeight: 600, color: 'var(--text-primary, #f3f4f6)', fontSize: '0.875rem' }}>Detection & Correlation</span>
                 </div>
                 <span style={{ fontSize: '0.7rem', color: '#10b981', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <CheckCircle2 size={13} /> ACTIVE
                 </span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#9ca3af', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div>Deterministic Rules: <strong style={{ color: '#f3f4f6' }}>5 Active (RULE-001..005)</strong></div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div>Deterministic Rules: <strong style={{ color: 'var(--text-primary, #f3f4f6)' }}>5 Active (RULE-001..005)</strong></div>
                 <div>Anomaly Engine: <span style={{ color: '#a78bfa' }}>Isolation Forest (ML-ANOMALY-001)</span></div>
                 <div>Incident Deduplication: <span style={{ color: '#10b981' }}>Graph Correlation Enabled</span></div>
               </div>
@@ -162,8 +162,8 @@ export const SystemPage: React.FC = () => {
           </div>
 
           {/* Active Collector Hosts Table */}
-          <div style={{ backgroundColor: '#1a1f2e', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '8px', padding: '16px' }}>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f9fafb', margin: '0 0 12px 0' }}>
+          <div style={{ backgroundColor: 'var(--bg-card, #1a1f2e)', border: '1px solid var(--border-color, rgba(255, 255, 255, 0.06))', borderRadius: '8px', padding: '16px' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary, #f9fafb)', margin: '0 0 12px 0' }}>
               Monitored Telemetry Collector Hosts
             </h3>
 

@@ -3,7 +3,8 @@
  * Dark navy/charcoal SOC theme
  */
 
-:root {
+:root,
+[data-theme="dark"] {
   /* ==========================================================================
      Color Palette - Core Backgrounds & Surfaces
      ========================================================================== */
@@ -19,6 +20,20 @@
   --bg-active: rgba(255, 255, 255, 0.08);
   --bg-selected: rgba(59, 130, 246, 0.12);
   --bg-overlay: rgba(10, 14, 26, 0.85);
+
+  --bg-app: #0a0e1a;
+  --bg-sidebar: #0d1117;
+  --bg-sidebar-hover: rgba(255, 255, 255, 0.04);
+  --bg-sidebar-active: rgba(59, 130, 246, 0.1);
+  --border-sidebar: rgba(255, 255, 255, 0.06);
+  --bg-topbar: #0d1117;
+  --border-topbar: rgba(255, 255, 255, 0.06);
+  --bg-input: #111827;
+  --border-input: rgba(255, 255, 255, 0.08);
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #2563eb;
+  --accent-purple: #6366f1;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.45);
 
   /* ==========================================================================
      Color Palette - Text & Foregrounds
@@ -233,4 +248,132 @@
   --sidebar-collapsed-width: 64px;
   --topbar-height: 56px;
   --content-max-width: 1600px;
+}
+
+/* ==========================================================================
+   Light Mode Design Tokens (ThreatGrid Clean SOC Palette)
+   ========================================================================== */
+[data-theme="light"] {
+  /* Surfaces & Backgrounds */
+  --bg-canvas: #f1f5f9;        /* Clean cool slate-100 canvas */
+  --bg-primary: #f1f5f9;
+  --bg-surface: #ffffff;        /* Crisp white for cards, panels, table rows */
+  --bg-secondary: #ffffff;
+  --bg-elevated: #ffffff;       /* Modals, tooltips, flyouts */
+  --bg-tertiary: #f8fafc;       /* slate-50 */
+  --bg-card: #ffffff;           /* Dedicated card background */
+  --bg-card-hover: #f8fafc;     /* Card hover state */
+  --bg-hover: rgba(0, 0, 0, 0.04);
+  --bg-active: rgba(0, 0, 0, 0.07);
+  --bg-selected: rgba(37, 99, 235, 0.08);
+  --bg-overlay: rgba(15, 23, 42, 0.5);
+
+  --bg-app: #f1f5f9;
+  --bg-sidebar: #ffffff;
+  --bg-sidebar-hover: rgba(0, 0, 0, 0.035);
+  --bg-sidebar-active: rgba(37, 99, 235, 0.08);
+  --border-sidebar: #e2e8f0;    /* Crisp light border */
+  --bg-topbar: #ffffff;
+  --border-topbar: #e2e8f0;
+  --bg-input: #ffffff;
+  --border-input: #cbd5e1;
+
+  /* Text & Foregrounds */
+  --text-primary: #0f172a;     /* Slate-900: sharp, high-contrast text */
+  --text-secondary: #475569;   /* Slate-600: clean subtitles & labels */
+  --text-muted: #64748b;       /* Slate-500: helper text, timestamps */
+  --text-subtle: #94a3b8;      /* Slate-400 */
+  --text-inverse: #ffffff;
+  --text-link: #2563eb;
+  --text-link-hover: #1d4ed8;
+
+  /* Borders & Dividers */
+  --border-color: #e2e8f0;     /* Slate-200 */
+  --border-subtle: #f1f5f9;    /* Slate-100 */
+  --border-strong: #cbd5e1;    /* Slate-300 */
+  --border-accent: rgba(37, 99, 235, 0.35);
+  --border-primary: #e2e8f0;
+
+  /* Brand & Accents */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-bg: rgba(37, 99, 235, 0.08);
+  --color-primary-border: rgba(37, 99, 235, 0.25);
+  --color-primary-glow: rgba(37, 99, 235, 0.2);
+
+  --color-accent: #4f46e5;
+  --color-accent-hover: #4338ca;
+  --color-accent-bg: rgba(79, 70, 229, 0.08);
+  --color-accent-border: rgba(79, 70, 229, 0.25);
+  --color-accent-glow: rgba(79, 70, 229, 0.2);
+
+  --color-ai: #7c3aed;
+  --color-ai-hover: #6d28d9;
+  --color-ai-bg: rgba(124, 58, 237, 0.08);
+  --color-ai-border: rgba(124, 58, 237, 0.25);
+  --color-ai-glow: rgba(124, 58, 237, 0.2);
+
+  --accent-blue: #2563eb;
+  --accent-blue-hover: #1d4ed8;
+  --accent-purple: #4f46e5;
+
+  /* Severity Backgrounds & Borders */
+  --severity-critical: #dc2626;
+  --severity-critical-hover: #b91c1c;
+  --severity-critical-bg: rgba(220, 38, 38, 0.08);
+  --severity-critical-border: rgba(220, 38, 38, 0.25);
+  --severity-critical-glow: rgba(220, 38, 38, 0.2);
+
+  --severity-high: #ea580c;
+  --severity-high-hover: #c2410c;
+  --severity-high-bg: rgba(234, 88, 12, 0.08);
+  --severity-high-border: rgba(234, 88, 12, 0.25);
+  --severity-high-glow: rgba(234, 88, 12, 0.2);
+
+  --severity-medium: #d97706;
+  --severity-medium-hover: #b45309;
+  --severity-medium-bg: rgba(217, 119, 6, 0.1);
+  --severity-medium-border: rgba(217, 119, 6, 0.25);
+  --severity-medium-glow: rgba(217, 119, 6, 0.2);
+
+  --severity-low: #0891b2;
+  --severity-low-hover: #0e7490;
+  --severity-low-bg: rgba(8, 145, 178, 0.08);
+  --severity-low-border: rgba(8, 145, 178, 0.25);
+  --severity-low-glow: rgba(8, 145, 178, 0.2);
+
+  --severity-info: #7c3aed;
+  --severity-info-hover: #6d28d9;
+  --severity-info-bg: rgba(124, 58, 237, 0.08);
+  --severity-info-border: rgba(124, 58, 237, 0.25);
+  --severity-info-glow: rgba(124, 58, 237, 0.2);
+
+  /* Status Colors */
+  --status-healthy: #059669;
+  --status-healthy-hover: #047857;
+  --status-healthy-bg: rgba(5, 150, 105, 0.08);
+  --status-healthy-border: rgba(5, 150, 105, 0.25);
+  --status-healthy-glow: rgba(5, 150, 105, 0.2);
+
+  --status-warning: #d97706;
+  --status-warning-hover: #b45309;
+  --status-warning-bg: rgba(217, 119, 6, 0.1);
+  --status-warning-border: rgba(217, 119, 6, 0.25);
+  --status-warning-glow: rgba(217, 119, 6, 0.2);
+
+  --status-error: #dc2626;
+  --status-error-hover: #b91c1c;
+  --status-error-bg: rgba(220, 38, 38, 0.08);
+  --status-error-border: rgba(220, 38, 38, 0.25);
+  --status-error-glow: rgba(220, 38, 38, 0.2);
+
+  /* Light Elevation Shadows */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-inner: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
 }

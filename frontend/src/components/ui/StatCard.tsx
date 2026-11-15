@@ -53,8 +53,8 @@ export const StatCard: React.FC<StatCardProps> = ({
         }
       }}
       style={{
-        backgroundColor: '#1a1f2e',
-        border: `1px solid ${isHovered ? 'rgba(255, 255, 255, 0.14)' : 'rgba(255, 255, 255, 0.06)'}`,
+        backgroundColor: 'var(--bg-card, #1a1f2e)',
+        border: `1px solid ${isHovered ? 'var(--border-strong, rgba(255, 255, 255, 0.14))' : 'var(--border-color, rgba(255, 255, 255, 0.06))'}`,
         borderRadius: '12px',
         padding: '1.25rem',
         display: 'flex',
@@ -64,8 +64,8 @@ export const StatCard: React.FC<StatCardProps> = ({
         transform: isHovered && onClick ? 'translateY(-2px)' : isHovered ? 'translateY(-1px)' : 'none',
         transition: 'transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease',
         boxShadow: isHovered
-          ? '0 6px 16px -2px rgba(0, 0, 0, 0.4), 0 0 1px 1px rgba(255, 255, 255, 0.05)'
-          : '0 4px 6px -1px rgba(0, 0, 0, 0.25)',
+          ? 'var(--shadow-lg, 0 6px 16px -2px rgba(0, 0, 0, 0.4))'
+          : 'var(--shadow-card, 0 4px 6px -1px rgba(0, 0, 0, 0.25))',
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -87,7 +87,7 @@ export const StatCard: React.FC<StatCardProps> = ({
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.06em',
-              color: '#9ca3af',
+              color: 'var(--text-secondary, #9ca3af)',
               display: 'block',
               lineHeight: 1.4
             }}
@@ -121,7 +121,7 @@ export const StatCard: React.FC<StatCardProps> = ({
           style={{
             fontSize: '2rem',
             fontWeight: 700,
-            color: '#f9fafb',
+            color: 'var(--text-primary, #f9fafb)',
             letterSpacing: '-0.03em',
             lineHeight: 1.1,
             fontFamily: 'var(--font-sans, sans-serif)'

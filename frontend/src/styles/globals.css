@@ -59,6 +59,19 @@ code, pre, kbd, samp, .font-mono {
   scrollbar-color: rgba(255, 255, 255, 0.16) var(--bg-canvas);
 }
 
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.16);
+  border: 2px solid var(--bg-canvas);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28);
+}
+
+[data-theme="light"] * {
+  scrollbar-color: rgba(0, 0, 0, 0.16) var(--bg-canvas);
+}
+
 /* ==========================================================================
    Selection Styling
    ========================================================================== */
@@ -796,4 +809,23 @@ textarea {
   height: 100%;
   border-radius: var(--radius-badge);
   transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   Light Mode Structural & Utility Helpers
+   ========================================================================== */
+[data-theme="light"] body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: var(--text-muted);
 }
