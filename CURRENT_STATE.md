@@ -85,6 +85,7 @@
     - `ResponseConsole.tsx`: Dedicated automated response dashboard with safety status indicators, dry-run toggles, filterable containment queue, manual action proposal modal, and approval/execution/rollback modals.
     - `EventExplorer.tsx`: Multi-field event search table with pagination and raw log inspection drawer with "Explain with AI".
     - `MetricsOverview.tsx`: Deduplication ratio dashboard (85-90% alert noise reduction), ML anomaly status, and rule comparison.
+    - `PlaybooksPage.tsx`: Minimalist, zero-clutter incident response guides for platform rules (RULE-001 - RULE-005) & Zero Trust baselines, with 3-step action dialogs (Verify, Contain, Recover) and NIST IR report generator.
 
 ## 3. Files Created or Modified
 - `DECISIONS.md`: Added ADR-011 (Controlled Automated Response Engine with Human-in-the-Loop Gating, Reversible Rollback, and Allowlist Invariants).
