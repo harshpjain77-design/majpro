@@ -7,6 +7,9 @@ from backend.ai.copilot import AIAssistantCopilot
 from backend.ai.schemas import AIAnalysisReport, AIChatRequest, AIChatResponse, EventExplanation
 from backend.api.dependencies import incident_repo, storage_sink, verify_api_key
 
+from datetime import datetime, timezone
+from backend.correlation.schemas import Incident, IncidentStatus
+
 logger = logging.getLogger("AIRoutes")
 
 router = APIRouter(
@@ -33,13 +36,35 @@ async def get_ai_status():
 
 @router.post("/chat", response_model=AIChatResponse)
 async def chat_with_ai(payload: AIChatRequest) -> AIChatResponse:
-    """Interactive conversational Q&A about an incident with grounded citation reasoning."""
-    incident = incident_repo.get_incident(payload.incident_id)
-    if not incident:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Incident with ID '{payload.incident_id}' not found.",
+    """Interactive conversational Q&A about an incident or general SOC telemetry with grounded reasoning."""
+    incident_id = (payload.incident_id or "general").strip()
+    
+    if incident_id.lower() in ["general", "all", "none", ""]:
+        now_utc = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        incident = Incident(
+            incident_id="general",
+            title="Global SOC Environment & Telemetry Assistant",
+            severity="medium",
+            status=IncidentStatus.INVESTIGATING,
+            risk_score=50.0,
+            first_seen=now_utc,
+            last_seen=now_utc,
+            entities={"source_ips": [], "usernames": [], "hosts": []},
+            related_alert_ids=[],
+            related_event_ids=[],
+            distinct_rules=["RULE-001", "RULE-002", "RULE-003", "RULE-004", "RULE-005"],
+            timeline=[],
+            analyst_notes=[],
+            created_at=now_utc,
+            updated_at=now_utc,
         )
+    else:
+        incident = incident_repo.get_incident(incident_id)
+        if not incident:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Incident with ID '{incident_id}' not found.",
+            )
 
     try:
         response = copilot.chat_about_incident(

@@ -235,11 +235,18 @@ VERIFIED FORENSIC EVIDENCE:
                 f"- Raw Events Sample Count: {len(evidence_events)}"
             )
 
-            initial_context = (
-                f"[SYSTEM CONTEXT: You are investigating Incident ID '{incident.incident_id}': '{incident.title}' "
-                f"(Severity: {incident.severity.upper()}, Risk Score: {incident.risk_score:.1f}/100).\n"
-                f"{evidence_summary}]"
-            )
+            if incident.incident_id == "general":
+                initial_context = (
+                    "[SYSTEM CONTEXT: You are the ThreadGrid SIEM AI Copilot, a senior cyber defense specialist "
+                    "assisting the SOC analyst with global security operations, telemetry analysis, detection rules "
+                    "(RULE-001 to RULE-005), incident triage, log queries, and automated containment actions across all hosts.]"
+                )
+            else:
+                initial_context = (
+                    f"[SYSTEM CONTEXT: You are investigating Incident ID '{incident.incident_id}': '{incident.title}' "
+                    f"(Severity: {incident.severity.upper()}, Risk Score: {incident.risk_score:.1f}/100).\n"
+                    f"{evidence_summary}]"
+                )
 
             contents: List[Dict[str, Any]] = []
 
@@ -305,22 +312,35 @@ VERIFIED FORENSIC EVIDENCE:
 
         # 1. Greetings & Meta questions
         if re.search(r"\b(hi|hello|hey|greetings|who are you|what can you do|help)\b", q_lower):
-            answer = (
-                f"### 👋 Hello, Analyst!\n\n"
-                f"I am your **ThreadGrid SIEM AI Copilot**, assisting you with **Incident `{incident.incident_id}`** (`{incident.title}`).\n\n"
-                f"**Current Incident Status Snapshot**:\n"
-                f"- **Severity**: `{incident.severity.upper()}` (Risk Score: **{incident.risk_score:.1f}/100**)\n"
-                f"- **Attacker IP(s)**: `{ip_str}`\n"
-                f"- **Target Account(s)**: `{user_str}` on Host `{host_str}`\n"
-                f"- **Detection Rules**: `{', '.join(incident.distinct_rules)}`\n\n"
-                f"You can ask me questions like:\n"
-                f"- *'Who is the attacker and what IP did they use?'*\n"
-                f"- *'What accounts were targeted?'*\n"
-                f"- *'Is this a false positive or real attack?'*\n"
-                f"- *'Explain the attack narrative step-by-step'*\n"
-                f"- *'How do I block this IP or contain the host?'*"
-            )
-            suggested_actions = ["Explain Attack Narrative", "Draft CISO Summary", "Recommend Containment Plan"]
+            if incident.incident_id == "general":
+                answer = (
+                    "### 👋 Hello, Analyst!\n\n"
+                    "I am your **ThreadGrid SIEM AI Copilot**, available globally across all dashboard pages.\n\n"
+                    "**How I can assist you**:\n"
+                    "- 🛡️ **Threat Investigation**: Explain attack narratives and correlate multi-stage campaigns.\n"
+                    "- 🔍 **Rule & Telemetry Analysis**: Explain detection rules (RULE-001 through RULE-005) and inspect log evidence.\n"
+                    "- ⚡ **Automated Containment**: Guide containment actions (firewall drop, account lock, host isolation).\n"
+                    "- 📋 **CISO Reporting**: Draft executive briefings for active security incidents.\n\n"
+                    "Select an active incident from the dropdown above to focus on a specific threat, or ask any security question right here!"
+                )
+                suggested_actions = ["Explain Detection Rules", "Show Active Threats", "Recommend Containment Strategy"]
+            else:
+                answer = (
+                    f"### 👋 Hello, Analyst!\n\n"
+                    f"I am your **ThreadGrid SIEM AI Copilot**, assisting you with **Incident `{incident.incident_id}`** (`{incident.title}`).\n\n"
+                    f"**Current Incident Status Snapshot**:\n"
+                    f"- **Severity**: `{incident.severity.upper()}` (Risk Score: **{incident.risk_score:.1f}/100**)\n"
+                    f"- **Attacker IP(s)**: `{ip_str}`\n"
+                    f"- **Target Account(s)**: `{user_str}` on Host `{host_str}`\n"
+                    f"- **Detection Rules**: `{', '.join(incident.distinct_rules)}`\n\n"
+                    f"You can ask me questions like:\n"
+                    f"- *'Who is the attacker and what IP did they use?'*\n"
+                    f"- *'What accounts were targeted?'*\n"
+                    f"- *'Is this a false positive or real attack?'*\n"
+                    f"- *'Explain the attack narrative step-by-step'*\n"
+                    f"- *'How do I block this IP or contain the host?'*"
+                )
+                suggested_actions = ["Explain Attack Narrative", "Draft CISO Summary", "Recommend Containment Plan"]
 
         # 2. Attacker / Source IP / Origin Questions
         elif re.search(r"\b(attacker|who|source|ip|where|origin|actor)\b", q_lower):

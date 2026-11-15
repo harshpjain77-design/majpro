@@ -69,7 +69,7 @@ class AIAnalysisReport(BaseModel):
 
 
 class AIChatRequest(BaseModel):
-    incident_id: str
+    incident_id: Optional[str] = "general"
     prompt: str
     history: Optional[List[Dict[str, str]]] = Field(default_factory=list)
 

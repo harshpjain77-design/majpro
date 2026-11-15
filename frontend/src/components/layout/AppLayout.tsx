@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import { FloatingAICopilot } from '../FloatingAICopilot';
 
 export const AppLayout: React.FC = () => {
   const location = useLocation();
@@ -153,6 +154,9 @@ export const AppLayout: React.FC = () => {
           </div>
         </main>
       </div>
+
+      {/* Global Floating XAI Copilot */}
+      <FloatingAICopilot />
     </div>
   );
 };
