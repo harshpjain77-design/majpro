@@ -7,9 +7,11 @@ from typing import Any, Dict, List, Optional, Set
 from collectors.common.schemas import EventType, SecurityEvent
 from backend.ai.citation_validator import CitationValidator
 from backend.ai.config import AIConfig, default_ai_config
+from backend.ai.gemini_provider import GeminiAIProvider
 from backend.ai.prompt_defense import PromptInjectionSanitizer
 from backend.ai.schemas import (
     AIAnalysisReport,
+    AIChatResponse,
     EventExplanation,
     FactEntry,
     HypothesisEntry,
@@ -36,6 +38,10 @@ class AIAssistantCopilot:
     def __init__(self, config: Optional[AIConfig] = None):
         self.config = config or default_ai_config
         self.sanitizer = PromptInjectionSanitizer()
+        self.gemini = GeminiAIProvider(
+            api_key=self.config.external_api_key,
+            model=self.config.model_name,
+        )
 
     def investigate_incident(
         self,
@@ -70,6 +76,40 @@ class AIAssistantCopilot:
             allowed_event_ids=allowed_event_ids,
             allowed_alert_ids=allowed_alert_ids,
         )
+
+        # 2b. Attempt Google Gemini inference if configured
+        if self.gemini.is_configured():
+            try:
+                gemini_data = self.gemini.analyze_incident(incident, evidence_events)
+                if gemini_data:
+                    gemini_facts = [FactEntry(**f) for f in gemini_data.get("verified_facts", [])]
+                    gemini_hypotheses = [HypothesisEntry(**h) for h in gemini_data.get("threat_hypotheses", [])]
+                    gemini_recs = [RecommendationEntry(**r) for r in gemini_data.get("actionable_recommendations", [])]
+
+                    all_cited: List[str] = []
+                    for f in gemini_facts:
+                        all_cited.extend(f.citations)
+                    for h in gemini_hypotheses:
+                        all_cited.extend(h.supporting_citations)
+
+                    is_valid, valid_ids, invalid_ids = validator.validate_citations(all_cited)
+                    now_utc = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+                    return AIAnalysisReport(
+                        incident_id=incident.incident_id,
+                        generated_at=now_utc,
+                        model_used=f"Google Gemini ({self.gemini.model})",
+                        executive_summary=gemini_data.get("executive_summary", incident.title),
+                        verified_facts=gemini_facts,
+                        threat_hypotheses=gemini_hypotheses,
+                        actionable_recommendations=gemini_recs,
+                        citations_validated=is_valid,
+                        valid_citation_ids=valid_ids,
+                        invalid_citation_ids=invalid_ids,
+                        sanitization_warnings=all_warnings,
+                    )
+            except Exception as e:
+                logger.warning(f"Gemini analysis encountered error: {e}. Falling back to local synthesizer.")
 
         # 3. Construct Verified Facts strictly citing IDs
         facts: List[FactEntry] = []
@@ -315,3 +355,29 @@ class AIAssistantCopilot:
             },
             recommendation=rec,
         )
+
+    def chat_about_incident(
+        self,
+        incident: Incident,
+        user_query: str,
+        event_repo: Optional[EventRepository] = None,
+        history: Optional[List[Dict[str, str]]] = None,
+    ) -> AIChatResponse:
+        """Conduct an interactive analyst Q&A session about the given incident."""
+        evidence_events: List[SecurityEvent] = []
+        if event_repo:
+            for eid in incident.related_event_ids[: self.config.max_context_events]:
+                try:
+                    ev = event_repo.get_event_by_id(eid)
+                    if ev:
+                        evidence_events.append(ev)
+                except Exception:
+                    pass
+
+        result = self.gemini.chat_about_incident(
+            incident=incident,
+            evidence_events=evidence_events,
+            user_query=user_query,
+            history=history,
+        )
+        return AIChatResponse(**result)

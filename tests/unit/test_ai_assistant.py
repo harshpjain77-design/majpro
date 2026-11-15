@@ -253,3 +253,25 @@ def test_ai_api_endpoints():
     exp_data = resp_exp.json()
     assert exp_data["event_id"] == "evt_api_001"
     assert "Failed logon attempt" in exp_data["security_significance"]
+
+    # 6. AI Status endpoint
+    resp_status = client.get("/api/v1/ai/status", headers=AUTH_HEADERS)
+    assert resp_status.status_code == 200
+    st_data = resp_status.json()
+    assert "provider" in st_data
+    assert "model_name" in st_data
+
+    # 7. AI Chat endpoint
+    resp_chat = client.post(
+        "/api/v1/ai/chat",
+        headers=AUTH_HEADERS,
+        json={
+            "incident_id": "inc_api_ai",
+            "prompt": "Explain the attack narrative step by step",
+        },
+    )
+    assert resp_chat.status_code == 200
+    chat_data = resp_chat.json()
+    assert "answer" in chat_data
+    assert len(chat_data["citations"]) > 0
+    assert "model_used" in chat_data

@@ -68,6 +68,20 @@ class AIAnalysisReport(BaseModel):
     sanitization_warnings: List[str] = Field(default_factory=list)
 
 
+class AIChatRequest(BaseModel):
+    incident_id: str
+    prompt: str
+    history: Optional[List[Dict[str, str]]] = Field(default_factory=list)
+
+
+class AIChatResponse(BaseModel):
+    answer: str
+    citations: List[str] = Field(default_factory=list)
+    suggested_actions: List[str] = Field(default_factory=list)
+    model_used: str
+    is_live_gemini: bool
+
+
 class EventExplanation(BaseModel):
     """Single-event forensic explanation for analyst inspection."""
 

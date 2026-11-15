@@ -1,9 +1,9 @@
 # CURRENT_STATE.md — Current System Status & Project Memory
 
 ## 1. Current Phase & Milestone
-- **Current Phase**: Phase 8 — Controlled Automated Response Engine & Live Telemetry Integration
-- **Milestone**: Windows Server 2012 VM Live Telemetry Streaming & Dashboard Real-Time Explorer
-- **Phase 8 & Telemetry Criteria**: MET (All 148 automated backend tests passing; React + TypeScript frontend fully built and running with 3-second auto-refresh, dynamic device dropdown selector, Source IP / Timestamp sorting, clock-skew mitigation, multi-field full-text search, and live Windows Server 2012 event streaming).
+- **Current Phase**: Phase 8 — Controlled Automated Response Engine, Entity Explorer & Conversational XAI Expansion
+- **Milestone**: Interactive Explainable AI Copilot with Google Gemini Integration & Entity Intelligence
+- **Phase 8 & Telemetry Criteria**: MET (All 153 automated backend tests passing; React + TypeScript frontend fully built with interactive dual-tab AI Copilot, live Google Gemini API provider with automatic local synthesizer fallback, Entity Explorer, controlled containment responses, and real-time live event streaming).
 - **Dashboard & Filtering Status**: RESOLVED. Real-time sorting defaults to authoritative SIEM arrival time (`ingested_at DESC, rowid DESC`), ensuring new events immediately display on row #1. All filters (Full-text query across 9 canonical fields, Source IP, Device/Host, Username, Severity, and Sort direction) verified working against live database.
 
 ## 2. Implemented Components

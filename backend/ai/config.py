@@ -1,20 +1,24 @@
 """Configuration for evidence-grounded AI investigation assistant and prompt defense."""
 
+import os
 from typing import Optional
+from dotenv import load_dotenv
 from pydantic import BaseModel, Field
+
+load_dotenv()
 
 
 class AIConfig(BaseModel):
     """Configuration settings for AI Copilot, prompt sanitization, and citation enforcement."""
 
-    # AI provider: "local" (deterministic evidence synthesizer, zero external cost/API) or "external"
+    # AI provider: "gemini" or "local" (offline deterministic synthesizer)
     provider: str = Field(
-        default="local",
-        description="AI engine provider: 'local' (offline deterministic synthesizer) or 'external' (HTTP LLM)",
+        default_factory=lambda: os.getenv("AI_PROVIDER", "gemini").lower(),
+        description="AI engine provider: 'gemini' (Google Gemini API) or 'local' (offline deterministic synthesizer)",
     )
 
     model_name: str = Field(
-        default="evidence-synthesizer-v1.0",
+        default_factory=lambda: os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
         description="Model identifier or engine version",
     )
 
@@ -32,15 +36,15 @@ class AIConfig(BaseModel):
         description="Verify that cited IDs strictly exist in the incident evidence set",
     )
 
-    # External LLM endpoint (used only if provider is 'external')
+    # External LLM endpoint
     external_api_url: Optional[str] = Field(
         default=None,
         description="URL for external LLM inference server if configured",
     )
 
     external_api_key: Optional[str] = Field(
-        default=None,
-        description="API key for external LLM inference server if configured",
+        default_factory=lambda: os.getenv("GEMINI_API_KEY", None),
+        description="API key for external LLM inference server",
     )
 
 

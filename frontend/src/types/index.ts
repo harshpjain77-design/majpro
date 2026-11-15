@@ -111,6 +111,33 @@ export interface EventExplanation {
   recommendation: string;
 }
 
+export interface AIChatMessage {
+  id: string;
+  sender: 'user' | 'assistant';
+  text: string;
+  timestamp: string;
+  model_used?: string;
+  citations?: string[];
+  suggested_actions?: string[];
+  is_live_gemini?: boolean;
+}
+
+export interface AIChatResponse {
+  answer: string;
+  citations: string[];
+  suggested_actions: string[];
+  model_used: string;
+  is_live_gemini: boolean;
+}
+
+export interface AIStatusResponse {
+  provider: string;
+  model_name: string;
+  gemini_configured: boolean;
+  max_context_events: number;
+  strict_citations_enforced: boolean;
+}
+
 export interface MLStatus {
   is_trained: boolean;
   contamination: number;

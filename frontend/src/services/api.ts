@@ -1,5 +1,7 @@
 import {
   AIAnalysisReport,
+  AIChatResponse,
+  AIStatusResponse,
   DeduplicationMetrics,
   EntitiesExplorerResponse,
   EntityDetailResponse,
@@ -173,6 +175,26 @@ export const api = {
     const res = await fetch(`${API_BASE}/ai/explain_event/${eventId}`, {
       method: 'POST',
       headers: defaultHeaders,
+    });
+    return handleResponse(res);
+  },
+
+  async getAIStatus(): Promise<AIStatusResponse> {
+    const res = await fetch(`${API_BASE}/ai/status`, {
+      headers: defaultHeaders,
+    });
+    return handleResponse(res);
+  },
+
+  async chatWithAI(payload: {
+    incident_id: string;
+    prompt: string;
+    history?: Array<{ role: string; content: string }>;
+  }): Promise<AIChatResponse> {
+    const res = await fetch(`${API_BASE}/ai/chat`, {
+      method: 'POST',
+      headers: defaultHeaders,
+      body: JSON.stringify(payload),
     });
     return handleResponse(res);
   },

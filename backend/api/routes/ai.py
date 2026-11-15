@@ -4,7 +4,7 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from backend.ai.copilot import AIAssistantCopilot
-from backend.ai.schemas import AIAnalysisReport, EventExplanation
+from backend.ai.schemas import AIAnalysisReport, AIChatRequest, AIChatResponse, EventExplanation
 from backend.api.dependencies import incident_repo, storage_sink, verify_api_key
 
 logger = logging.getLogger("AIRoutes")
@@ -16,6 +16,45 @@ router = APIRouter(
 )
 
 copilot = AIAssistantCopilot()
+
+
+@router.get("/status")
+async def get_ai_status():
+    """Retrieve operational status of the Explainable AI engine and active LLM provider."""
+    is_gemini = copilot.gemini.is_configured()
+    return {
+        "provider": "gemini" if is_gemini else "local",
+        "model_name": copilot.gemini.model if is_gemini else "ThreadGrid Local Synthesizer",
+        "gemini_configured": is_gemini,
+        "max_context_events": copilot.config.max_context_events,
+        "strict_citations_enforced": copilot.config.enforce_strict_citations,
+    }
+
+
+@router.post("/chat", response_model=AIChatResponse)
+async def chat_with_ai(payload: AIChatRequest) -> AIChatResponse:
+    """Interactive conversational Q&A about an incident with grounded citation reasoning."""
+    incident = incident_repo.get_incident(payload.incident_id)
+    if not incident:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Incident with ID '{payload.incident_id}' not found.",
+        )
+
+    try:
+        response = copilot.chat_about_incident(
+            incident=incident,
+            user_query=payload.prompt,
+            event_repo=storage_sink,
+            history=payload.history,
+        )
+        return response
+    except Exception as e:
+        logger.error(f"Error during AI chat session: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate AI response: {str(e)}",
+        )
 
 
 @router.post("/investigate/{incident_id}", response_model=AIAnalysisReport)

@@ -5,6 +5,16 @@ The format is based on Keep a Changelog.
 
 ## [Unreleased]
 ### Added
+- Phase 8 Extension: Interactive Explainable AI Copilot & Google Gemini 2.5 Expansion:
+  - Integrated `GeminiAIProvider` (`backend/ai/gemini_provider.py`) communicating with Google Gemini REST API (`gemini-2.5-flash`) using lightweight `httpx`.
+  - System prompts engineered with strict evidence-grounding constraints and prompt injection defenses against untrusted log content.
+  - Dual-Engine Architecture: Live Google Gemini inference paired with an automated fallback to the deterministic ThreadGrid XAI Local Synthesizer when cloud billing/quotas or network blocks occur.
+  - Interactive Conversational Analyst Q&A endpoint: `POST /api/v1/ai/chat` accepting conversation history and returning citations, recommended follow-up questions, and staged containment actions.
+  - AI Health and Configuration endpoint: `GET /api/v1/ai/status` reporting live provider status, active model, and citation validation enforcement.
+  - Dual-Tab Copilot UI in `frontend/src/components/AICopilotPanel.tsx`:
+    - Tab 1: Structured Forensic Briefing (Executive summary, attack narrative, kill-chain breakdown, strict evidence citations).
+    - Tab 2: Interactive Analyst Q&A Copilot with conversational chat stream, user/bot avatars, model badge, quick-prompt pill buttons, clickable citation chips, and 1-click containment action staging into Response Console.
+  - Added unit test suite in `tests/unit/test_ai_assistant.py` covering `/api/v1/ai/status` and `/api/v1/ai/chat`. Total test count: 153/153 passing.
 - Phase 8 Extension: Multi-Tab Entity Explorer & Asset Intelligence:
   - Top-Level Entity KPI Summary Cards tracking total entities, high-risk assets, attack/external IPs, privileged accounts, and monitored hosts.
   - Multi-Tab Entity Explorer with 3 dedicated views:
