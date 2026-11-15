@@ -1,31 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../services/api';
-import { Incident, AIChatMessage, AIStatusResponse } from '../types';
+import { chatStorage } from '../services/chatStorage';
+import { Incident, AIChatMessage, AIStatusResponse, ChatSession } from '../types';
 
 export const FloatingAICopilot: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMinimized, setIsMinimized] = useState<boolean>(false);
   const [incidents, setIncidents] = useState<Incident[]>([]);
-  const [selectedIncidentId, setSelectedIncidentId] = useState<string>('general');
   const [aiStatus, setAiStatus] = useState<AIStatusResponse | null>(null);
 
-  // Chat state
-  const [chatMessages, setChatMessages] = useState<AIChatMessage[]>([
-    {
-      id: 'welcome-floating',
-      sender: 'assistant',
-      text: '### 👋 ThreadGrid SIEM AI Copilot Ready\n\nI am your floating **Explainable AI Assistant**, powered by **Google Gemini 3.5 Flash** with verified evidence citations.\n\nYou can use me from **any page** without switching tabs. Select an incident or ask general threat triage questions!',
-      timestamp: new Date().toLocaleTimeString(),
-      model_used: 'Google Gemini (gemini-3.5-flash)',
-      is_live_gemini: true,
-      suggested_actions: ['Explain Attack Narrative', 'Draft CISO Briefing', 'Recommend Containment Plan'],
-    },
-  ]);
+  // Persistent Chat Sessions from chatStorage
+  const [sessions, setSessions] = useState<ChatSession[]>(() => chatStorage.getSessions());
+  const [activeSessionId, setActiveSessionId] = useState<string>(() => chatStorage.getActiveSessionId());
+
+  // Input & loading state
   const [chatInput, setChatInput] = useState<string>('');
   const [chatLoading, setChatLoading] = useState<boolean>(false);
   const [actionSuccessMsg, setActionSuccessMsg] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Sync with persistent chatStorage
+  useEffect(() => {
+    const updateFromStorage = () => {
+      setSessions(chatStorage.getSessions());
+      setActiveSessionId(chatStorage.getActiveSessionId());
+    };
+    const unsubscribe = chatStorage.subscribe(updateFromStorage);
+    return unsubscribe;
+  }, []);
+
+  const activeSession = sessions.find((s) => s.id === activeSessionId) || sessions[0] || chatStorage.getActiveSession();
+  const chatMessages = activeSession?.messages || [];
+  const selectedIncidentId = activeSession?.incident_id || 'general';
 
   // Auto-scroll chat to bottom
   const scrollToBottom = () => {
@@ -36,7 +43,7 @@ export const FloatingAICopilot: React.FC = () => {
     if (isOpen && !isMinimized) {
       scrollToBottom();
     }
-  }, [chatMessages, isOpen, isMinimized]);
+  }, [chatMessages, isOpen, isMinimized, activeSessionId]);
 
   // Load AI status & incidents on mount
   useEffect(() => {
@@ -49,10 +56,6 @@ export const FloatingAICopilot: React.FC = () => {
         if (statusRes) setAiStatus(statusRes);
         if (incRes && incRes.incidents) {
           setIncidents(incRes.incidents);
-          // If incidents exist, default to the most severe/recent incident
-          if (incRes.incidents.length > 0 && selectedIncidentId === 'general') {
-            setSelectedIncidentId(incRes.incidents[0].incident_id);
-          }
         }
       } catch (err) {
         console.error('Failed to load floating AI copilot data:', err);
@@ -61,9 +64,29 @@ export const FloatingAICopilot: React.FC = () => {
     fetchStatusAndIncidents();
   }, []);
 
+  const handleNewChat = () => {
+    const created = chatStorage.createSession(selectedIncidentId || 'general');
+    setActiveSessionId(created.id);
+  };
+
+  const handleSelectSession = (id: string) => {
+    setActiveSessionId(id);
+    chatStorage.setActiveSessionId(id);
+  };
+
+  const handleIncidentChange = (newIncidentId: string) => {
+    if (!activeSession) return;
+    const targetInc = incidents.find((i) => i.incident_id === newIncidentId);
+    chatStorage.updateSessionIncident(
+      activeSession.id,
+      newIncidentId,
+      targetInc?.title
+    );
+  };
+
   const handleSendMessage = async (textToSend?: string) => {
     const query = textToSend || chatInput;
-    if (!query.trim() || chatLoading) return;
+    if (!query.trim() || chatLoading || !activeSession) return;
 
     const userMsg: AIChatMessage = {
       id: `user-${Date.now()}`,
@@ -71,13 +94,15 @@ export const FloatingAICopilot: React.FC = () => {
       text: query,
       timestamp: new Date().toLocaleTimeString(),
     };
-    setChatMessages((prev) => [...prev, userMsg]);
+
+    // Save user message to persistent storage immediately
+    chatStorage.addMessageToSession(activeSession.id, userMsg);
     setChatInput('');
     setChatLoading(true);
     setActionSuccessMsg(null);
 
     try {
-      const historyPayload = chatMessages.map((m) => ({
+      const historyPayload = activeSession.messages.map((m) => ({
         role: m.sender === 'user' ? 'user' : 'assistant',
         content: m.text,
       }));
@@ -98,7 +123,9 @@ export const FloatingAICopilot: React.FC = () => {
         suggested_actions: res.suggested_actions,
         is_live_gemini: res.is_live_gemini,
       };
-      setChatMessages((prev) => [...prev, botMsg]);
+
+      // Save bot response to persistent storage
+      chatStorage.addMessageToSession(activeSession.id, botMsg);
     } catch (err: any) {
       const errMsg: AIChatMessage = {
         id: `err-${Date.now()}`,
@@ -106,7 +133,7 @@ export const FloatingAICopilot: React.FC = () => {
         text: `⚠️ Query error: ${err?.message || err}`,
         timestamp: new Date().toLocaleTimeString(),
       };
-      setChatMessages((prev) => [...prev, errMsg]);
+      chatStorage.addMessageToSession(activeSession.id, errMsg);
     } finally {
       setChatLoading(false);
     }
@@ -125,15 +152,9 @@ export const FloatingAICopilot: React.FC = () => {
   };
 
   const handleClearChat = () => {
-    setChatMessages([
-      {
-        id: `clear-${Date.now()}`,
-        sender: 'assistant',
-        text: '🧹 Conversation cleared. How can I assist you with security operations?',
-        timestamp: new Date().toLocaleTimeString(),
-        suggested_actions: ['Explain Attack Narrative', 'Recommend Containment Plan'],
-      },
-    ]);
+    if (activeSession) {
+      chatStorage.clearSessionMessages(activeSession.id);
+    }
   };
 
   const selectedIncident = incidents.find((i) => i.incident_id === selectedIncidentId);
@@ -220,8 +241,8 @@ export const FloatingAICopilot: React.FC = () => {
             bottom: '24px',
             right: '24px',
             zIndex: 9999,
-            width: isMinimized ? '320px' : '440px',
-            height: isMinimized ? '52px' : '620px',
+            width: isMinimized ? '340px' : '460px',
+            height: isMinimized ? '52px' : '630px',
             maxHeight: 'calc(100vh - 48px)',
             maxWidth: 'calc(100vw - 32px)',
             background: 'rgba(15, 23, 42, 0.96)',
@@ -292,26 +313,47 @@ export const FloatingAICopilot: React.FC = () => {
               </div>
             </div>
 
-            {/* Window Controls */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', flexShrink: 0 }}>
+            {/* Window Controls & Chat Switcher */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}>
               {!isMinimized && (
-                <button
-                  onClick={handleClearChat}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: '#94a3b8',
-                    cursor: 'pointer',
-                    fontSize: '0.875rem',
-                    padding: '0.25rem 0.4rem',
-                    borderRadius: '4px',
-                  }}
-                  title="Clear conversation"
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#f8fafc')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#94a3b8')}
-                >
-                  🧹
-                </button>
+                <>
+                  <button
+                    onClick={handleNewChat}
+                    style={{
+                      background: 'rgba(124, 58, 237, 0.25)',
+                      border: '1px solid rgba(168, 85, 247, 0.4)',
+                      color: '#d8b4fe',
+                      cursor: 'pointer',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      padding: '0.2rem 0.5rem',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.2rem',
+                    }}
+                    title="Start New Chat"
+                  >
+                    + New
+                  </button>
+                  <button
+                    onClick={handleClearChat}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      color: '#94a3b8',
+                      cursor: 'pointer',
+                      fontSize: '0.875rem',
+                      padding: '0.25rem 0.4rem',
+                      borderRadius: '4px',
+                    }}
+                    title="Clear conversation"
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#f8fafc')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#94a3b8')}
+                  >
+                    🧹
+                  </button>
+                </>
               )}
               <button
                 onClick={() => setIsMinimized((prev) => !prev)}
@@ -353,71 +395,104 @@ export const FloatingAICopilot: React.FC = () => {
           {/* Body Content (Visible when not minimized) */}
           {!isMinimized && (
             <>
-              {/* Context Toolbar: Incident Dropdown Selector */}
+              {/* Context Toolbar: Chat Session Dropdown + Incident Selector */}
               <div
                 style={{
                   padding: '0.5rem 0.75rem',
                   background: '#0b1120',
                   borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
+                  flexDirection: 'column',
+                  gap: '0.35rem',
                 }}
               >
-                <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 500, whiteSpace: 'nowrap' }}>
-                  Context:
-                </span>
-                <select
-                  value={selectedIncidentId}
-                  onChange={(e) => setSelectedIncidentId(e.target.value)}
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                    padding: '0.35rem 0.5rem',
-                    background: '#1e293b',
-                    color: '#f8fafc',
-                    border: '1px solid #334155',
-                    borderRadius: '6px',
-                    fontSize: '0.75rem',
-                    fontFamily: 'inherit',
-                    outline: 'none',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <option value="general">🌐 Global SOC Copilot (All Telemetry)</option>
-                  {incidents.map((inc) => (
-                    <option key={inc.incident_id} value={inc.incident_id}>
-                      [{inc.severity.toUpperCase()}] {inc.incident_id} - {inc.title.slice(0, 32)}
-                    </option>
-                  ))}
-                </select>
-
-                {selectedIncident && selectedIncidentId !== 'general' && (
-                  <span
+                {/* Session Selector */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '0.6875rem', color: '#94a3b8', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                    Chat:
+                  </span>
+                  <select
+                    value={activeSessionId}
+                    onChange={(e) => handleSelectSession(e.target.value)}
                     style={{
-                      fontSize: '0.6875rem',
-                      fontWeight: 700,
-                      padding: '0.2rem 0.45rem',
+                      flex: 1,
+                      minWidth: 0,
+                      padding: '0.25rem 0.45rem',
+                      background: '#1e293b',
+                      color: '#f8fafc',
+                      border: '1px solid #334155',
                       borderRadius: '4px',
-                      background:
-                        selectedIncident.severity === 'critical'
-                          ? 'rgba(239, 68, 68, 0.2)'
-                          : selectedIncident.severity === 'high'
-                          ? 'rgba(249, 115, 22, 0.2)'
-                          : 'rgba(59, 130, 246, 0.2)',
-                      color:
-                        selectedIncident.severity === 'critical'
-                          ? '#ef4444'
-                          : selectedIncident.severity === 'high'
-                          ? '#f97316'
-                          : '#3b82f6',
-                      border: '1px solid currentColor',
-                      whiteSpace: 'nowrap',
+                      fontSize: '0.75rem',
+                      fontFamily: 'inherit',
+                      outline: 'none',
+                      cursor: 'pointer',
                     }}
                   >
-                    Risk {selectedIncident.risk_score.toFixed(0)}
+                    {sessions.map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {s.title} ({s.messages.length} msgs)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Incident Context Selector */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '0.6875rem', color: '#94a3b8', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                    Asset:
                   </span>
-                )}
+                  <select
+                    value={selectedIncidentId}
+                    onChange={(e) => handleIncidentChange(e.target.value)}
+                    style={{
+                      flex: 1,
+                      minWidth: 0,
+                      padding: '0.25rem 0.45rem',
+                      background: '#1e293b',
+                      color: '#f8fafc',
+                      border: '1px solid #334155',
+                      borderRadius: '4px',
+                      fontSize: '0.75rem',
+                      fontFamily: 'inherit',
+                      outline: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <option value="general">🌐 Global SOC Copilot (All Telemetry)</option>
+                    {incidents.map((inc) => (
+                      <option key={inc.incident_id} value={inc.incident_id}>
+                        [{inc.severity.toUpperCase()}] {inc.incident_id} - {inc.title.slice(0, 28)}
+                      </option>
+                    ))}
+                  </select>
+
+                  {selectedIncident && selectedIncidentId !== 'general' && (
+                    <span
+                      style={{
+                        fontSize: '0.65rem',
+                        fontWeight: 700,
+                        padding: '0.15rem 0.35rem',
+                        borderRadius: '3px',
+                        background:
+                          selectedIncident.severity === 'critical'
+                            ? 'rgba(239, 68, 68, 0.2)'
+                            : selectedIncident.severity === 'high'
+                            ? 'rgba(249, 115, 22, 0.2)'
+                            : 'rgba(59, 130, 246, 0.2)',
+                        color:
+                          selectedIncident.severity === 'critical'
+                            ? '#ef4444'
+                            : selectedIncident.severity === 'high'
+                            ? '#f97316'
+                            : '#3b82f6',
+                        border: '1px solid currentColor',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      Risk {selectedIncident.risk_score.toFixed(0)}
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Action Staged Notification Banner */}
@@ -455,8 +530,8 @@ export const FloatingAICopilot: React.FC = () => {
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      alignItems: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-                      maxWidth: '100%',
+                      alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                      maxWidth: '90%',
                     }}
                   >
                     <div
@@ -485,16 +560,13 @@ export const FloatingAICopilot: React.FC = () => {
                         color: '#f8fafc',
                         fontSize: '0.8125rem',
                         lineHeight: 1.5,
-                        maxWidth: '92%',
                         wordBreak: 'break-word',
                         border: msg.sender === 'user' ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
                         boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
                       }}
                     >
                       {/* Markdown prose rendering */}
-                      <div style={{ whiteSpace: 'pre-wrap' }}>
-                        {msg.text}
-                      </div>
+                      <div style={{ whiteSpace: 'pre-wrap' }}>{msg.text}</div>
 
                       {/* Evidence Citations */}
                       {msg.citations && msg.citations.length > 0 && (
@@ -550,7 +622,7 @@ export const FloatingAICopilot: React.FC = () => {
                             onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)')}
                             onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)')}
                           >
-                            ⚡ Stage Containment Actions
+                            ⚡ Stage Containment
                           </button>
                         </div>
                       )}
@@ -563,8 +635,8 @@ export const FloatingAICopilot: React.FC = () => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem' }}>
                     <div
                       style={{
-                        width: '20px',
-                        height: '20px',
+                        width: '18px',
+                        height: '18px',
                         border: '2px solid rgba(168, 85, 247, 0.3)',
                         borderTopColor: '#a855f7',
                         borderRadius: '50%',

@@ -122,6 +122,15 @@ export interface AIChatMessage {
   is_live_gemini?: boolean;
 }
 
+export interface ChatSession {
+  id: string;
+  title: string;
+  incident_id: string;
+  created_at: string;
+  updated_at: string;
+  messages: AIChatMessage[];
+}
+
 export interface AIChatResponse {
   answer: string;
   citations: string[];
