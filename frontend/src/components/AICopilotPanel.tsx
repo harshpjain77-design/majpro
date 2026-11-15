@@ -107,9 +107,15 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
     setChatLoading(true);
 
     try {
+      const historyPayload = chatMessages.map((m) => ({
+        role: m.sender === 'user' ? 'user' : 'assistant',
+        content: m.text,
+      }));
+
       const res = await api.chatWithAI({
         incident_id: selectedIncidentId,
         prompt: query,
+        history: historyPayload,
       });
       const botMsg: AIChatMessage = {
         id: `bot-${Date.now()}`,

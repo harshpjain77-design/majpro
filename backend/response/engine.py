@@ -283,9 +283,27 @@ class ResponseEngine:
             action_enum = type_map.get(rec.action_type.lower(), ActionType.REVIEW_AUDIT)
             priority_enum = priority_map.get(rec.priority.lower(), ActionPriority.MEDIUM)
 
-            # Determine target from parameters
+            # Determine target from parameters with defensive multi-key and text fallback
             params = rec.parameters or {}
-            target = params.get("ip") or params.get("username") or params.get("target") or params.get("host") or "incident_entities"
+            target = (
+                params.get("ip")
+                or params.get("ip_address")
+                or params.get("source_ip")
+                or params.get("username")
+                or params.get("user")
+                or params.get("account")
+                or params.get("target")
+                or params.get("host")
+                or params.get("hostname")
+            )
+            if not target and action_enum == ActionType.BLOCK_IP:
+                import re
+                ip_match = re.search(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", rec.recommendation)
+                if ip_match:
+                    target = ip_match.group(0)
+
+            if not target:
+                target = "incident_entities"
 
             proposal = ResponseActionProposal(
                 incident_id=incident_id,
