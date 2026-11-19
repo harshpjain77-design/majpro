@@ -464,7 +464,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div
         style={{
           borderTop: '1px solid var(--border-sidebar, rgba(255, 255, 255, 0.06))',
-          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          backgroundColor: 'var(--bg-tertiary)',
           padding: collapsed ? '12px 8px' : '12px 14px',
           flexShrink: 0
         }}
@@ -488,7 +488,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.06em',
-                  color: '#6b7280'
+                  color: 'var(--text-muted)'
                 }}
               >
                 <Activity size={13} color="#3b82f6" />
@@ -520,11 +520,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     fontSize: '0.72rem',
-                    color: '#9ca3af',
-                    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                    color: 'var(--text-secondary)',
+                    backgroundColor: 'var(--bg-surface)',
                     padding: '3px 6px',
                     borderRadius: '4px',
-                    border: '1px solid rgba(255, 255, 255, 0.03)'
+                    border: '1px solid var(--border-sidebar, rgba(255, 255, 255, 0.06))'
                   }}
                   title={`${item.name} (${item.status}) - ${item.latency || 'OK'}`}
                 >
@@ -538,13 +538,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         boxShadow: `0 0 6px ${getHealthColor(item.status)}`
                       }}
                     />
-                    <span style={{ fontSize: '0.7rem' }}>{item.name}</span>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 500 }}>{item.name}</span>
                   </div>
                   <span
                     style={{
                       fontSize: '0.65rem',
                       fontFamily: 'var(--font-mono, monospace)',
-                      color: '#6b7280'
+                      color: 'var(--text-muted)'
                     }}
                   >
                     {item.latency}
@@ -599,9 +599,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
             width: '100%',
             height: '28px',
             background: 'transparent',
-            border: '1px solid rgba(255, 255, 255, 0.04)',
+            border: '1px solid var(--border-sidebar, rgba(255, 255, 255, 0.06))',
             borderRadius: '4px',
-            color: '#6b7280',
+            color: 'var(--text-muted)',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
@@ -611,11 +611,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
             transition: 'all 0.15s ease'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = '#ffffff';
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+            e.currentTarget.style.color = 'var(--text-primary)';
+            e.currentTarget.style.backgroundColor = 'var(--bg-hover)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = '#6b7280';
+            e.currentTarget.style.color = 'var(--text-muted)';
             e.currentTarget.style.backgroundColor = 'transparent';
           }}
         >
