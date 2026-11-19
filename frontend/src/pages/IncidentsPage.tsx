@@ -52,8 +52,8 @@ export const IncidentsPage: React.FC = () => {
     <div style={{ padding: '0' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
         <AlertTriangle size={22} color="#f59e0b" />
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>Incident Management</h1>
-        <span style={{ fontSize: '0.8rem', color: '#6b7280', background: 'rgba(255,255,255,0.05)', padding: '0.2rem 0.6rem', borderRadius: 4 }}>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>Incident Management</h1>
+        <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', background: 'var(--bg-tertiary)', border: '1px solid var(--border-color)', padding: '0.2rem 0.6rem', borderRadius: 4 }}>
           {incidents.length} incidents
         </span>
       </div>

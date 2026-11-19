@@ -101,7 +101,7 @@ async def ingest_events(
 
 @router.post("/batch", response_model=IngestResponse, status_code=status.HTTP_200_OK)
 async def ingest_batch(
-    request: BatchIngestRequest,
+    request: Union[BatchIngestRequest, List[SecurityEvent]],
     agent_info: AgentInfo = Depends(get_agent_info),
     _rate_check: None = Depends(check_rate_limit),
 ) -> IngestResponse:

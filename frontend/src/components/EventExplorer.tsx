@@ -235,9 +235,9 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
                 flex: 1,
                 minWidth: '200px',
                 cursor: 'pointer',
-                background: sourceHost ? '#1e1b4b' : '#0f172a',
-                borderColor: sourceHost ? '#6366f1' : '#334155',
-                color: sourceHost ? '#a5b4fc' : '#f8fafc',
+                background: sourceHost ? 'var(--color-primary-bg)' : 'var(--bg-input)',
+                borderColor: sourceHost ? 'var(--color-primary)' : 'var(--border-input)',
+                color: sourceHost ? 'var(--color-primary)' : 'var(--text-primary)',
                 fontWeight: sourceHost ? 600 : 'normal'
               }}
             >
@@ -286,9 +286,9 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
               style={{
                 cursor: 'pointer',
                 minWidth: '180px',
-                background: '#0f172a',
-                borderColor: '#10b981',
-                color: '#34d399',
+                background: 'var(--bg-input)',
+                borderColor: 'var(--status-healthy)',
+                color: 'var(--status-healthy)',
                 fontWeight: 600
               }}
               title="Select sorting field and direction"
@@ -405,7 +405,7 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
       <div className="soc-card" style={{ overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
           <thead>
-            <tr style={{ background: '#0f172a', borderBottom: '1px solid #1e293b', color: '#94a3b8' }}>
+            <tr style={{ background: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
               <th
                 onClick={() => handleToggleSort('ingested_at')}
                 style={{ padding: '0.75rem 1rem', cursor: 'pointer', userSelect: 'none' }}
@@ -479,25 +479,25 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
                 <tr
                   key={evt.event_id}
                   style={{
-                    borderBottom: '1px solid #1e293b',
+                    borderBottom: '1px solid var(--border-color)',
                     transition: 'background 0.15s',
                     cursor: 'pointer'
                   }}
                   onClick={() => handleInspectEvent(evt)}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#1e293b55')}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-hover)')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
-                  <td className="font-mono" style={{ padding: '0.75rem 1rem', color: '#cbd5e1', fontSize: '0.75rem' }}>
-                    <div style={{ color: '#f8fafc', fontWeight: 600 }}>
+                  <td className="font-mono" style={{ padding: '0.75rem 1rem', color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
+                    <div style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
                       {formatTimestamp(evt.ingested_at || evt.observed_at || evt.timestamp)}
                     </div>
                     {evt.timestamp && (
-                      <div style={{ color: '#64748b', fontSize: '0.68rem', marginTop: '0.15rem' }}>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.68rem', marginTop: '0.15rem' }}>
                         Log: {formatTimestamp(evt.timestamp)}
                       </div>
                     )}
                   </td>
-                  <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: '#f8fafc' }}>
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                     {evt.event_type === 'system_heartbeat' ? (
                       <span style={{ color: '#34d399', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                         <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
@@ -561,22 +561,22 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
             {/* Modal Header */}
             <div style={{
               padding: '1.25rem 1.5rem',
-              borderBottom: '1px solid #1e293b',
+              borderBottom: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: '#0f172a'
+              background: 'var(--bg-elevated)'
             }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
                   <span className={`badge ${getSeverityBadgeClass(selectedEvent.severity)}`}>
                     {selectedEvent.severity}
                   </span>
-                  <span className="font-mono" style={{ fontSize: '0.8rem', color: '#38bdf8' }}>
+                  <span className="font-mono" style={{ fontSize: '0.8rem', color: '#0284c7' }}>
                     {selectedEvent.event_id}
                   </span>
                 </div>
-                <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#f8fafc' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                   Event Inspection: {selectedEvent.event_type}
                 </h3>
               </div>
@@ -593,26 +593,26 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
             {/* Modal Body */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {/* Canonical Fields Grid */}
-              <div className="soc-card" style={{ padding: '1rem', background: '#111827' }}>
-                <h4 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
+              <div className="soc-card" style={{ padding: '1rem', background: 'var(--bg-surface)' }}>
+                <h4 style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
                   Canonical Schema v1.0 Attributes
                 </h4>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', fontSize: '0.8rem' }}>
-                  <div><span style={{ color: '#64748b' }}>Received (Ingested):</span> <strong className="font-mono" style={{ color: '#38bdf8' }}>{selectedEvent.ingested_at || selectedEvent.observed_at}</strong></div>
-                  <div><span style={{ color: '#64748b' }}>Event Timestamp:</span> <strong className="font-mono" style={{ color: '#cbd5e1' }}>{selectedEvent.timestamp}</strong></div>
-                  <div><span style={{ color: '#64748b' }}>Source Host:</span> <strong className="font-mono" style={{ color: '#a78bfa' }}>{selectedEvent.source_host}</strong></div>
-                  <div><span style={{ color: '#64748b' }}>Source Type:</span> <strong className="font-mono" style={{ color: '#cbd5e1' }}>{selectedEvent.source_type}</strong></div>
-                  <div><span style={{ color: '#64748b' }}>Username:</span> <strong className="font-mono" style={{ color: '#fbbf24' }}>{selectedEvent.username || 'null'}</strong></div>
-                  <div><span style={{ color: '#64748b' }}>Source IP:</span> <strong className="font-mono" style={{ color: '#38bdf8' }}>{selectedEvent.source_ip || 'null'}</strong></div>
-                  <div><span style={{ color: '#64748b' }}>Destination IP:</span> <strong className="font-mono" style={{ color: '#cbd5e1' }}>{selectedEvent.destination_ip || 'null'}</strong></div>
-                  <div><span style={{ color: '#64748b' }}>Windows Event ID:</span> <strong className="font-mono" style={{ color: '#cbd5e1' }}>{selectedEvent.windows_event_id || 'null'}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Received (Ingested):</span> <strong className="font-mono" style={{ color: '#0284c7' }}>{selectedEvent.ingested_at || selectedEvent.observed_at}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Event Timestamp:</span> <strong className="font-mono" style={{ color: 'var(--text-primary)' }}>{selectedEvent.timestamp}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Source Host:</span> <strong className="font-mono" style={{ color: '#7c3aed' }}>{selectedEvent.source_host}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Source Type:</span> <strong className="font-mono" style={{ color: 'var(--text-primary)' }}>{selectedEvent.source_type}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Username:</span> <strong className="font-mono" style={{ color: '#d97706' }}>{selectedEvent.username || 'null'}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Source IP:</span> <strong className="font-mono" style={{ color: '#0284c7' }}>{selectedEvent.source_ip || 'null'}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Destination IP:</span> <strong className="font-mono" style={{ color: 'var(--text-primary)' }}>{selectedEvent.destination_ip || 'null'}</strong></div>
+                  <div><span style={{ color: 'var(--text-muted)' }}>Windows Event ID:</span> <strong className="font-mono" style={{ color: 'var(--text-primary)' }}>{selectedEvent.windows_event_id || 'null'}</strong></div>
                 </div>
               </div>
 
               {/* Raw Event Text */}
-              <div className="soc-card" style={{ padding: '1rem', background: '#0f172a' }}>
+              <div className="soc-card" style={{ padding: '1rem', background: 'var(--bg-surface)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', fontSize: '0.85rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
                     <FileCode size={15} />
                     <strong>Raw Original Log Entry</strong>
                   </div>
@@ -622,12 +622,12 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
                   </button>
                 </div>
                 <pre className="font-mono" style={{
-                  background: '#090d16',
+                  background: 'var(--bg-tertiary)',
                   padding: '0.75rem',
                   borderRadius: '6px',
-                  border: '1px solid #1e293b',
+                  border: '1px solid var(--border-color)',
                   fontSize: '0.78rem',
-                  color: '#e2e8f0',
+                  color: 'var(--text-primary)',
                   overflowX: 'auto',
                   whiteSpace: 'pre-wrap',
                   wordBreak: 'break-all'
@@ -639,8 +639,8 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
               {/* Explain with AI Action & Card */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Sparkles size={16} color="#a855f7" />
+                  <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Sparkles size={16} color="var(--color-ai)" />
                     AI Event Semantic Analysis
                   </h4>
                   <button
@@ -663,21 +663,21 @@ export const EventExplorer: React.FC<EventExplorerProps> = ({
                 </div>
 
                 {aiExplanation && (
-                  <div className="soc-card" style={{ padding: '1rem', background: 'rgba(139, 92, 246, 0.08)', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
+                  <div className="soc-card" style={{ padding: '1rem', background: 'var(--color-ai-bg)', border: '1px solid var(--color-ai-border)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#a78bfa', fontWeight: 600 }}>Summary</div>
-                        <div style={{ fontSize: '0.875rem', color: '#f8fafc' }}>{aiExplanation.summary}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-ai)', fontWeight: 600 }}>Summary</div>
+                        <div style={{ fontSize: '0.875rem', color: 'var(--text-primary)' }}>{aiExplanation.summary}</div>
                       </div>
 
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#a78bfa', fontWeight: 600 }}>Security Significance</div>
-                        <div style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>{aiExplanation.security_significance}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-ai)', fontWeight: 600 }}>Security Significance</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{aiExplanation.security_significance}</div>
                       </div>
 
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#a78bfa', fontWeight: 600 }}>Forensic Recommendation</div>
-                        <div style={{ fontSize: '0.85rem', color: '#38bdf8' }}>{aiExplanation.recommendation}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-ai)', fontWeight: 600 }}>Forensic Recommendation</div>
+                        <div style={{ fontSize: '0.85rem', color: '#0284c7' }}>{aiExplanation.recommendation}</div>
                       </div>
                     </div>
                   </div>

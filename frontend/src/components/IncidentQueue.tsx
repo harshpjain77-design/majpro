@@ -185,10 +185,10 @@ export const IncidentQueue: React.FC<IncidentQueueProps> = ({
       {filteredIncidents.length === 0 ? (
         <div className="soc-card" style={{ padding: '3.5rem 2rem', textAlign: 'center' }}>
           <ShieldCheck size={48} color="#10b981" style={{ margin: '0 auto 1rem' }} />
-          <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: '#f8fafc' }}>
+          <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
             No Incidents Match Active Filters
           </h3>
-          <p style={{ color: '#94a3b8', maxWidth: '500px', margin: '0 auto' }}>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '500px', margin: '0 auto' }}>
             Zero incidents in this view. As the ingestion pipeline and correlation engine process alerts, correlated security incidents will appear here for analyst triage.
           </p>
         </div>
@@ -236,7 +236,7 @@ export const IncidentQueue: React.FC<IncidentQueueProps> = ({
                       </span>
                     </div>
 
-                    <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#f8fafc', marginBottom: '0.4rem' }}>
+                    <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
                       {incident.title}
                     </h4>
 
@@ -247,12 +247,12 @@ export const IncidentQueue: React.FC<IncidentQueueProps> = ({
                           key={ip}
                           className="font-mono"
                           style={{
-                            background: '#1e293b',
-                            border: '1px solid #334155',
+                            background: 'var(--bg-tertiary)',
+                            border: '1px solid var(--border-color)',
                             padding: '0.15rem 0.5rem',
                             borderRadius: '4px',
                             fontSize: '0.75rem',
-                            color: '#38bdf8',
+                            color: '#0284c7',
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '0.3rem'
@@ -268,12 +268,12 @@ export const IncidentQueue: React.FC<IncidentQueueProps> = ({
                           key={user}
                           className="font-mono"
                           style={{
-                            background: '#1e293b',
-                            border: '1px solid #334155',
+                            background: 'var(--bg-tertiary)',
+                            border: '1px solid var(--border-color)',
                             padding: '0.15rem 0.5rem',
                             borderRadius: '4px',
                             fontSize: '0.75rem',
-                            color: '#fbbf24',
+                            color: '#d97706',
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '0.3rem'
@@ -289,12 +289,12 @@ export const IncidentQueue: React.FC<IncidentQueueProps> = ({
                           key={host}
                           className="font-mono"
                           style={{
-                            background: '#1e293b',
-                            border: '1px solid #334155',
+                            background: 'var(--bg-tertiary)',
+                            border: '1px solid var(--border-color)',
                             padding: '0.15rem 0.5rem',
                             borderRadius: '4px',
                             fontSize: '0.75rem',
-                            color: '#a78bfa',
+                            color: '#7c3aed',
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '0.3rem'
@@ -407,21 +407,21 @@ export const IncidentQueue: React.FC<IncidentQueueProps> = ({
 
                 {/* Sub-footer stats */}
                 <div style={{
-                  borderTop: '1px solid #1e293b',
+                  borderTop: '1px solid var(--border-color)',
                   paddingTop: '0.65rem',
                   marginTop: '0.65rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   fontSize: '0.75rem',
-                  color: '#64748b'
+                  color: 'var(--text-muted)'
                 }}>
                   <div style={{ display: 'flex', gap: '1rem' }}>
-                    <span>Correlated Alerts: <strong style={{ color: '#e2e8f0' }}>{incident.related_alert_ids.length}</strong></span>
-                    <span>Correlated Events: <strong style={{ color: '#e2e8f0' }}>{incident.related_event_ids.length}</strong></span>
-                    <span>Analyst Notes: <strong style={{ color: '#e2e8f0' }}>{incident.analyst_notes?.length || 0}</strong></span>
+                    <span>Correlated Alerts: <strong style={{ color: 'var(--text-primary)' }}>{incident.related_alert_ids.length}</strong></span>
+                    <span>Correlated Events: <strong style={{ color: 'var(--text-primary)' }}>{incident.related_event_ids.length}</strong></span>
+                    <span>Analyst Notes: <strong style={{ color: 'var(--text-primary)' }}>{incident.analyst_notes?.length || 0}</strong></span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#94a3b8' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-secondary)' }}>
                     <span>View full dossier</span>
                     <ChevronRight size={14} />
                   </div>

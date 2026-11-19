@@ -196,7 +196,7 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       {/* 1. Safety Guardrails & Status Top Banner */}
-      <div className="soc-card" style={{ padding: '1.25rem', background: '#0f172a' }}>
+      <div className="soc-card" style={{ padding: '1.25rem' }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -206,15 +206,15 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-              <ShieldAlert size={20} color="#38bdf8" />
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#f8fafc' }}>
+              <ShieldAlert size={20} color="#0284c7" />
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 Controlled Automated Response Engine
               </h3>
               <span className="badge badge-success" style={{ fontSize: '0.7rem' }}>
                 Dry-Run Safe Mode
               </span>
             </div>
-            <p style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
               Approval-gated containment • Reversible firewall/account policies • Safety allowlists protecting gateways & root accounts
             </p>
           </div>
@@ -242,7 +242,7 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
           gap: '0.75rem',
           marginTop: '1rem',
           paddingTop: '0.85rem',
-          borderTop: '1px solid #1e293b'
+          borderTop: '1px solid var(--border-color)'
         }}>
           <div style={{
             background: 'rgba(16, 185, 129, 0.08)',
@@ -371,10 +371,10 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
       {actions.length === 0 ? (
         <div className="soc-card" style={{ padding: '3.5rem 2rem', textAlign: 'center' }}>
           <ShieldCheck size={44} color="#10b981" style={{ margin: '0 auto 1rem' }} />
-          <h4 style={{ fontSize: '1.15rem', color: '#f8fafc', marginBottom: '0.5rem' }}>
+          <h4 style={{ fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
             No Response Actions in this View
           </h4>
-          <p style={{ color: '#94a3b8', maxWidth: '500px', margin: '0 auto', fontSize: '0.85rem' }}>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '500px', margin: '0 auto', fontSize: '0.85rem' }}>
             Response actions are proposed automatically by the AI Copilot during incident investigations, or can be proposed manually by analysts above.
           </p>
         </div>
@@ -398,28 +398,28 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
                     <span className={`badge ${getPriorityBadge(act.priority)}`}>
                       {act.priority}
                     </span>
-                    <span className="font-mono" style={{ fontSize: '0.8rem', color: '#38bdf8', fontWeight: 600 }}>
+                    <span className="font-mono" style={{ fontSize: '0.8rem', color: '#0284c7', fontWeight: 600 }}>
                       {act.action_type.toUpperCase()}
                     </span>
-                    <span className="font-mono" style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                    <span className="font-mono" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                       [{act.action_id}]
                     </span>
-                    <span style={{ fontSize: '0.75rem', color: '#64748b' }}>•</span>
-                    <span className="font-mono" style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>•</span>
+                    <span className="font-mono" style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                       Incident: {act.incident_id}
                     </span>
                   </div>
 
                   {/* Target & Reason */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', margin: '0.4rem 0' }}>
-                    <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Target:</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Target:</span>
                     <span className="font-mono" style={{
-                      background: '#1e293b',
-                      border: '1px solid #334155',
+                      background: 'var(--bg-tertiary)',
+                      border: '1px solid var(--border-color)',
                       padding: '0.15rem 0.5rem',
                       borderRadius: '4px',
                       fontSize: '0.85rem',
-                      color: '#fbbf24',
+                      color: '#d97706',
                       fontWeight: 600
                     }}>
                       {act.target}
@@ -453,19 +453,19 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
                   {/* Execution Output if executed/simulated */}
                   {act.execution_output && (
                     <div style={{
-                      background: '#090d16',
-                      border: '1px solid #1e293b',
+                      background: 'var(--bg-tertiary)',
+                      border: '1px solid var(--border-color)',
                       padding: '0.5rem 0.75rem',
                       borderRadius: '4px',
                       fontSize: '0.75rem',
-                      color: '#94a3b8',
+                      color: 'var(--text-secondary)',
                       marginTop: '0.5rem'
                     }}>
                       <div>
-                        Command: <code className="font-mono" style={{ color: '#38bdf8' }}>{act.execution_output.applied_command || act.execution_output.simulated_command || 'Internal mitigation'}</code>
+                        Command: <code className="font-mono" style={{ color: '#0284c7' }}>{act.execution_output.applied_command || act.execution_output.simulated_command || 'Internal mitigation'}</code>
                       </div>
                       {act.executed_at && (
-                        <div style={{ fontSize: '0.7rem', color: '#64748b', marginTop: '0.2rem' }}>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
                           Executed At: {act.executed_at}
                         </div>
                       )}
@@ -525,19 +525,19 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
 
               {/* Sub-footer audit info */}
               <div style={{
-                borderTop: '1px solid #1e293b',
+                borderTop: '1px solid var(--border-color)',
                 paddingTop: '0.5rem',
                 marginTop: '0.75rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 fontSize: '0.72rem',
-                color: '#64748b'
+                color: 'var(--text-muted)'
               }}>
                 <div>
-                  Requested by: <strong style={{ color: '#cbd5e1' }}>{act.requested_by}</strong>
+                  Requested by: <strong style={{ color: 'var(--text-primary)' }}>{act.requested_by}</strong>
                   {act.approved_by && (
-                    <span> • Approved by: <strong style={{ color: '#38bdf8' }}>{act.approved_by}</strong></span>
+                    <span> • Approved by: <strong style={{ color: '#0284c7' }}>{act.approved_by}</strong></span>
                   )}
                 </div>
                 <div>Created: {act.created_at}</div>
@@ -553,13 +553,13 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
           <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '600px' }}>
             <div style={{
               padding: '1.25rem',
-              borderBottom: '1px solid #1e293b',
+              borderBottom: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: '#0f172a'
+              background: 'var(--bg-elevated)'
             }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#f8fafc' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 {modalMode === 'approve' && 'Approve Response Action'}
                 {modalMode === 'execute' && 'Execute Response Action'}
                 {modalMode === 'rollback' && 'Roll Back Response Action'}
@@ -574,9 +574,9 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
             </div>
 
             <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ background: '#090d16', padding: '0.75rem 1rem', borderRadius: '6px', border: '1px solid #1e293b', fontSize: '0.85rem' }}>
-                <div>Action: <strong style={{ color: '#38bdf8' }}>{activeModalAction.action_type.toUpperCase()}</strong> on <strong className="font-mono" style={{ color: '#fbbf24' }}>{activeModalAction.target}</strong></div>
-                <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.25rem' }}>{activeModalAction.reason}</div>
+              <div style={{ background: 'var(--bg-tertiary)', padding: '0.75rem 1rem', borderRadius: '6px', border: '1px solid var(--border-color)', fontSize: '0.85rem' }}>
+                <div>Action: <strong style={{ color: '#0284c7' }}>{activeModalAction.action_type.toUpperCase()}</strong> on <strong className="font-mono" style={{ color: '#d97706' }}>{activeModalAction.target}</strong></div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>{activeModalAction.reason}</div>
               </div>
 
               <div>
@@ -629,12 +629,12 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
 
             <div style={{
               padding: '1rem 1.25rem',
-              borderTop: '1px solid #1e293b',
+              borderTop: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-end',
               gap: '0.75rem',
-              background: '#0f172a'
+              background: 'var(--bg-elevated)'
             }}>
               <button
                 onClick={() => { setActiveModalAction(null); setModalMode(null); }}
@@ -686,13 +686,13 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
           <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '600px' }}>
             <div style={{
               padding: '1.25rem',
-              borderBottom: '1px solid #1e293b',
+              borderBottom: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: '#0f172a'
+              background: 'var(--bg-elevated)'
             }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#f8fafc' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 Propose Containment Response Action
               </h3>
               <button
@@ -790,7 +790,7 @@ export const ResponseConsole: React.FC<ResponseConsoleProps> = ({
 
               <div style={{
                 paddingTop: '0.75rem',
-                borderTop: '1px solid #1e293b',
+                borderTop: '1px solid var(--border-color)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-end',

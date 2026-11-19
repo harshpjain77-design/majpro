@@ -50,8 +50,8 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header style={{
-      backgroundColor: '#0f172a',
-      borderBottom: '1px solid #1e293b',
+      backgroundColor: 'var(--bg-topbar)',
+      borderBottom: '1px solid var(--border-topbar)',
       padding: '0.875rem 2rem',
       position: 'sticky',
       top: 0,
@@ -80,12 +80,12 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontWeight: 700, fontSize: '1.05rem', letterSpacing: '-0.02em', color: '#f8fafc' }}>
+                <span style={{ fontWeight: 700, fontSize: '1.05rem', letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
                   AI Cyber Defense Platform
                 </span>
                 <span className="badge badge-ai" style={{ fontSize: '0.65rem' }}>SOC v1.0</span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span>Autonomous Detection & Triage</span>
                 <span>•</span>
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', color: '#10b981' }}>
@@ -103,11 +103,11 @@ export const Header: React.FC<HeaderProps> = ({
             gap: '0.75rem',
             marginLeft: '1rem',
             paddingLeft: '1rem',
-            borderLeft: '1px solid #1e293b'
+            borderLeft: '1px solid var(--border-color)'
           }}>
             <div style={{
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid #334155',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-color)',
               padding: '0.25rem 0.65rem',
               borderRadius: '6px',
               fontSize: '0.75rem',
@@ -116,13 +116,13 @@ export const Header: React.FC<HeaderProps> = ({
               gap: '0.5rem'
             }}>
               <GitMerge size={14} color="#06b6d4" />
-              <span style={{ color: '#94a3b8' }}>Alert Reduction:</span>
-              <strong style={{ color: '#38bdf8' }}>{dedupRatio > 0 ? `${dedupRatio}%` : '88.9%'}</strong>
+              <span style={{ color: 'var(--text-secondary)' }}>Alert Reduction:</span>
+              <strong style={{ color: '#0284c7' }}>{dedupRatio > 0 ? `${dedupRatio}%` : '88.9%'}</strong>
             </div>
 
             <div style={{
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid #334155',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-color)',
               padding: '0.25rem 0.65rem',
               borderRadius: '6px',
               fontSize: '0.75rem',
@@ -131,8 +131,8 @@ export const Header: React.FC<HeaderProps> = ({
               gap: '0.5rem'
             }}>
               <AlertTriangle size={14} color="#f59e0b" />
-              <span style={{ color: '#94a3b8' }}>Active Incidents:</span>
-              <strong style={{ color: '#fbbf24' }}>{incidentCount}</strong>
+              <span style={{ color: 'var(--text-secondary)' }}>Active Incidents:</span>
+              <strong style={{ color: '#d97706' }}>{incidentCount}</strong>
             </div>
           </div>
         </div>
@@ -143,9 +143,9 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('incidents')}
             className="btn"
             style={{
-              background: activeTab === 'incidents' ? '#1e293b' : 'transparent',
-              color: activeTab === 'incidents' ? '#38bdf8' : '#94a3b8',
-              border: activeTab === 'incidents' ? '1px solid #38bdf8' : '1px solid transparent',
+              background: activeTab === 'incidents' ? 'var(--bg-tertiary)' : 'transparent',
+              color: activeTab === 'incidents' ? 'var(--color-primary)' : 'var(--text-secondary)',
+              border: activeTab === 'incidents' ? '1px solid var(--color-primary)' : '1px solid transparent',
               fontWeight: activeTab === 'incidents' ? 600 : 500,
             }}
           >
@@ -169,9 +169,9 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('events')}
             className="btn"
             style={{
-              background: activeTab === 'events' ? '#1e293b' : 'transparent',
-              color: activeTab === 'events' ? '#38bdf8' : '#94a3b8',
-              border: activeTab === 'events' ? '1px solid #38bdf8' : '1px solid transparent',
+              background: activeTab === 'events' ? 'var(--bg-tertiary)' : 'transparent',
+              color: activeTab === 'events' ? 'var(--color-primary)' : 'var(--text-secondary)',
+              border: activeTab === 'events' ? '1px solid var(--color-primary)' : '1px solid transparent',
               fontWeight: activeTab === 'events' ? 600 : 500,
             }}
           >
@@ -183,13 +183,13 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('ai-copilot')}
             className="btn"
             style={{
-              background: activeTab === 'ai-copilot' ? 'rgba(139, 92, 246, 0.15)' : 'transparent',
-              color: activeTab === 'ai-copilot' ? '#c084fc' : '#94a3b8',
-              border: activeTab === 'ai-copilot' ? '1px solid #a855f7' : '1px solid transparent',
+              background: activeTab === 'ai-copilot' ? 'var(--color-ai-bg)' : 'transparent',
+              color: activeTab === 'ai-copilot' ? 'var(--color-ai)' : 'var(--text-secondary)',
+              border: activeTab === 'ai-copilot' ? '1px solid var(--color-ai-border)' : '1px solid transparent',
               fontWeight: activeTab === 'ai-copilot' ? 600 : 500,
             }}
           >
-            <Sparkles size={16} color={activeTab === 'ai-copilot' ? '#c084fc' : '#94a3b8'} />
+            <Sparkles size={16} color={activeTab === 'ai-copilot' ? 'var(--color-ai)' : 'var(--text-secondary)'} />
             AI Copilot
           </button>
 
@@ -198,12 +198,12 @@ export const Header: React.FC<HeaderProps> = ({
             className="btn"
             style={{
               background: activeTab === 'response' ? 'rgba(16, 185, 129, 0.15)' : 'transparent',
-              color: activeTab === 'response' ? '#10b981' : '#94a3b8',
+              color: activeTab === 'response' ? '#10b981' : 'var(--text-secondary)',
               border: activeTab === 'response' ? '1px solid #10b981' : '1px solid transparent',
               fontWeight: activeTab === 'response' ? 600 : 500,
             }}
           >
-            <ShieldAlert size={16} color={activeTab === 'response' ? '#10b981' : '#94a3b8'} />
+            <ShieldAlert size={16} color={activeTab === 'response' ? '#10b981' : 'var(--text-secondary)'} />
             Response & Containment
           </button>
 
@@ -211,9 +211,9 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('metrics')}
             className="btn"
             style={{
-              background: activeTab === 'metrics' ? '#1e293b' : 'transparent',
-              color: activeTab === 'metrics' ? '#38bdf8' : '#94a3b8',
-              border: activeTab === 'metrics' ? '1px solid #38bdf8' : '1px solid transparent',
+              background: activeTab === 'metrics' ? 'var(--bg-tertiary)' : 'transparent',
+              color: activeTab === 'metrics' ? 'var(--color-primary)' : 'var(--text-secondary)',
+              border: activeTab === 'metrics' ? '1px solid var(--color-primary)' : '1px solid transparent',
               fontWeight: activeTab === 'metrics' ? 600 : 500,
             }}
           >

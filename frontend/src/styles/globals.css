@@ -819,13 +819,61 @@ textarea {
   color: var(--text-primary);
 }
 
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .soc-card {
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+}
+
+[data-theme="light"] .modal-content {
+  background-color: var(--bg-elevated);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
 [data-theme="light"] input,
 [data-theme="light"] select,
 [data-theme="light"] textarea {
+  background-color: var(--bg-input);
+  border-color: var(--border-input);
   color: var(--text-primary);
 }
 
 [data-theme="light"] input::placeholder,
 [data-theme="light"] textarea::placeholder {
   color: var(--text-muted);
+}
+
+[data-theme="light"] table th {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="light"] table td {
+  border-bottom-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] pre,
+[data-theme="light"] code {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="light"] .badge-neutral {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
 }

@@ -311,7 +311,7 @@ export const EntitiesPage: React.FC = () => {
               <UserCheck size={16} />
             </div>
             <div>
-              <div style={{ fontWeight: 600, color: '#f8fafc', fontSize: '0.875rem' }}>{u.username}</div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.875rem' }}>{u.username}</div>
               <div style={{ marginTop: '0.2rem' }}>{renderAccountTypeBadge(u.account_type)}</div>
             </div>
           </div>
@@ -322,7 +322,7 @@ export const EntitiesPage: React.FC = () => {
         header: 'Event Volume',
         render: (u) => (
           <div>
-            <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '0.85rem' }}>
+            <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.85rem' }}>
               {u.total_events.toLocaleString()} events
             </div>
             <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
@@ -359,7 +359,7 @@ export const EntitiesPage: React.FC = () => {
         render: (u) => (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <SeverityBadge severity={u.risk_tier as SeverityLevel} size="sm" />
-            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#e2e8f0' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {u.risk_score}
             </span>
           </div>
@@ -411,9 +411,9 @@ export const EntitiesPage: React.FC = () => {
             }}
             style={{
               padding: '0.35rem 0.75rem',
-              backgroundColor: '#1e293b',
-              color: '#38bdf8',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
+              backgroundColor: 'var(--bg-tertiary)',
+              color: 'var(--color-primary)',
+              border: '1px solid var(--border-color)',
               borderRadius: '6px',
               fontSize: '0.75rem',
               fontWeight: 500,
@@ -424,12 +424,12 @@ export const EntitiesPage: React.FC = () => {
               transition: 'all 0.15s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#0284c7';
+              e.currentTarget.style.backgroundColor = 'var(--color-primary)';
               e.currentTarget.style.color = '#ffffff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#1e293b';
-              e.currentTarget.style.color = '#38bdf8';
+              e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+              e.currentTarget.style.color = 'var(--color-primary)';
             }}
           >
             Investigate
@@ -463,7 +463,7 @@ export const EntitiesPage: React.FC = () => {
               <Globe size={16} />
             </div>
             <div>
-              <div style={{ fontFamily: 'monospace', fontWeight: 600, color: '#f8fafc', fontSize: '0.875rem' }}>
+              <div style={{ fontFamily: 'monospace', fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.875rem' }}>
                 {item.ip}
               </div>
               <div style={{ marginTop: '0.2rem' }}>{renderScopeBadge(item.scope)}</div>
@@ -479,9 +479,9 @@ export const EntitiesPage: React.FC = () => {
             {item.risk_tier === 'critical' || item.risk_tier === 'high' ? (
               <AlertTriangle size={14} color="#f97316" />
             ) : (
-              <Activity size={14} color="#38bdf8" />
+              <Activity size={14} color="#0284c7" />
             )}
-            <span style={{ fontSize: '0.8125rem', color: '#e2e8f0', fontWeight: 500 }}>
+            <span style={{ fontSize: '0.8125rem', color: 'var(--text-primary)', fontWeight: 500 }}>
               {item.threat_tag}
             </span>
           </div>
@@ -492,7 +492,7 @@ export const EntitiesPage: React.FC = () => {
         header: 'Attack Footprint',
         render: (item) => (
           <div>
-            <div style={{ fontSize: '0.8125rem', color: '#e2e8f0' }}>
+            <div style={{ fontSize: '0.8125rem', color: 'var(--text-primary)' }}>
               <strong>{item.target_users_count}</strong> {item.target_users_count === 1 ? 'user' : 'users'} targeted
             </div>
             <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
@@ -505,7 +505,7 @@ export const EntitiesPage: React.FC = () => {
         key: 'total_events',
         header: 'Total Traffic',
         render: (item) => (
-          <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e2e8f0' }}>
+          <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             {item.total_events.toLocaleString()} pkts / evts
           </span>
         ),
@@ -516,7 +516,7 @@ export const EntitiesPage: React.FC = () => {
         render: (item) => (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <SeverityBadge severity={item.risk_tier as SeverityLevel} size="sm" />
-            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#e2e8f0' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {item.risk_score}
             </span>
           </div>
@@ -539,9 +539,9 @@ export const EntitiesPage: React.FC = () => {
             }}
             style={{
               padding: '0.35rem 0.75rem',
-              backgroundColor: '#1e293b',
-              color: '#38bdf8',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
+              backgroundColor: 'var(--bg-tertiary)',
+              color: 'var(--color-primary)',
+              border: '1px solid var(--border-color)',
               borderRadius: '6px',
               fontSize: '0.75rem',
               fontWeight: 500,
@@ -552,12 +552,12 @@ export const EntitiesPage: React.FC = () => {
               transition: 'all 0.15s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#0284c7';
+              e.currentTarget.style.backgroundColor = 'var(--color-primary)';
               e.currentTarget.style.color = '#ffffff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#1e293b';
-              e.currentTarget.style.color = '#38bdf8';
+              e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+              e.currentTarget.style.color = 'var(--color-primary)';
             }}
           >
             Investigate
@@ -591,7 +591,7 @@ export const EntitiesPage: React.FC = () => {
               <Server size={16} />
             </div>
             <div>
-              <div style={{ fontWeight: 600, color: '#f8fafc', fontSize: '0.875rem' }}>{item.hostname}</div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.875rem' }}>{item.hostname}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem' }}>
                 <span
                   style={{
@@ -600,8 +600,9 @@ export const EntitiesPage: React.FC = () => {
                     fontWeight: 600,
                     padding: '0.1rem 0.4rem',
                     borderRadius: '4px',
-                    backgroundColor: '#1e293b',
-                    color: '#94a3b8',
+                    backgroundColor: 'var(--bg-tertiary)',
+                    color: 'var(--text-secondary)',
+                    border: '1px solid var(--border-color)',
                   }}
                 >
                   {item.os_type}
@@ -623,7 +624,7 @@ export const EntitiesPage: React.FC = () => {
         key: 'events',
         header: 'Total Events Logged',
         render: (item) => (
-          <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e2e8f0' }}>
+          <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             {item.total_events.toLocaleString()}
           </span>
         ),
@@ -633,10 +634,10 @@ export const EntitiesPage: React.FC = () => {
         header: 'Active Users',
         render: (item) => (
           <div>
-            <div style={{ fontSize: '0.8125rem', color: '#e2e8f0', fontWeight: 500 }}>
+            <div style={{ fontSize: '0.8125rem', color: 'var(--text-primary)', fontWeight: 500 }}>
               {item.users_count} {item.users_count === 1 ? 'user' : 'users'}
             </div>
-            <div style={{ fontSize: '0.72rem', color: '#94a3b8', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {item.users.slice(0, 3).join(', ')}
             </div>
           </div>
@@ -677,7 +678,7 @@ export const EntitiesPage: React.FC = () => {
         render: (item) => (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <SeverityBadge severity={item.risk_tier as SeverityLevel} size="sm" />
-            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#e2e8f0' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {item.risk_score}
             </span>
           </div>
@@ -695,9 +696,9 @@ export const EntitiesPage: React.FC = () => {
             }}
             style={{
               padding: '0.35rem 0.75rem',
-              backgroundColor: '#1e293b',
-              color: '#38bdf8',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
+              backgroundColor: 'var(--bg-tertiary)',
+              color: 'var(--color-primary)',
+              border: '1px solid var(--border-color)',
               borderRadius: '6px',
               fontSize: '0.75rem',
               fontWeight: 500,
@@ -708,12 +709,12 @@ export const EntitiesPage: React.FC = () => {
               transition: 'all 0.15s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#0284c7';
+              e.currentTarget.style.backgroundColor = 'var(--color-primary)';
               e.currentTarget.style.color = '#ffffff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#1e293b';
-              e.currentTarget.style.color = '#38bdf8';
+              e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+              e.currentTarget.style.color = 'var(--color-primary)';
             }}
           >
             Investigate
@@ -755,10 +756,10 @@ export const EntitiesPage: React.FC = () => {
             <Users size={22} />
           </div>
           <div>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#f8fafc', margin: 0 }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>
               Entity Explorer & Asset Intelligence
             </h1>
-            <p style={{ margin: 0, fontSize: '0.85rem', color: '#94a3b8' }}>
+            <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
               Holistic profile tracking across user accounts, network IP entities, and monitored host endpoints.
             </p>
           </div>
@@ -772,9 +773,9 @@ export const EntitiesPage: React.FC = () => {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.5rem 1rem',
-            backgroundColor: '#1e293b',
-            color: '#e2e8f0',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'var(--bg-tertiary)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border-color)',
             borderRadius: '8px',
             fontSize: '0.8125rem',
             fontWeight: 500,
@@ -841,17 +842,17 @@ export const EntitiesPage: React.FC = () => {
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '1rem',
-          backgroundColor: '#111827',
+          backgroundColor: 'var(--bg-surface)',
           padding: '0.75rem 1rem',
           borderRadius: '10px',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          border: '1px solid var(--border-color)',
         }}
       >
         {/* Search Input */}
         <div style={{ position: 'relative', flex: '1', minWidth: '240px', maxWidth: '420px' }}>
           <Search
             size={16}
-            style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }}
+            style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }}
           />
           <input
             type="text"
@@ -860,9 +861,9 @@ export const EntitiesPage: React.FC = () => {
             placeholder="Search username, IP, host, or threat behavior..."
             style={{
               width: '100%',
-              backgroundColor: '#1e293b',
-              color: '#f8fafc',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-input)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-input)',
               borderRadius: '6px',
               padding: '0.45rem 0.75rem 0.45rem 2.25rem',
               fontSize: '0.8125rem',
@@ -873,7 +874,7 @@ export const EntitiesPage: React.FC = () => {
 
         {/* Risk Tier Filter Pills */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginRight: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginRight: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
             <SlidersHorizontal size={13} />
             Risk Filter:
           </span>
@@ -889,9 +890,9 @@ export const EntitiesPage: React.FC = () => {
                   fontSize: '0.72rem',
                   fontWeight: 600,
                   textTransform: 'uppercase',
-                  border: active ? '1px solid #38bdf8' : '1px solid rgba(255, 255, 255, 0.08)',
-                  backgroundColor: active ? 'rgba(56, 189, 248, 0.2)' : '#1e293b',
-                  color: active ? '#38bdf8' : '#94a3b8',
+                  border: active ? '1px solid var(--color-primary)' : '1px solid var(--border-color)',
+                  backgroundColor: active ? 'var(--color-primary-bg)' : 'var(--bg-tertiary)',
+                  color: active ? 'var(--color-primary)' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
                 }}
@@ -906,7 +907,7 @@ export const EntitiesPage: React.FC = () => {
       {/* --------------------------------------------------------------------- */}
       {/* 3 Dedicated View Tabs */}
       {/* --------------------------------------------------------------------- */}
-      <div style={{ display: 'flex', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--border-color)', gap: '0.5rem' }}>
         <button
           onClick={() => setActiveTab('users')}
           style={{
@@ -916,8 +917,8 @@ export const EntitiesPage: React.FC = () => {
             padding: '0.75rem 1.25rem',
             background: 'none',
             border: 'none',
-            borderBottom: activeTab === 'users' ? '2px solid #38bdf8' : '2px solid transparent',
-            color: activeTab === 'users' ? '#38bdf8' : '#94a3b8',
+            borderBottom: activeTab === 'users' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'users' ? 'var(--color-primary)' : 'var(--text-secondary)',
             fontSize: '0.875rem',
             fontWeight: 600,
             cursor: 'pointer',
@@ -931,8 +932,8 @@ export const EntitiesPage: React.FC = () => {
                 padding: '0.1rem 0.45rem',
                 borderRadius: '9999px',
                 fontSize: '0.7rem',
-                backgroundColor: activeTab === 'users' ? 'rgba(56, 189, 248, 0.25)' : '#1e293b',
-                color: activeTab === 'users' ? '#38bdf8' : '#94a3b8',
+                backgroundColor: activeTab === 'users' ? 'var(--color-primary-bg)' : 'var(--bg-tertiary)',
+                color: activeTab === 'users' ? 'var(--color-primary)' : 'var(--text-secondary)',
               }}
             >
               {data.users.length}
@@ -949,8 +950,8 @@ export const EntitiesPage: React.FC = () => {
             padding: '0.75rem 1.25rem',
             background: 'none',
             border: 'none',
-            borderBottom: activeTab === 'ips' ? '2px solid #38bdf8' : '2px solid transparent',
-            color: activeTab === 'ips' ? '#38bdf8' : '#94a3b8',
+            borderBottom: activeTab === 'ips' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'ips' ? 'var(--color-primary)' : 'var(--text-secondary)',
             fontSize: '0.875rem',
             fontWeight: 600,
             cursor: 'pointer',
@@ -964,8 +965,8 @@ export const EntitiesPage: React.FC = () => {
                 padding: '0.1rem 0.45rem',
                 borderRadius: '9999px',
                 fontSize: '0.7rem',
-                backgroundColor: activeTab === 'ips' ? 'rgba(56, 189, 248, 0.25)' : '#1e293b',
-                color: activeTab === 'ips' ? '#38bdf8' : '#94a3b8',
+                backgroundColor: activeTab === 'ips' ? 'var(--color-primary-bg)' : 'var(--bg-tertiary)',
+                color: activeTab === 'ips' ? 'var(--color-primary)' : 'var(--text-secondary)',
               }}
             >
               {data.ips.length}
@@ -982,8 +983,8 @@ export const EntitiesPage: React.FC = () => {
             padding: '0.75rem 1.25rem',
             background: 'none',
             border: 'none',
-            borderBottom: activeTab === 'hosts' ? '2px solid #38bdf8' : '2px solid transparent',
-            color: activeTab === 'hosts' ? '#38bdf8' : '#94a3b8',
+            borderBottom: activeTab === 'hosts' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'hosts' ? 'var(--color-primary)' : 'var(--text-secondary)',
             fontSize: '0.875rem',
             fontWeight: 600,
             cursor: 'pointer',
@@ -997,8 +998,8 @@ export const EntitiesPage: React.FC = () => {
                 padding: '0.1rem 0.45rem',
                 borderRadius: '9999px',
                 fontSize: '0.7rem',
-                backgroundColor: activeTab === 'hosts' ? 'rgba(56, 189, 248, 0.25)' : '#1e293b',
-                color: activeTab === 'hosts' ? '#38bdf8' : '#94a3b8',
+                backgroundColor: activeTab === 'hosts' ? 'var(--color-primary-bg)' : 'var(--bg-tertiary)',
+                color: activeTab === 'hosts' ? 'var(--color-primary)' : 'var(--text-secondary)',
               }}
             >
               {data.hosts.length}
@@ -1069,9 +1070,9 @@ export const EntitiesPage: React.FC = () => {
               width: '100%',
               maxWidth: '680px',
               height: '100%',
-              backgroundColor: '#0f172a',
-              borderLeft: '1px solid rgba(255, 255, 255, 0.12)',
-              boxShadow: '-8px 0 24px rgba(0, 0, 0, 0.6)',
+              backgroundColor: 'var(--bg-elevated)',
+              borderLeft: '1px solid var(--border-color)',
+              boxShadow: 'var(--shadow-xl)',
               overflowY: 'auto',
               padding: '1.75rem',
               display: 'flex',
@@ -1089,14 +1090,14 @@ export const EntitiesPage: React.FC = () => {
                       textTransform: 'uppercase',
                       fontSize: '0.7rem',
                       fontWeight: 700,
-                      color: '#38bdf8',
+                      color: 'var(--color-primary)',
                       letterSpacing: '0.05em',
                     }}
                   >
                     Forensic Profile: {selectedEntity.type}
                   </span>
                 </div>
-                <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#f8fafc', margin: 0, fontFamily: 'monospace' }}>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, fontFamily: 'monospace' }}>
                   {selectedEntity.identifier}
                 </h2>
               </div>
@@ -1104,10 +1105,10 @@ export const EntitiesPage: React.FC = () => {
                 onClick={() => setSelectedEntity(null)}
                 style={{
                   padding: '0.4rem',
-                  backgroundColor: '#1e293b',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
                   borderRadius: '6px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   cursor: 'pointer',
                 }}
               >
@@ -1123,7 +1124,7 @@ export const EntitiesPage: React.FC = () => {
                   backgroundColor: 'rgba(16, 185, 129, 0.15)',
                   border: '1px solid rgba(16, 185, 129, 0.4)',
                   borderRadius: '8px',
-                  color: '#34d399',
+                  color: '#10b981',
                   fontSize: '0.8125rem',
                   display: 'flex',
                   alignItems: 'center',
@@ -1147,7 +1148,7 @@ export const EntitiesPage: React.FC = () => {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
                     gap: '0.75rem',
-                    backgroundColor: '#1e293b',
+                    backgroundColor: 'var(--bg-tertiary)',
                     padding: '1rem',
                     borderRadius: '8px',
                     border: '1px solid rgba(255, 255, 255, 0.06)',
@@ -1177,7 +1178,7 @@ export const EntitiesPage: React.FC = () => {
                 {entityDetail.recommended_actions.length > 0 && (
                   <div
                     style={{
-                      backgroundColor: '#111827',
+                      backgroundColor: 'var(--bg-surface)',
                       border: '1px solid rgba(239, 68, 68, 0.3)',
                       borderRadius: '8px',
                       padding: '1rem',
@@ -1187,7 +1188,7 @@ export const EntitiesPage: React.FC = () => {
                       <Ban size={16} />
                       Response Engine Containment Actions
                     </div>
-                    <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: '0 0 0.75rem 0' }}>
+                    <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: '0 0 0.75rem 0' }}>
                       Stage protective containment action directly to the Response Console with safety checks and rollback capability.
                     </p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -1198,17 +1199,17 @@ export const EntitiesPage: React.FC = () => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            backgroundColor: '#1e293b',
+                            backgroundColor: 'var(--bg-tertiary)',
                             padding: '0.65rem 0.85rem',
                             borderRadius: '6px',
-                            border: '1px solid rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--border-color)',
                           }}
                         >
                           <div>
-                            <div style={{ fontWeight: 600, color: '#f8fafc', fontSize: '0.8125rem', fontFamily: 'monospace' }}>
+                            <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.8125rem', fontFamily: 'monospace' }}>
                               {rec.action_type.toUpperCase()}
                             </div>
-                            <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>{rec.reason}</div>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>{rec.reason}</div>
                           </div>
                           <button
                             onClick={() => handleStageAction(rec)}
@@ -1238,12 +1239,12 @@ export const EntitiesPage: React.FC = () => {
 
                 {/* Correlated Incidents Section */}
                 <div>
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <ShieldAlert size={16} color="#ef4444" />
                     Correlated Security Incidents ({entityDetail.incidents.length})
                   </h3>
                   {entityDetail.incidents.length === 0 ? (
-                    <div style={{ fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', padding: '0.75rem', backgroundColor: '#111827', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontStyle: 'italic', padding: '0.75rem', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '6px' }}>
                       No open incidents directly linked to this entity.
                     </div>
                   ) : (
@@ -1252,22 +1253,22 @@ export const EntitiesPage: React.FC = () => {
                         <div
                           key={inc.incident_id}
                           style={{
-                            backgroundColor: '#111827',
+                            backgroundColor: 'var(--bg-surface)',
                             padding: '0.75rem 1rem',
                             borderRadius: '8px',
-                            border: '1px solid rgba(255, 255, 255, 0.06)',
+                            border: '1px solid var(--border-color)',
                           }}
                         >
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                            <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#38bdf8' }}>
+                            <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#0284c7' }}>
                               {inc.incident_id}
                             </span>
                             <SeverityBadge severity={inc.severity.toLowerCase() as SeverityLevel} size="sm" />
                           </div>
-                          <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#f8fafc' }}>
+                          <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                             {inc.title}
                           </div>
-                          <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.25rem' }}>
+                          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
                             Risk Score: {inc.risk_score} | Status: {inc.status} | Created: {inc.created_at}
                           </div>
                         </div>
@@ -1278,8 +1279,8 @@ export const EntitiesPage: React.FC = () => {
 
                 {/* Recent Raw Evidence Stream */}
                 <div>
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Activity size={16} color="#38bdf8" />
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Activity size={16} color="#0284c7" />
                     Recent Forensic Evidence Stream ({entityDetail.recent_events.length} events)
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '380px', overflowY: 'auto' }}>
@@ -1287,10 +1288,10 @@ export const EntitiesPage: React.FC = () => {
                       <div
                         key={ev.event_id}
                         style={{
-                          backgroundColor: '#111827',
+                          backgroundColor: 'var(--bg-surface)',
                           padding: '0.65rem 0.85rem',
                           borderRadius: '6px',
-                          border: '1px solid rgba(255, 255, 255, 0.05)',
+                          border: '1px solid var(--border-color)',
                           fontSize: '0.75rem',
                         }}
                       >
@@ -1298,7 +1299,7 @@ export const EntitiesPage: React.FC = () => {
                           <span style={{ color: '#38bdf8', fontWeight: 600 }}>{ev.event_type}</span>
                           <span style={{ color: '#64748b', fontSize: '0.7rem' }}>{ev.timestamp}</span>
                         </div>
-                        <div style={{ color: '#cbd5e1', fontFamily: 'monospace', fontSize: '0.72rem', wordBreak: 'break-all' }}>
+                        <div style={{ color: 'var(--text-secondary)', fontFamily: 'monospace', fontSize: '0.72rem', wordBreak: 'break-all' }}>
                           {ev.raw_event}
                         </div>
                         <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.3rem', color: '#94a3b8', fontSize: '0.68rem' }}>

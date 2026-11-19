@@ -101,28 +101,28 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
         {/* Modal Header */}
         <div style={{
           padding: '1.25rem 1.5rem',
-          borderBottom: '1px solid #1e293b',
+          borderBottom: '1px solid var(--border-color)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: '#0f172a'
+          background: 'var(--bg-elevated)'
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.35rem' }}>
               <span className={`badge badge-${incident.severity.toLowerCase()}`}>
                 {incident.severity}
               </span>
-              <span className="font-mono" style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
+              <span className="font-mono" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                 {incident.incident_id}
               </span>
               <span className={`badge badge-neutral`}>
                 STATUS: {incident.status}
               </span>
-              <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                 Risk Score: <strong style={{ color: '#f43f5e' }}>{incident.risk_score}/100</strong>
               </span>
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#f8fafc' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {incident.title}
             </h3>
           </div>
@@ -139,9 +139,9 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
         {/* Modal Navigation Tabs */}
         <div style={{
           display: 'flex',
-          borderBottom: '1px solid #1e293b',
+          borderBottom: '1px solid var(--border-color)',
           padding: '0 1.5rem',
-          background: '#111827',
+          background: 'var(--bg-surface)',
           gap: '1rem'
         }}>
           <button
@@ -150,8 +150,8 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
               padding: '0.75rem 0.5rem',
               background: 'transparent',
               border: 'none',
-              borderBottom: activeTab === 'timeline' ? '2px solid #38bdf8' : '2px solid transparent',
-              color: activeTab === 'timeline' ? '#38bdf8' : '#94a3b8',
+              borderBottom: activeTab === 'timeline' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: activeTab === 'timeline' ? 'var(--color-primary)' : 'var(--text-secondary)',
               fontWeight: 600,
               fontSize: '0.875rem',
               cursor: 'pointer',
@@ -170,8 +170,8 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
               padding: '0.75rem 0.5rem',
               background: 'transparent',
               border: 'none',
-              borderBottom: activeTab === 'notes' ? '2px solid #38bdf8' : '2px solid transparent',
-              color: activeTab === 'notes' ? '#38bdf8' : '#94a3b8',
+              borderBottom: activeTab === 'notes' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: activeTab === 'notes' ? 'var(--color-primary)' : 'var(--text-secondary)',
               fontWeight: 600,
               fontSize: '0.875rem',
               cursor: 'pointer',
@@ -190,8 +190,8 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
               padding: '0.75rem 0.5rem',
               background: 'transparent',
               border: 'none',
-              borderBottom: activeTab === 'entities' ? '2px solid #38bdf8' : '2px solid transparent',
-              color: activeTab === 'entities' ? '#38bdf8' : '#94a3b8',
+              borderBottom: activeTab === 'entities' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: activeTab === 'entities' ? 'var(--color-primary)' : 'var(--text-secondary)',
               fontWeight: 600,
               fontSize: '0.875rem',
               cursor: 'pointer',
@@ -206,11 +206,11 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
         </div>
 
         {/* Modal Body Content */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', backgroundColor: '#0b0f19' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', backgroundColor: 'var(--bg-canvas)' }}>
           {/* TAB 1: TIMELINE */}
           {activeTab === 'timeline' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                 Chronological sequence of correlated alerts, authentication anomalies, and analyst interventions:
               </div>
 
@@ -222,7 +222,7 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                   top: '8px',
                   bottom: '8px',
                   width: '2px',
-                  backgroundColor: '#334155'
+                  backgroundColor: 'var(--border-strong)'
                 }} />
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -233,8 +233,8 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                         position: 'absolute',
                         left: '-1.5rem',
                         top: '2px',
-                        background: '#0f172a',
-                        border: '2px solid #38bdf8',
+                        background: 'var(--bg-elevated)',
+                        border: '2px solid var(--color-primary)',
                         borderRadius: '50%',
                         width: '18px',
                         height: '18px',
@@ -243,28 +243,28 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                         justifyContent: 'center',
                         zIndex: 2
                       }}>
-                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#38bdf8' }} />
+                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-primary)' }} />
                       </div>
 
-                      <div className="soc-card" style={{ flex: 1, padding: '0.85rem 1rem', background: '#111827' }}>
+                      <div className="soc-card" style={{ flex: 1, padding: '0.85rem 1rem', background: 'var(--bg-surface)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             {getTimelineIcon(entry.entry_type)}
-                            <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: '#94a3b8' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
                               {entry.entry_type}
                             </span>
                             {entry.source_id && (
-                              <span className="font-mono" style={{ fontSize: '0.72rem', color: '#64748b' }}>
+                              <span className="font-mono" style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                                 [{entry.source_id}]
                               </span>
                             )}
                           </div>
-                          <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                             {formatTimestamp(entry.timestamp)}
                           </span>
                         </div>
 
-                        <p style={{ fontSize: '0.875rem', color: '#f1f5f9', margin: '0.25rem 0' }}>
+                        <p style={{ fontSize: '0.875rem', color: 'var(--text-primary)', margin: '0.25rem 0' }}>
                           {entry.description}
                         </p>
 
@@ -276,10 +276,11 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                                 className="font-mono"
                                 style={{
                                   fontSize: '0.7rem',
-                                  background: '#1e293b',
+                                  background: 'var(--bg-tertiary)',
+                                  border: '1px solid var(--border-color)',
                                   padding: '0.1rem 0.4rem',
                                   borderRadius: '3px',
-                                  color: '#cbd5e1'
+                                  color: 'var(--text-secondary)'
                                 }}
                               >
                                 {k}: {String(v)}
@@ -299,14 +300,14 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
           {activeTab === 'notes' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {/* Add Note Form */}
-              <div className="soc-card" style={{ padding: '1.25rem', background: '#111827' }}>
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', marginBottom: '0.75rem' }}>
+              <div className="soc-card" style={{ padding: '1.25rem', background: 'var(--bg-surface)' }}>
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
                   Add Analyst Investigation Note
                 </h4>
                 <form onSubmit={handleAddNoteSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   <div style={{ display: 'flex', gap: '0.75rem' }}>
                     <div style={{ width: '200px' }}>
-                      <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '0.25rem' }}>
+                      <label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                         Analyst Identity
                       </label>
                       <input
@@ -321,7 +322,7 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                   </div>
 
                   <div>
-                    <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '0.25rem' }}>
+                    <label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                       Observation / Finding
                     </label>
                     <textarea
@@ -350,24 +351,24 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
               {/* Notes List */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {(!incident.analyst_notes || incident.analyst_notes.length === 0) ? (
-                  <div style={{ textAlign: 'center', padding: '2rem', color: '#64748b' }}>
+                  <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-muted)' }}>
                     No analyst notes recorded yet. Add the first finding above.
                   </div>
                 ) : (
                   incident.analyst_notes.map((note) => (
-                    <div key={note.note_id} className="soc-card" style={{ padding: '1rem', background: '#111827' }}>
+                    <div key={note.note_id} className="soc-card" style={{ padding: '1rem', background: 'var(--bg-surface)' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <User size={14} color="#38bdf8" />
-                          <span style={{ fontWeight: 600, fontSize: '0.85rem', color: '#f8fafc' }}>
+                          <User size={14} color="#0284c7" />
+                          <span style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)' }}>
                             {note.author}
                           </span>
                         </div>
-                        <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                           {formatTimestamp(note.created_at)}
                         </span>
                       </div>
-                      <p style={{ fontSize: '0.875rem', color: '#e2e8f0', whiteSpace: 'pre-wrap' }}>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--text-primary)', whiteSpace: 'pre-wrap' }}>
                         {note.content}
                       </p>
                     </div>
@@ -380,21 +381,21 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
           {/* TAB 3: ENTITIES & EVIDENCE */}
           {activeTab === 'entities' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div className="soc-card" style={{ padding: '1.25rem', background: '#111827' }}>
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', marginBottom: '1rem' }}>
+              <div className="soc-card" style={{ padding: '1.25rem', background: 'var(--bg-surface)' }}>
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '1rem' }}>
                   Correlated Entity Graph
                 </h4>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
                   {/* IPs */}
-                  <div style={{ background: '#0f172a', padding: '1rem', borderRadius: '6px', border: '1px solid #1e293b' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#38bdf8' }}>
+                  <div style={{ background: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#0284c7' }}>
                       <Globe size={16} />
                       <strong style={{ fontSize: '0.85rem' }}>Source IPs ({incident.entities.source_ips.length})</strong>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                       {incident.entities.source_ips.map((ip) => (
-                        <span key={ip} className="font-mono" style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>
+                        <span key={ip} className="font-mono" style={{ fontSize: '0.8rem', color: 'var(--text-primary)' }}>
                           • {ip}
                         </span>
                       ))}
@@ -402,14 +403,14 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                   </div>
 
                   {/* Users */}
-                  <div style={{ background: '#0f172a', padding: '1rem', borderRadius: '6px', border: '1px solid #1e293b' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#fbbf24' }}>
+                  <div style={{ background: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#d97706' }}>
                       <User size={16} />
                       <strong style={{ fontSize: '0.85rem' }}>Target Usernames ({incident.entities.usernames.length})</strong>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                       {incident.entities.usernames.map((u) => (
-                        <span key={u} className="font-mono" style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>
+                        <span key={u} className="font-mono" style={{ fontSize: '0.8rem', color: 'var(--text-primary)' }}>
                           • {u}
                         </span>
                       ))}
@@ -417,14 +418,14 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                   </div>
 
                   {/* Hosts */}
-                  <div style={{ background: '#0f172a', padding: '1rem', borderRadius: '6px', border: '1px solid #1e293b' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#a78bfa' }}>
+                  <div style={{ background: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#7c3aed' }}>
                       <Server size={16} />
                       <strong style={{ fontSize: '0.85rem' }}>Affected Hosts ({incident.entities.hosts.length})</strong>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                       {incident.entities.hosts.map((h) => (
-                        <span key={h} className="font-mono" style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>
+                        <span key={h} className="font-mono" style={{ fontSize: '0.8rem', color: 'var(--text-primary)' }}>
                           • {h}
                         </span>
                       ))}
@@ -434,18 +435,18 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
               </div>
 
               {/* Evidence IDs */}
-              <div className="soc-card" style={{ padding: '1.25rem', background: '#111827' }}>
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', marginBottom: '0.75rem' }}>
+              <div className="soc-card" style={{ padding: '1.25rem', background: 'var(--bg-surface)' }}>
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
                   Underlying Raw Evidence IDs
                 </h4>
 
                 <div style={{ marginBottom: '1rem' }}>
-                  <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '0.35rem' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
                     Correlated Alert IDs ({incident.related_alert_ids.length}):
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                     {incident.related_alert_ids.map((aid) => (
-                      <span key={aid} className="font-mono" style={{ background: '#1e293b', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', color: '#f97316' }}>
+                      <span key={aid} className="font-mono" style={{ background: 'var(--bg-tertiary)', border: '1px solid var(--border-color)', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', color: '#ea580c' }}>
                         {aid}
                       </span>
                     ))}
@@ -453,12 +454,12 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '0.35rem' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
                     Correlated Canonical Event IDs ({incident.related_event_ids.length}):
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', maxHeight: '180px', overflowY: 'auto' }}>
                     {incident.related_event_ids.map((eid) => (
-                      <span key={eid} className="font-mono" style={{ background: '#1e293b', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.72rem', color: '#38bdf8' }}>
+                      <span key={eid} className="font-mono" style={{ background: 'var(--bg-tertiary)', border: '1px solid var(--border-color)', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.72rem', color: '#0284c7' }}>
                         {eid}
                       </span>
                     ))}
@@ -472,15 +473,15 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
         {/* Modal Footer: Quick Lifecycle Actions & AI Launcher */}
         <div style={{
           padding: '1rem 1.5rem',
-          borderTop: '1px solid #1e293b',
+          borderTop: '1px solid var(--border-color)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: '#0f172a'
+          background: 'var(--bg-elevated)'
         }}>
           {/* Status Change Buttons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.8rem', color: '#94a3b8', marginRight: '0.25rem' }}>Triage State:</span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginRight: '0.25rem' }}>Triage State:</span>
             {(['NEW', 'INVESTIGATING', 'RESOLVED', 'CLOSED'] as IncidentStatus[]).map((st) => (
               <button
                 key={st}
@@ -488,9 +489,9 @@ export const IncidentDetailModal: React.FC<IncidentDetailModalProps> = ({
                 disabled={updatingStatus || incident.status === st}
                 className="btn btn-secondary btn-sm"
                 style={{
-                  background: incident.status === st ? '#1e293b' : 'transparent',
-                  color: incident.status === st ? '#38bdf8' : '#94a3b8',
-                  borderColor: incident.status === st ? '#38bdf8' : '#334155',
+                  background: incident.status === st ? 'var(--color-primary-bg)' : 'transparent',
+                  color: incident.status === st ? 'var(--color-primary)' : 'var(--text-secondary)',
+                  borderColor: incident.status === st ? 'var(--color-primary)' : 'var(--border-color)',
                   fontSize: '0.72rem',
                 }}
               >

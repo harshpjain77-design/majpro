@@ -332,7 +332,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
-                  color: '#6b7280'
+                  color: 'var(--text-muted)'
                 }}
               >
                 {section.title}

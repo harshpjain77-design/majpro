@@ -20,7 +20,7 @@ export const ResponsePage: React.FC = () => {
     <div style={{ padding: '0' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
         <ShieldAlert size={22} color="#ef4444" />
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#f9fafb', margin: 0 }}>Response & Containment</h1>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>Response & Containment</h1>
       </div>
       <ResponseConsole incidents={incidents} onRefreshAll={refreshAll} />
     </div>

@@ -238,7 +238,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
       {/* ------------------------------------------------------------------- */}
       {/* Copilot Header & Selection Toolbar */}
       {/* ------------------------------------------------------------------- */}
-      <div className="soc-card" style={{ padding: '1.25rem', background: '#0f172a' }}>
+      <div className="soc-card" style={{ padding: '1.25rem' }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -260,7 +260,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#f8fafc' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                   Explainable AI Investigation Copilot
                 </h3>
                 {aiStatus?.gemini_configured ? (
@@ -274,7 +274,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                       fontSize: '0.7rem',
                       fontWeight: 600,
                       backgroundColor: 'rgba(56, 189, 248, 0.18)',
-                      color: '#38bdf8',
+                      color: '#0284c7',
                       border: '1px solid rgba(56, 189, 248, 0.4)',
                     }}
                   >
@@ -285,7 +285,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                   <span className="badge badge-ai">Local Synthesizer</span>
                 )}
               </div>
-              <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: '0.15rem 0 0 0' }}>
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', margin: '0.15rem 0 0 0' }}>
                 Strict citation validation • Zero hallucinations • MITRE ATT&CK alignment • Context-aware response staging
               </p>
             </div>
@@ -299,9 +299,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
               style={{
                 minWidth: '320px',
                 cursor: 'pointer',
-                backgroundColor: '#1e293b',
-                color: '#f8fafc',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backgroundColor: 'var(--bg-input)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-input)',
                 padding: '0.45rem 0.75rem',
                 borderRadius: '6px',
                 fontSize: '0.8125rem',
@@ -351,7 +351,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
         </div>
 
         {/* Navigation Tabs: Structured Report vs Interactive Chat */}
-        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '0.75rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.25rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
           <button
             onClick={() => setActiveTab('report')}
             style={{
@@ -362,9 +362,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
               borderRadius: '6px',
               fontSize: '0.8rem',
               fontWeight: 600,
-              backgroundColor: activeTab === 'report' ? '#7c3aed' : '#1e293b',
-              color: activeTab === 'report' ? '#ffffff' : '#94a3b8',
-              border: activeTab === 'report' ? '1px solid #a855f7' : '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: activeTab === 'report' ? 'var(--color-ai)' : 'var(--bg-tertiary)',
+              color: activeTab === 'report' ? '#ffffff' : 'var(--text-secondary)',
+              border: activeTab === 'report' ? '1px solid var(--color-ai-border)' : '1px solid var(--border-color)',
               cursor: 'pointer',
             }}
           >
@@ -382,9 +382,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
               borderRadius: '6px',
               fontSize: '0.8rem',
               fontWeight: 600,
-              backgroundColor: activeTab === 'chat' ? '#7c3aed' : '#1e293b',
-              color: activeTab === 'chat' ? '#ffffff' : '#94a3b8',
-              border: activeTab === 'chat' ? '1px solid #a855f7' : '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: activeTab === 'chat' ? 'var(--color-ai)' : 'var(--bg-tertiary)',
+              color: activeTab === 'chat' ? '#ffffff' : 'var(--text-secondary)',
+              border: activeTab === 'chat' ? '1px solid var(--color-ai-border)' : '1px solid var(--border-color)',
               cursor: 'pointer',
             }}
           >
@@ -402,12 +402,12 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
           className="soc-card"
           style={{
             padding: 0,
-            background: '#0f172a',
+            background: 'var(--bg-surface)',
             display: 'flex',
             height: '660px',
             overflow: 'hidden',
             borderRadius: '12px',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-color)',
           }}
         >
           {/* --------------------------------------------------------------- */}
@@ -416,8 +416,8 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
           <div
             style={{
               width: '290px',
-              backgroundColor: '#090d16',
-              borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-tertiary)',
+              borderRight: '1px solid var(--border-color)',
               display: 'flex',
               flexDirection: 'column',
               flexShrink: 0,
@@ -459,13 +459,13 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  backgroundColor: '#1e293b',
+                  backgroundColor: 'var(--bg-input)',
                   padding: '0.4rem 0.625rem',
                   borderRadius: '6px',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  border: '1px solid var(--border-input)',
                 }}
               >
-                <Search size={13} color="#94a3b8" />
+                <Search size={13} color="var(--text-muted)" />
                 <input
                   type="text"
                   placeholder="Search saved chats..."
@@ -474,7 +474,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#f8fafc',
+                    color: 'var(--text-primary)',
                     fontSize: '0.75rem',
                     outline: 'none',
                     width: '100%',
@@ -522,15 +522,15 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                       style={{
                         padding: '0.625rem 0.75rem',
                         borderRadius: '8px',
-                        backgroundColor: isActive ? 'rgba(124, 58, 237, 0.15)' : 'transparent',
-                        borderLeft: isActive ? '3px solid #a855f7' : '3px solid transparent',
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                        backgroundColor: isActive ? 'var(--color-ai-bg)' : 'transparent',
+                        borderLeft: isActive ? '3px solid var(--color-ai)' : '3px solid transparent',
+                        borderBottom: '1px solid var(--border-subtle)',
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
                         position: 'relative',
                       }}
                       onMouseEnter={(e) => {
-                        if (!isActive) e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+                        if (!isActive) e.currentTarget.style.backgroundColor = 'var(--bg-hover)';
                       }}
                       onMouseLeave={(e) => {
                         if (!isActive) e.currentTarget.style.backgroundColor = 'transparent';
@@ -549,9 +549,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                               style={{
                                 flex: 1,
                                 padding: '0.2rem 0.35rem',
-                                background: '#1e293b',
-                                color: '#f8fafc',
-                                border: '1px solid #7c3aed',
+                                background: 'var(--bg-input)',
+                                color: 'var(--text-primary)',
+                                border: '1px solid var(--color-ai)',
                                 borderRadius: '4px',
                                 fontSize: '0.75rem',
                                 outline: 'none',
@@ -683,15 +683,15 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
               display: 'flex',
               flexDirection: 'column',
               minWidth: 0,
-              backgroundColor: '#0f172a',
+              backgroundColor: 'var(--bg-surface)',
             }}
           >
             {/* Active Chat Header Toolbar */}
             <div
               style={{
                 padding: '0.75rem 1rem',
-                background: '#0b1120',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-elevated)',
+                borderBottom: '1px solid var(--border-color)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -716,19 +716,19 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                   <Bot size={18} color="#ffffff" />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {activeSession?.title || 'Interactive AI Investigation'}
                   </span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.15rem' }}>
-                    <span style={{ fontSize: '0.6875rem', color: '#94a3b8' }}>Context:</span>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--text-secondary)' }}>Context:</span>
                     <select
                       value={activeSession?.incident_id || 'general'}
                       onChange={(e) => handleSessionIncidentChange(e.target.value)}
                       style={{
                         padding: '0.15rem 0.45rem',
-                        background: '#1e293b',
-                        color: '#f8fafc',
-                        border: '1px solid #334155',
+                        background: 'var(--bg-input)',
+                        color: 'var(--text-primary)',
+                        border: '1px solid var(--border-input)',
                         borderRadius: '4px',
                         fontSize: '0.6875rem',
                         fontFamily: 'inherit',
@@ -803,16 +803,16 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                   onClick={handleClearChat}
                   style={{
                     padding: '0.25rem 0.55rem',
-                    background: '#1e293b',
-                    border: '1px solid #334155',
+                    background: 'var(--bg-tertiary)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '4px',
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     fontSize: '0.6875rem',
                     cursor: 'pointer',
                   }}
                   title="Clear messages in this chat"
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#f8fafc')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#94a3b8')}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
                 >
                   🧹 Clear
                 </button>
@@ -840,8 +840,8 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
             <div
               style={{
                 padding: '0.5rem 0.875rem',
-                backgroundColor: '#090d16',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                backgroundColor: 'var(--bg-elevated)',
+                borderBottom: '1px solid var(--border-color)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
@@ -849,7 +849,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                 scrollbarWidth: 'none',
               }}
             >
-              <span style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '0.25rem', flexShrink: 0 }}>
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.25rem', flexShrink: 0 }}>
                 <Zap size={12} color="#eab308" />
                 Quick Prompts:
               </span>
@@ -860,9 +860,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                   disabled={chatLoading}
                   style={{
                     padding: '0.25rem 0.6rem',
-                    backgroundColor: '#1e293b',
-                    color: '#cbd5e1',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backgroundColor: 'var(--bg-tertiary)',
+                    color: 'var(--text-secondary)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '9999px',
                     fontSize: '0.7rem',
                     cursor: 'pointer',
@@ -871,12 +871,12 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                     flexShrink: 0,
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(124, 58, 237, 0.2)';
-                    e.currentTarget.style.borderColor = '#7c3aed';
+                    e.currentTarget.style.backgroundColor = 'var(--color-ai-bg)';
+                    e.currentTarget.style.borderColor = 'var(--color-ai)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#1e293b';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                    e.currentTarget.style.borderColor = 'var(--border-color)';
                   }}
                 >
                   {qp.label}
@@ -893,7 +893,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                 flexDirection: 'column',
                 gap: '0.85rem',
                 padding: '1rem',
-                backgroundColor: '#090d16',
+                backgroundColor: 'var(--bg-canvas)',
                 scrollbarWidth: 'thin',
               }}
             >
@@ -927,14 +927,14 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
 
                   <div
                     style={{
-                      backgroundColor: msg.sender === 'user' ? '#7c3aed' : '#1e293b',
-                      color: '#f8fafc',
+                      backgroundColor: msg.sender === 'user' ? 'var(--color-ai)' : 'var(--bg-tertiary)',
+                      color: msg.sender === 'user' ? '#ffffff' : 'var(--text-primary)',
                       padding: '0.75rem 1rem',
                       borderRadius: '8px',
                       fontSize: '0.8125rem',
                       lineHeight: '1.45',
-                      border: msg.sender === 'user' ? 'none' : '1px solid rgba(255, 255, 255, 0.06)',
-                      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.25)',
+                      border: msg.sender === 'user' ? 'none' : '1px solid var(--border-color)',
+                      boxShadow: 'var(--shadow-sm)',
                     }}
                   >
                     {/* Header with Model Badge */}
@@ -1042,7 +1042,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
             </div>
 
             {/* Chat Input Bar */}
-            <div style={{ padding: '0.75rem', backgroundColor: '#0f172a', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <div style={{ padding: '0.75rem', backgroundColor: 'var(--bg-elevated)', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <input
                 type="text"
                 value={chatInput}
@@ -1060,9 +1060,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                 }
                 style={{
                   flex: 1,
-                  backgroundColor: '#1e293b',
-                  color: '#f8fafc',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: 'var(--bg-input)',
+                  color: 'var(--text-primary)',
+                  border: '1px solid var(--border-input)',
                   padding: '0.55rem 0.85rem',
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
@@ -1101,24 +1101,24 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
       {activeTab === 'report' && (
         <>
           {loading && (
-            <div className="soc-card" style={{ padding: '2.5rem', textAlign: 'center', background: '#0f172a' }}>
+            <div className="soc-card" style={{ padding: '2.5rem', textAlign: 'center' }}>
               <div className="spin" style={{ display: 'inline-block', marginBottom: '1rem' }}>
-                <Sparkles size={36} color="#a855f7" />
+                <Sparkles size={36} color="var(--color-ai)" />
               </div>
-              <h4 style={{ color: '#f8fafc', marginBottom: '0.5rem' }}>
+              <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
                 Performing Evidence-Grounded AI Synthesis
               </h4>
-              <p style={{ color: '#94a3b8', fontSize: '0.85rem', maxWidth: '480px', margin: '0 auto' }}>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', maxWidth: '480px', margin: '0 auto' }}>
                 Retrieving chronological log events, defanging potential prompt injections, and verifying citation proofs...
               </p>
             </div>
           )}
 
           {!report && !loading && (
-            <div className="soc-card" style={{ padding: '2.5rem', textAlign: 'center', background: '#0f172a' }}>
-              <Terminal size={36} color="#64748b" style={{ margin: '0 auto 1rem auto' }} />
-              <h4 style={{ color: '#94a3b8', marginBottom: '0.5rem' }}>No AI Report Generated Yet</h4>
-              <p style={{ color: '#64748b', fontSize: '0.85rem' }}>
+            <div className="soc-card" style={{ padding: '2.5rem', textAlign: 'center' }}>
+              <Terminal size={36} color="var(--text-muted)" style={{ margin: '0 auto 1rem auto' }} />
+              <h4 style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>No AI Report Generated Yet</h4>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                 Select an incident from the queue above and click "Run AI Investigation" to begin.
               </p>
             </div>
@@ -1128,10 +1128,10 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
 
               {/* 1. Executive Summary & Verification Banner */}
-              <div className="soc-card" style={{ padding: '1.25rem', background: '#0f172a' }}>
+              <div className="soc-card" style={{ padding: '1.25rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <h4 style={{ fontSize: '1rem', fontWeight: 600, color: '#f8fafc', margin: 0 }}>
+                    <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>
                       Executive Triage Summary
                     </h4>
                     <span className="badge badge-neutral" style={{ fontSize: '0.7rem' }}>
@@ -1174,11 +1174,11 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
               </div>
 
               {/* 2. Verified Facts Grounded in Evidence */}
-              <div className="soc-card" style={{ padding: '1.25rem', background: '#0f172a' }}>
+              <div className="soc-card" style={{ padding: '1.25rem' }}>
                 <h4 style={{
                   fontSize: '0.95rem',
                   fontWeight: 600,
-                  color: '#f8fafc',
+                  color: 'var(--text-primary)',
                   marginBottom: '1rem',
                   display: 'flex',
                   alignItems: 'center',
@@ -1194,16 +1194,16 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                       key={idx}
                       style={{
                         padding: '0.85rem 1rem',
-                        backgroundColor: '#1e293b',
+                        backgroundColor: 'var(--bg-tertiary)',
                         borderRadius: '6px',
-                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        border: '1px solid var(--border-color)',
                         display: 'flex',
                         alignItems: 'flex-start',
                         justifyContent: 'space-between',
                         gap: '1rem'
                       }}
                     >
-                      <div style={{ flex: 1, fontSize: '0.85rem', color: '#e2e8f0', lineHeight: '1.4' }}>
+                      <div style={{ flex: 1, fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: '1.4' }}>
                         {fact.fact}
                       </div>
 
@@ -1217,9 +1217,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                               fontFamily: 'monospace',
                               fontSize: '0.7rem',
                               padding: '0.15rem 0.45rem',
-                              backgroundColor: 'rgba(56, 189, 248, 0.15)',
-                              color: '#38bdf8',
-                              border: '1px solid rgba(56, 189, 248, 0.3)',
+                              backgroundColor: 'var(--color-primary-bg)',
+                              color: 'var(--color-primary)',
+                              border: '1px solid var(--color-primary-border)',
                               borderRadius: '4px',
                               cursor: 'pointer',
                               display: 'inline-flex',
@@ -1239,17 +1239,17 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
               </div>
 
               {/* 3. Threat Hypotheses & MITRE ATT&CK Mapping */}
-              <div className="soc-card" style={{ padding: '1.25rem', background: '#0f172a' }}>
+              <div className="soc-card" style={{ padding: '1.25rem' }}>
                 <h4 style={{
                   fontSize: '0.95rem',
                   fontWeight: 600,
-                  color: '#f8fafc',
+                  color: 'var(--text-primary)',
                   marginBottom: '1rem',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem'
                 }}>
-                  <Cpu size={16} color="#a855f7" />
+                  <Cpu size={16} color="var(--color-ai)" />
                   Threat Hypotheses & MITRE ATT&CK Mapping
                 </h4>
 
@@ -1259,13 +1259,13 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                       key={idx}
                       style={{
                         padding: '0.85rem 1rem',
-                        backgroundColor: '#1e293b',
+                        backgroundColor: 'var(--bg-tertiary)',
                         borderRadius: '6px',
-                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        border: '1px solid var(--border-color)',
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#a855f7' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-ai)' }}>
                           MITRE: {hyp.mitre_technique || 'Unmapped'}
                         </span>
                         <span style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 600 }}>
@@ -1273,7 +1273,7 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                         </span>
                       </div>
 
-                      <div style={{ fontSize: '0.85rem', color: '#e2e8f0', lineHeight: '1.4' }}>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: '1.4' }}>
                         {hyp.hypothesis}
                       </div>
 
@@ -1285,8 +1285,8 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                               className="font-mono"
                               style={{
                                 fontSize: '0.65rem',
-                                color: '#94a3b8',
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                color: 'var(--text-secondary)',
+                                backgroundColor: 'var(--bg-hover)',
                                 padding: '0.1rem 0.35rem',
                                 borderRadius: '3px'
                               }}
@@ -1302,12 +1302,12 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
               </div>
 
               {/* 4. Actionable Response Recommendations */}
-              <div className="soc-card" style={{ padding: '1.25rem', background: '#0f172a' }}>
+              <div className="soc-card" style={{ padding: '1.25rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
                   <h4 style={{
                     fontSize: '0.95rem',
                     fontWeight: 600,
-                    color: '#f8fafc',
+                    color: 'var(--text-primary)',
                     margin: 0,
                     display: 'flex',
                     alignItems: 'center',
@@ -1364,9 +1364,9 @@ export const AICopilotPanel: React.FC<AICopilotPanelProps> = ({
                       key={idx}
                       style={{
                         padding: '0.85rem 1rem',
-                        backgroundColor: '#1e293b',
+                        backgroundColor: 'var(--bg-tertiary)',
                         borderRadius: '6px',
-                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        border: '1px solid var(--border-color)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',

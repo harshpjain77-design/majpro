@@ -64,14 +64,14 @@ export const SystemPage: React.FC = () => {
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <h1 style={{ fontSize: '1.375rem', fontWeight: 700, color: '#f9fafb', margin: 0 }}>
+              <h1 style={{ fontSize: '1.375rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
                 System & Collector Health
               </h1>
               <span style={{ fontSize: '0.72rem', fontWeight: 600, padding: '2px 8px', borderRadius: '10px', backgroundColor: health?.status === 'ok' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)', color: health?.status === 'ok' ? '#10b981' : '#ef4444', border: `1px solid ${health?.status === 'ok' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}` }}>
                 {health?.status === 'ok' ? 'OPERATIONAL' : 'DEGRADED'}
               </span>
             </div>
-            <p style={{ color: '#9ca3af', fontSize: '0.8rem', margin: '2px 0 0 0' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', margin: '2px 0 0 0' }}>
               Real-time operational status of Central Ingestion API, SQLite database sink, and telemetry agents
             </p>
           </div>
@@ -84,9 +84,9 @@ export const SystemPage: React.FC = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            backgroundColor: '#1f2937',
-            color: '#f9fafb',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'var(--bg-tertiary)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border-color)',
             borderRadius: '6px',
             padding: '6px 12px',
             fontSize: '0.78rem',

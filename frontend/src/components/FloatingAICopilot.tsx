@@ -245,11 +245,11 @@ export const FloatingAICopilot: React.FC = () => {
             height: isMinimized ? '52px' : '630px',
             maxHeight: 'calc(100vh - 48px)',
             maxWidth: 'calc(100vw - 32px)',
-            background: 'rgba(15, 23, 42, 0.96)',
+            background: 'var(--bg-elevated)',
             backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(168, 85, 247, 0.35)',
+            border: '1px solid var(--border-color)',
             borderRadius: '16px',
-            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 25px rgba(168, 85, 247, 0.25)',
+            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.3), 0 0 25px rgba(168, 85, 247, 0.2)',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
@@ -261,8 +261,8 @@ export const FloatingAICopilot: React.FC = () => {
           <div
             style={{
               padding: '0.75rem 1rem',
-              background: 'linear-gradient(90deg, #1e1b4b 0%, #0f172a 100%)',
-              borderBottom: isMinimized ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-surface)',
+              borderBottom: isMinimized ? 'none' : '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -292,7 +292,7 @@ export const FloatingAICopilot: React.FC = () => {
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap' }}>
                     ThreadGrid XAI
                   </span>
                   <span
@@ -399,8 +399,8 @@ export const FloatingAICopilot: React.FC = () => {
               <div
                 style={{
                   padding: '0.5rem 0.75rem',
-                  background: '#0b1120',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-tertiary)',
+                  borderBottom: '1px solid var(--border-color)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.35rem',
@@ -408,7 +408,7 @@ export const FloatingAICopilot: React.FC = () => {
               >
                 {/* Session Selector */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '0.6875rem', color: '#94a3b8', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                  <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', fontWeight: 600, whiteSpace: 'nowrap' }}>
                     Chat:
                   </span>
                   <select
@@ -418,9 +418,9 @@ export const FloatingAICopilot: React.FC = () => {
                       flex: 1,
                       minWidth: 0,
                       padding: '0.25rem 0.45rem',
-                      background: '#1e293b',
-                      color: '#f8fafc',
-                      border: '1px solid #334155',
+                      background: 'var(--bg-input)',
+                      color: 'var(--text-primary)',
+                      border: '1px solid var(--border-color)',
                       borderRadius: '4px',
                       fontSize: '0.75rem',
                       fontFamily: 'inherit',
@@ -438,7 +438,7 @@ export const FloatingAICopilot: React.FC = () => {
 
                 {/* Incident Context Selector */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '0.6875rem', color: '#94a3b8', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                  <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', fontWeight: 600, whiteSpace: 'nowrap' }}>
                     Asset:
                   </span>
                   <select
@@ -448,9 +448,9 @@ export const FloatingAICopilot: React.FC = () => {
                       flex: 1,
                       minWidth: 0,
                       padding: '0.25rem 0.45rem',
-                      background: '#1e293b',
-                      color: '#f8fafc',
-                      border: '1px solid #334155',
+                      background: 'var(--bg-input)',
+                      color: 'var(--text-primary)',
+                      border: '1px solid var(--border-color)',
                       borderRadius: '4px',
                       fontSize: '0.75rem',
                       fontFamily: 'inherit',
@@ -556,13 +556,13 @@ export const FloatingAICopilot: React.FC = () => {
                         background:
                           msg.sender === 'user'
                             ? 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)'
-                            : '#1e293b',
-                        color: '#f8fafc',
+                            : 'var(--bg-surface)',
+                        color: msg.sender === 'user' ? '#ffffff' : 'var(--text-primary)',
                         fontSize: '0.8125rem',
                         lineHeight: 1.5,
                         wordBreak: 'break-word',
-                        border: msg.sender === 'user' ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
-                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+                        border: msg.sender === 'user' ? 'none' : '1px solid var(--border-color)',
+                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
                       }}
                     >
                       {/* Markdown prose rendering */}
@@ -574,24 +574,24 @@ export const FloatingAICopilot: React.FC = () => {
                           style={{
                             marginTop: '0.5rem',
                             paddingTop: '0.375rem',
-                            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                            borderTop: '1px solid var(--border-color)',
                             display: 'flex',
                             flexWrap: 'wrap',
                             gap: '0.25rem',
                             alignItems: 'center',
                           }}
                         >
-                          <span style={{ fontSize: '0.6875rem', color: '#94a3b8' }}>Evidence:</span>
+                          <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)' }}>Evidence:</span>
                           {msg.citations.map((cite, i) => (
                             <span
                               key={i}
                               style={{
                                 fontSize: '0.6875rem',
                                 padding: '0.1rem 0.35rem',
-                                background: 'rgba(168, 85, 247, 0.2)',
-                                border: '1px solid rgba(168, 85, 247, 0.4)',
+                                background: 'rgba(168, 85, 247, 0.15)',
+                                border: '1px solid rgba(168, 85, 247, 0.3)',
                                 borderRadius: '4px',
-                                color: '#d8b4fe',
+                                color: '#a855f7',
                                 fontFamily: 'monospace',
                               }}
                             >
@@ -655,8 +655,8 @@ export const FloatingAICopilot: React.FC = () => {
               <div
                 style={{
                   padding: '0.375rem 0.75rem',
-                  background: '#0b1120',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-tertiary)',
+                  borderTop: '1px solid var(--border-color)',
                   display: 'flex',
                   gap: '0.375rem',
                   overflowX: 'auto',
@@ -670,10 +670,10 @@ export const FloatingAICopilot: React.FC = () => {
                     disabled={chatLoading}
                     style={{
                       padding: '0.25rem 0.5rem',
-                      background: '#1e293b',
-                      border: '1px solid #334155',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-color)',
                       borderRadius: '9999px',
-                      color: '#cbd5e1',
+                      color: 'var(--text-secondary)',
                       fontSize: '0.6875rem',
                       whiteSpace: 'nowrap',
                       cursor: 'pointer',
@@ -682,11 +682,11 @@ export const FloatingAICopilot: React.FC = () => {
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = '#a855f7';
-                      e.currentTarget.style.color = '#f8fafc';
+                      e.currentTarget.style.color = 'var(--text-primary)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = '#334155';
-                      e.currentTarget.style.color = '#cbd5e1';
+                      e.currentTarget.style.borderColor = 'var(--border-color)';
+                      e.currentTarget.style.color = 'var(--text-secondary)';
                     }}
                   >
                     {qp.label}
@@ -702,8 +702,8 @@ export const FloatingAICopilot: React.FC = () => {
                 }}
                 style={{
                   padding: '0.625rem 0.75rem',
-                  background: '#0f172a',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: 'var(--bg-surface)',
+                  borderTop: '1px solid var(--border-color)',
                   display: 'flex',
                   gap: '0.5rem',
                   alignItems: 'center',
@@ -722,16 +722,16 @@ export const FloatingAICopilot: React.FC = () => {
                   style={{
                     flex: 1,
                     padding: '0.5rem 0.75rem',
-                    background: '#1e293b',
-                    color: '#f8fafc',
-                    border: '1px solid #334155',
+                    background: 'var(--bg-input)',
+                    color: 'var(--text-primary)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '8px',
                     fontSize: '0.8125rem',
                     outline: 'none',
                     fontFamily: 'inherit',
                   }}
                   onFocus={(e) => (e.target.style.borderColor = '#a855f7')}
-                  onBlur={(e) => (e.target.style.borderColor = '#334155')}
+                  onBlur={(e) => (e.target.style.borderColor = 'var(--border-color)')}
                 />
                 <button
                   type="submit"

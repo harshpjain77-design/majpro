@@ -38,12 +38,12 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           width: compact ? '48px' : '64px',
           height: compact ? '48px' : '64px',
           borderRadius: '50%',
-          backgroundColor: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          backgroundColor: 'var(--bg-hover)',
+          border: '1px solid var(--border-color)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#6b7280',
+          color: 'var(--text-muted)',
           marginBottom: compact ? '12px' : '16px'
         }}
       >
@@ -55,7 +55,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         style={{
           fontSize: compact ? '0.9375rem' : '1.0625rem',
           fontWeight: 600,
-          color: '#f3f4f6',
+          color: 'var(--text-primary)',
           margin: 0,
           marginBottom: description ? '6px' : 0,
           letterSpacing: '-0.01em'
@@ -69,7 +69,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         <p
           style={{
             fontSize: '0.8125rem',
-            color: '#9ca3af',
+            color: 'var(--text-secondary)',
             maxWidth: '420px',
             margin: 0,
             lineHeight: 1.5

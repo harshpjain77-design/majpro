@@ -162,7 +162,7 @@ export const AlertsPage: React.FC = () => {
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <h1 style={{ fontSize: '1.375rem', fontWeight: 700, color: '#f9fafb', margin: 0 }}>
+              <h1 style={{ fontSize: '1.375rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
                 Live Detection Alerts
               </h1>
               <span style={{ fontSize: '0.72rem', fontWeight: 600, padding: '2px 8px', borderRadius: '10px', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
@@ -353,7 +353,7 @@ export const AlertsPage: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
               <button
                 onClick={() => setSelectedAlert(null)}
-                style={{ padding: '8px 16px', borderRadius: '6px', backgroundColor: '#374151', color: '#f9fafb', border: 'none', cursor: 'pointer', fontSize: '0.8125rem' }}
+                style={{ padding: '8px 16px', borderRadius: '6px', backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', cursor: 'pointer', fontSize: '0.8125rem' }}
               >
                 Close
               </button>

@@ -245,24 +245,24 @@ ${irSummary.recovery}
       {/* ------------------------------------------------------------------- */}
       {/* Simple, Clean Header                                                */}
       {/* ------------------------------------------------------------------- */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
             Incident Playbooks
           </h1>
-          <p style={{ fontSize: '0.875rem', color: '#94a3b8', margin: '0.25rem 0 0 0' }}>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', margin: '0.25rem 0 0 0' }}>
             Simple, step-by-step procedures to handle security threats and contain attackers.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div style={{ display: 'flex', gap: '0.5rem', background: '#0f172a', padding: '0.25rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-tertiary)', padding: '0.25rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
           <button
             onClick={() => setActiveTab('playbooks')}
             style={{
               padding: '0.45rem 0.85rem',
-              background: activeTab === 'playbooks' ? '#7c3aed' : 'transparent',
-              color: activeTab === 'playbooks' ? '#ffffff' : '#94a3b8',
+              background: activeTab === 'playbooks' ? 'var(--color-primary)' : 'transparent',
+              color: activeTab === 'playbooks' ? '#ffffff' : 'var(--text-secondary)',
               border: 'none',
               borderRadius: '6px',
               fontSize: '0.8125rem',
@@ -280,8 +280,8 @@ ${irSummary.recovery}
             onClick={() => setActiveTab('report')}
             style={{
               padding: '0.45rem 0.85rem',
-              background: activeTab === 'report' ? '#7c3aed' : 'transparent',
-              color: activeTab === 'report' ? '#ffffff' : '#94a3b8',
+              background: activeTab === 'report' ? 'var(--color-primary)' : 'transparent',
+              color: activeTab === 'report' ? '#ffffff' : 'var(--text-secondary)',
               border: 'none',
               borderRadius: '6px',
               fontSize: '0.8125rem',
@@ -304,8 +304,8 @@ ${irSummary.recovery}
       {activeTab === 'playbooks' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {/* Simple Search Input */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px', padding: '0.6rem 0.85rem' }}>
-            <Search size={16} color="#64748b" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '0.6rem 0.85rem' }}>
+            <Search size={16} color="var(--text-muted)" />
             <input
               type="text"
               placeholder="Search playbooks (e.g. brute force, password, sudo)..."
@@ -315,7 +315,7 @@ ${irSummary.recovery}
                 width: '100%',
                 background: 'transparent',
                 border: 'none',
-                color: '#f8fafc',
+                color: 'var(--text-primary)',
                 fontSize: '0.875rem',
                 outline: 'none',
               }}
@@ -328,36 +328,37 @@ ${irSummary.recovery}
               const severityBg =
                 pb.severity === 'critical' ? 'rgba(239, 68, 68, 0.15)' : pb.severity === 'high' ? 'rgba(249, 115, 22, 0.15)' : 'rgba(59, 130, 246, 0.15)';
               const severityColor =
-                pb.severity === 'critical' ? '#ef4444' : pb.severity === 'high' ? '#f97316' : '#38bdf8';
+                pb.severity === 'critical' ? '#ef4444' : pb.severity === 'high' ? '#f97316' : '#0284c7';
 
               return (
                 <div
                   key={pb.id}
                   style={{
-                    background: '#0f172a',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '10px',
                     padding: '1.25rem',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     gap: '1rem',
-                    transition: 'border-color 0.15s ease',
+                    transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+                    boxShadow: 'var(--shadow-card)',
                     cursor: 'pointer',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#7c3aed')}
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-color)')}
                   onClick={() => setSelectedPlaybook(pb)}
                 >
                   <div>
                     {/* Card Top: Icon, Rule Tag, Severity */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <div style={{ padding: '0.4rem', borderRadius: '6px', background: '#1e293b' }}>
+                        <div style={{ padding: '0.4rem', borderRadius: '6px', background: 'var(--bg-tertiary)' }}>
                           {getIcon(pb.icon)}
                         </div>
                         {pb.ruleTag && (
-                          <span style={{ fontSize: '0.75rem', fontFamily: 'monospace', fontWeight: 600, color: '#cbd5e1' }}>
+                          <span style={{ fontSize: '0.75rem', fontFamily: 'monospace', fontWeight: 600, color: 'var(--text-secondary)' }}>
                             {pb.ruleTag}
                           </span>
                         )}
@@ -369,18 +370,18 @@ ${irSummary.recovery}
                     </div>
 
                     {/* Title & Plain English Summary */}
-                    <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#f8fafc', margin: '0 0 0.4rem 0' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 0.4rem 0' }}>
                       {pb.title}
                     </h3>
-                    <p style={{ fontSize: '0.8125rem', color: '#94a3b8', margin: 0, lineHeight: 1.45 }}>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.45 }}>
                       {pb.summary}
                     </p>
                   </div>
 
                   {/* Card Bottom: View Button */}
-                  <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Action Checklist</span>
-                    <span style={{ fontSize: '0.75rem', color: '#a855f7', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Action Checklist</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--color-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                       Open Steps <ArrowRight size={13} />
                     </span>
                   </div>
@@ -414,10 +415,10 @@ ${irSummary.recovery}
               width: '640px',
               maxWidth: '100%',
               maxHeight: '90vh',
-              background: '#0f172a',
-              border: '1px solid rgba(168, 85, 247, 0.4)',
+              background: 'var(--bg-elevated)',
+              border: '1px solid var(--border-color)',
               borderRadius: '12px',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)',
+              boxShadow: 'var(--shadow-xl)',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
@@ -425,16 +426,16 @@ ${irSummary.recovery}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div style={{ padding: '1rem 1.25rem', background: '#1e1b4b', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ padding: '1rem 1.25rem', background: 'var(--color-primary-bg)', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-                <div style={{ padding: '0.35rem', borderRadius: '6px', background: 'rgba(124, 58, 237, 0.3)' }}>
+                <div style={{ padding: '0.35rem', borderRadius: '6px', background: 'var(--color-primary-bg)' }}>
                   {getIcon(selectedPlaybook.icon)}
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
                     {selectedPlaybook.title}
                   </h3>
-                  <span style={{ fontSize: '0.75rem', color: '#d8b4fe' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--color-primary)' }}>
                     {selectedPlaybook.ruleTag ? `Detection: ${selectedPlaybook.ruleTag}` : 'Standard Procedure'}
                   </span>
                 </div>
@@ -442,7 +443,7 @@ ${irSummary.recovery}
 
               <button
                 onClick={() => setSelectedPlaybook(null)}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '0.25rem' }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.25rem' }}
               >
                 <X size={18} />
               </button>
@@ -451,48 +452,48 @@ ${irSummary.recovery}
             {/* Modal Body: 3 Clear Steps */}
             <div style={{ padding: '1.25rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {/* Step 1: Check */}
-              <div style={{ background: '#090d16', border: '1px solid #1e293b', borderRadius: '8px', padding: '1rem' }}>
+              <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-                  <span style={{ background: '#38bdf8', color: '#000', fontSize: '0.75rem', fontWeight: 700, borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ background: '#0284c7', color: '#fff', fontSize: '0.75rem', fontWeight: 700, borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     1
                   </span>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#f8fafc' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                     Verify What Happened
                   </span>
                 </div>
-                <p style={{ fontSize: '0.8125rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.45 }}>
                   {selectedPlaybook.whatHappened}
                 </p>
               </div>
 
               {/* Step 2: Stop */}
-              <div style={{ background: '#090d16', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', padding: '1rem' }}>
+              <div style={{ background: 'var(--bg-surface)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', padding: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
                   <span style={{ background: '#ef4444', color: '#fff', fontSize: '0.75rem', fontWeight: 700, borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     2
                   </span>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#f8fafc' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                     Stop the Attacker (Immediate Action)
                   </span>
                 </div>
-                <p style={{ fontSize: '0.8125rem', color: '#cbd5e1', margin: '0 0 0.5rem 0', lineHeight: 1.45 }}>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', margin: '0 0 0.5rem 0', lineHeight: 1.45 }}>
                   {selectedPlaybook.howToStop.description}
                 </p>
 
                 {/* Command snippets */}
                 {selectedPlaybook.howToStop.linuxCommand && (
-                  <div style={{ background: '#040711', border: '1px solid #1e293b', borderRadius: '6px', padding: '0.5rem 0.75rem', marginTop: '0.5rem' }}>
+                  <div style={{ background: 'var(--bg-tertiary)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.5rem 0.75rem', marginTop: '0.5rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
-                      <span style={{ fontSize: '0.6875rem', color: '#64748b' }}>Linux Command:</span>
+                      <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)' }}>Linux Command:</span>
                       <button
                         onClick={() => handleCopy(selectedPlaybook.howToStop.linuxCommand!, 'linux')}
-                        style={{ background: 'transparent', border: 'none', color: copiedKey === 'linux' ? '#10b981' : '#94a3b8', fontSize: '0.6875rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                        style={{ background: 'transparent', border: 'none', color: copiedKey === 'linux' ? '#10b981' : 'var(--text-secondary)', fontSize: '0.6875rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
                       >
                         {copiedKey === 'linux' ? <Check size={12} /> : <Copy size={12} />}
                         {copiedKey === 'linux' ? 'Copied' : 'Copy'}
                       </button>
                     </div>
-                    <pre style={{ margin: 0, fontSize: '0.75rem', color: '#38bdf8', fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>
+                    <pre style={{ margin: 0, fontSize: '0.75rem', color: '#0284c7', fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>
                       {selectedPlaybook.howToStop.linuxCommand}
                     </pre>
                   </div>
@@ -500,29 +501,29 @@ ${irSummary.recovery}
               </div>
 
               {/* Step 3: Recover & Prevent */}
-              <div style={{ background: '#090d16', border: '1px solid #1e293b', borderRadius: '8px', padding: '1rem' }}>
+              <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-                  <span style={{ background: '#10b981', color: '#000', fontSize: '0.75rem', fontWeight: 700, borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ background: '#10b981', color: '#fff', fontSize: '0.75rem', fontWeight: 700, borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     3
                   </span>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#f8fafc' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                     Recover & Prevent Recurrence
                   </span>
                 </div>
-                <p style={{ fontSize: '0.8125rem', color: '#cbd5e1', margin: '0 0 0.35rem 0', lineHeight: 1.45 }}>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', margin: '0 0 0.35rem 0', lineHeight: 1.45 }}>
                   <strong>Recovery:</strong> {selectedPlaybook.howToRecover}
                 </p>
-                <p style={{ fontSize: '0.8125rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.45 }}>
                   <strong>Prevention:</strong> {selectedPlaybook.howToPrevent}
                 </p>
               </div>
             </div>
 
             {/* Modal Footer Actions */}
-            <div style={{ padding: '0.875rem 1.25rem', background: '#0b1120', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: '0.875rem 1.25rem', background: 'var(--bg-elevated)', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <button
                 onClick={() => setSelectedPlaybook(null)}
-                style={{ padding: '0.45rem 0.85rem', background: '#1e293b', color: '#cbd5e1', border: '1px solid #334155', borderRadius: '6px', fontSize: '0.8125rem', cursor: 'pointer' }}
+                style={{ padding: '0.45rem 0.85rem', background: 'var(--bg-tertiary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '6px', fontSize: '0.8125rem', cursor: 'pointer' }}
               >
                 Close
               </button>
@@ -534,7 +535,7 @@ ${irSummary.recovery}
                 }}
                 style={{
                   padding: '0.45rem 1rem',
-                  background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
+                  background: 'var(--color-primary)',
                   color: '#ffffff',
                   border: 'none',
                   borderRadius: '6px',
@@ -560,22 +561,22 @@ ${irSummary.recovery}
       {activeTab === 'report' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.25rem' }}>
           {/* Input details */}
-          <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '10px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#f8fafc', margin: 0 }}>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>
                 Incident Details
               </h3>
 
               {incidents.length > 0 && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Load:</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Load:</span>
                   <select
                     value={selectedIncId}
                     onChange={(e) => {
                       const inc = incidents.find((i) => i.incident_id === e.target.value);
                       if (inc) loadIncidentData(inc);
                     }}
-                    style={{ background: '#1e293b', color: '#f8fafc', border: '1px solid #334155', borderRadius: '4px', fontSize: '0.75rem', padding: '0.2rem 0.4rem' }}
+                    style={{ background: 'var(--bg-input)', color: 'var(--text-primary)', border: '1px solid var(--border-input)', borderRadius: '4px', fontSize: '0.75rem', padding: '0.2rem 0.4rem' }}
                   >
                     {incidents.map((inc) => (
                       <option key={inc.incident_id} value={inc.incident_id}>
@@ -588,50 +589,50 @@ ${irSummary.recovery}
             </div>
 
             <div>
-              <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem' }}>Title:</label>
+              <label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.2rem' }}>Title:</label>
               <input
                 type="text"
                 value={irSummary.title}
                 onChange={(e) => setIrSummary({ ...irSummary, title: e.target.value })}
-                style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', color: '#f8fafc', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem' }}
+                style={{ width: '100%', background: 'var(--bg-input)', border: '1px solid var(--border-input)', color: 'var(--text-primary)', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem' }}
               />
             </div>
 
             <div>
-              <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem' }}>Attacker IP / Origin:</label>
+              <label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.2rem' }}>Attacker IP / Origin:</label>
               <input
                 type="text"
                 value={irSummary.attacker}
                 onChange={(e) => setIrSummary({ ...irSummary, attacker: e.target.value })}
-                style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', color: '#f8fafc', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem' }}
+                style={{ width: '100%', background: 'var(--bg-input)', border: '1px solid var(--border-input)', color: 'var(--text-primary)', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem' }}
               />
             </div>
 
             <div>
-              <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem' }}>Target Assets:</label>
+              <label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.2rem' }}>Target Assets:</label>
               <input
                 type="text"
                 value={irSummary.target}
                 onChange={(e) => setIrSummary({ ...irSummary, target: e.target.value })}
-                style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', color: '#f8fafc', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem' }}
+                style={{ width: '100%', background: 'var(--bg-input)', border: '1px solid var(--border-input)', color: 'var(--text-primary)', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem' }}
               />
             </div>
 
             <div>
-              <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem' }}>Immediate Actions Taken:</label>
+              <label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.2rem' }}>Immediate Actions Taken:</label>
               <textarea
                 rows={3}
                 value={irSummary.actions}
                 onChange={(e) => setIrSummary({ ...irSummary, actions: e.target.value })}
-                style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', color: '#f8fafc', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem', resize: 'vertical' }}
+                style={{ width: '100%', background: 'var(--bg-input)', border: '1px solid var(--border-input)', color: 'var(--text-primary)', borderRadius: '4px', padding: '0.4rem 0.6rem', fontSize: '0.8125rem', resize: 'vertical' }}
               />
             </div>
           </div>
 
           {/* Generated Markdown Preview */}
-          <div style={{ background: '#090d16', border: '1px solid #1e293b', borderRadius: '10px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '10px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#f8fafc' }}>
+              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 Preview Document (.md)
               </span>
 
@@ -644,9 +645,9 @@ ${irSummary.recovery}
                   }}
                   style={{
                     padding: '0.3rem 0.65rem',
-                    background: copiedReport ? '#10b981' : '#1e293b',
-                    color: '#ffffff',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: copiedReport ? '#10b981' : 'var(--bg-tertiary)',
+                    color: copiedReport ? '#ffffff' : 'var(--text-primary)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '4px',
                     fontSize: '0.75rem',
                     cursor: 'pointer',
@@ -693,16 +694,16 @@ ${irSummary.recovery}
               style={{
                 flex: 1,
                 minHeight: '260px',
-                background: '#040711',
+                background: 'var(--bg-tertiary)',
                 padding: '0.75rem',
                 borderRadius: '6px',
                 fontSize: '0.75rem',
-                color: '#38bdf8',
+                color: 'var(--text-primary)',
                 fontFamily: 'monospace',
                 whiteSpace: 'pre-wrap',
                 margin: 0,
                 lineHeight: 1.45,
-                border: '1px solid rgba(255, 255, 255, 0.04)',
+                border: '1px solid var(--border-color)',
               }}
             >
               {generateReportText()}

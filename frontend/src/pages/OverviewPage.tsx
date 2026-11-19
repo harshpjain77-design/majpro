@@ -289,7 +289,7 @@ export const OverviewPage: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#f9fafb', margin: 0, letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, letterSpacing: '-0.02em' }}>
               ThreadGrid SOC Command Center
             </h1>
             <div
@@ -310,7 +310,7 @@ export const OverviewPage: React.FC = () => {
               <span>{databaseConnected ? 'DATABASE LIVE' : 'DISCONNECTED'}</span>
             </div>
           </div>
-          <p style={{ color: '#9ca3af', fontSize: '0.8125rem', margin: '4px 0 0 0' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem', margin: '4px 0 0 0' }}>
             Production security operations telemetry query engine • All metrics computed from persistent SQLite database
           </p>
         </div>
@@ -324,9 +324,9 @@ export const OverviewPage: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              backgroundColor: '#1f2937',
-              color: '#f9fafb',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-tertiary)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-color)',
               borderRadius: '6px',
               padding: '6px 12px',
               fontSize: '0.78rem',
@@ -441,10 +441,10 @@ export const OverviewPage: React.FC = () => {
                 <YAxis stroke="#6b7280" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#111827',
-                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-color)',
                     borderRadius: '6px',
-                    color: '#f9fafb',
+                    color: 'var(--text-primary)',
                     fontSize: '0.75rem',
                   }}
                 />
@@ -472,10 +472,10 @@ export const OverviewPage: React.FC = () => {
                 <YAxis stroke="#6b7280" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#111827',
-                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-color)',
                     borderRadius: '6px',
-                    color: '#f9fafb',
+                    color: 'var(--text-primary)',
                     fontSize: '0.75rem',
                   }}
                 />
