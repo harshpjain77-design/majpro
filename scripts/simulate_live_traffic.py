@@ -184,6 +184,105 @@ def simulate_full_kill_chain(shipper: HttpEventShipper):
     print(f"\n[CRITICAL] Full Kill-Chain Deployed! Check the Incident Queue for Correlated Incident Dossier.")
 
 
+def simulate_multi_device_fleet(shipper: HttpEventShipper):
+    """Simulates a multi-device SOC fleet: Kali Linux, Windows Server, and Windows 7 Client."""
+    print("\n[FLEET] Ingesting multi-device telemetry from Kali, Windows Server, and Windows 7...")
+    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    fleet_events = [
+        # Device 1: Windows Server Active Directory DC
+        SecurityEvent(
+            schema_version="1.0",
+            event_id=f"win-srv-{random.randint(10000, 99999)}",
+            timestamp=now_str,
+            observed_at=now_str,
+            source_host="WIN-SERVER-2019",
+            source_type="windows_security",
+            event_type=EventType.AUTHENTICATION_SUCCESS.value,
+            username="Administrator",
+            source_ip="192.168.80.130",
+            windows_event_id=4624,
+            severity=Severity.LOW.value,
+            raw_event="EventID: 4624 | User: Administrator | Domain: THREADGRID-DOM | Host: WIN-SERVER-2019",
+            collector_version="0.1.0",
+            metadata={"channel": "Security", "role": "Domain Controller", "os": "Windows Server 2019 Datacenter"},
+        ),
+        SecurityEvent(
+            schema_version="1.0",
+            event_id=f"win-srv-priv-{random.randint(10000, 99999)}",
+            timestamp=now_str,
+            observed_at=now_str,
+            source_host="WIN-SERVER-2019",
+            source_type="windows_security",
+            event_type=EventType.PRIVILEGE_ESCALATION.value,
+            username="Administrator",
+            source_ip="192.168.80.130",
+            windows_event_id=4672,
+            severity=Severity.INFORMATIONAL.value,
+            raw_event="EventID: 4672 | Special privileges assigned to new logon | User: Administrator on WIN-SERVER-2019",
+            collector_version="0.1.0",
+            metadata={"channel": "Security", "privileges": "SeSecurityPrivilege, SeBackupPrivilege, SeDebugPrivilege"},
+        ),
+
+        # Device 2: Windows 7 Client Workstation
+        SecurityEvent(
+            schema_version="1.0",
+            event_id=f"win7-user-{random.randint(10000, 99999)}",
+            timestamp=now_str,
+            observed_at=now_str,
+            source_host="WIN7-FINANCE-PC",
+            source_type="windows_security",
+            event_type=EventType.AUTHENTICATION_SUCCESS.value,
+            username="johndoe",
+            source_ip="192.168.80.131",
+            windows_event_id=4624,
+            severity=Severity.LOW.value,
+            raw_event="EventID: 4624 | User: johndoe | LogonType: 2 (Interactive) | Host: WIN7-FINANCE-PC",
+            collector_version="0.1.0",
+            metadata={"channel": "Security", "role": "Client Workstation", "os": "Windows 7 Professional SP1"},
+        ),
+        SecurityEvent(
+            schema_version="1.0",
+            event_id=f"win7-fail-{random.randint(10000, 99999)}",
+            timestamp=now_str,
+            observed_at=now_str,
+            source_host="WIN7-FINANCE-PC",
+            source_type="windows_security",
+            event_type=EventType.AUTHENTICATION_FAILURE.value,
+            username="johndoe",
+            source_ip="192.168.80.131",
+            windows_event_id=4625,
+            severity=Severity.MEDIUM.value,
+            raw_event="EventID: 4625 | User: johndoe | Status: 0xC000006A (Bad Password) | Host: WIN7-FINANCE-PC",
+            collector_version="0.1.0",
+            metadata={"channel": "Security", "status_code": "0xC000006A"},
+        ),
+
+        # Device 3: Kali Linux Attack & Audit Node
+        SecurityEvent(
+            schema_version="1.0",
+            event_id=f"kali-audit-{random.randint(10000, 99999)}",
+            timestamp=now_str,
+            observed_at=now_str,
+            source_host="kali",
+            source_type="linux_audit",
+            event_type=EventType.AUTHENTICATION_SUCCESS.value,
+            username="kali",
+            source_ip="192.168.80.128",
+            severity=Severity.LOW.value,
+            raw_event="sshd: Accepted password for kali from 192.168.80.1 port 52312 ssh2",
+            collector_version="0.1.0",
+            metadata={"service": "sshd", "os": "Kali GNU/Linux Rolling 2025.4"},
+        ),
+    ]
+
+    shipper.ship_batch(fleet_events)
+    print("  -> [WIN-SERVER-2019] Ingested Active Directory Kerberos & Admin events (192.168.80.130)")
+    print("  -> [WIN7-FINANCE-PC] Ingested Interactive Logon & Audit events (192.168.80.131)")
+    print("  -> [KALI-LINUX] Ingested OpenSSH Linux Daemon events (192.168.80.128)")
+    print("[SUCCESS] Multi-device fleet telemetry successfully ingested into ThreadGrid!")
+
+
 def simulate_benign_traffic(shipper: HttpEventShipper, count: int = 5):
     users = ["alice", "bob", "carol", "david", "elena"]
     hosts = ["HR-LAPTOP", "FINANCE-PC", "DEV-WORKSTATION", "CORP-DESK-01"]
@@ -217,10 +316,11 @@ def main():
             "privilege",
             "recon",
             "kill-chain",
+            "multi-device",
             "benign",
             "continuous",
         ],
-        default="kill-chain",
+        default="multi-device",
         help="Attack scenario to simulate",
     )
     parser.add_argument("--api-url", default="http://127.0.0.1:8000/api/v1/ingest")
@@ -230,7 +330,9 @@ def main():
 
     shipper = HttpEventShipper(api_url=args.api_url, api_key=args.api_key)
 
-    if args.mode == "brute-force":
+    if args.mode == "multi-device":
+        simulate_multi_device_fleet(shipper)
+    elif args.mode == "brute-force":
         simulate_brute_force(shipper)
     elif args.mode == "compromise":
         simulate_failed_then_success(shipper)

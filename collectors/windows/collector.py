@@ -344,7 +344,7 @@ def main() -> None:
     collector_id = args.collector_id or config.get("collector_id", default_collector_id)
 
     shipper = None
-    if args.ship or config.get("ship_events", False):
+    if args.ship or args.api_url or config.get("ship_events", False) or config.get("api_url"):
         api_url = args.api_url or config.get("api_url", default_api_url)
         api_key = args.api_key or config.get("api_key", "test-collector-api-key-replace-in-production")
         shipper = HttpEventShipper(
